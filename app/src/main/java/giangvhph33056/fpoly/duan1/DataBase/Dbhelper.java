@@ -4,11 +4,9 @@ import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
-import androidx.annotation.Nullable;
-
 public class Dbhelper extends SQLiteOpenHelper {
     private static final String DB_NAME = "THOIDAISHOP";
-    private static final int DB_VERSION= 1;
+    private static final int DB_VERSION= 2;
 
     public Dbhelper(Context context) {
         super(context, DB_NAME,null , DB_VERSION);
@@ -55,8 +53,11 @@ public class Dbhelper extends SQLiteOpenHelper {
                 "    MaTV    TEXT REFERENCES ThanhVien (MaTV), \n" +
                 "    MaSP    INTEGER REFERENCES SanPham (MaSP) \n" +
                 ");\n");
+        //Thủ Thư
+        db.execSQL("INSERT INTO  ThanhVien VALUES('admin','Lê Hoàng Tú','admin',0982322079,'lehoangtu56@gmail.com','hà nội')");
 
     }
+
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {

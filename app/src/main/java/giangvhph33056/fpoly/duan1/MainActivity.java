@@ -9,7 +9,7 @@ import android.os.Handler;
 import giangvhph33056.fpoly.duan1.DataBase.Dbhelper;
 
 public class MainActivity extends AppCompatActivity {
-    private static final int DA1 =3000;
+    private static final int DA1 = 3000;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

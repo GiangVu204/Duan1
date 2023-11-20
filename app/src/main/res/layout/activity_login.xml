@@ -4,7 +4,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/th"
     android:orientation="vertical"
     tools:context=".Login">
 
@@ -136,6 +135,7 @@
                     android:layout_marginRight="65dp"
                     android:textColor="#2196F3"/>
                 <TextView
+                    android:id="@+id/txtQuenMk"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="35dp"
@@ -226,7 +226,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/cardView4"
         tools:ignore="MissingConstraints"
-        android:background="#FBF1F1">
+        >
 
         <TextView
             android:layout_width="wrap_content"

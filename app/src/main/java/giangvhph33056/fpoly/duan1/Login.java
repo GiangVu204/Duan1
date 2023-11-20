@@ -31,7 +31,7 @@ public class Login extends AppCompatActivity {
         btnLOGIN = findViewById(R.id.btnLOGIN);
         CheckBox chkNho = findViewById(R.id.chkNho);
         // hiên thi tài khoản mật khẩu đã nhớ lêm edt
-        SharedPreferences sharedPreferences = getSharedPreferences("DANGNHAPTT", MODE_PRIVATE);
+        SharedPreferences sharedPreferences = getSharedPreferences("DANGNHAPTV", MODE_PRIVATE);
         String saveduser = sharedPreferences.getString("MaTV", "");
         String savedPassword = sharedPreferences.getString("MatKhau", "");
         if (!savedPassword.isEmpty()) {

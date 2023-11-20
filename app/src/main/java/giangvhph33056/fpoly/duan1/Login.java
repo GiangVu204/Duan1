@@ -55,7 +55,7 @@ public class Login extends AppCompatActivity {
                         editor.apply();
 
                     }
-                    Intent intent = new Intent(Login.this,Layout.class);
+                    Intent intent = new Intent(Login.this,MainActivity.class);
                     startActivity(intent);
                     Toast.makeText(Login.this, "Đăng nhập Thành công", Toast.LENGTH_SHORT).show();
                 }else{

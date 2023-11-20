@@ -24,6 +24,7 @@ public class Dbhelper extends SQLiteOpenHelper {
                 ");\n");
         db.execSQL("CREATE TABLE ThuongHieu(\n" +
                 "    MaTH    INTEGER PRIMARY KEY  AUTOINCREMENT,\n" +
+                "    SDT     INTEGER NOT NULL,\n" +
                 "    TenTH   TEXT NOT NULL\n" +
                 ");\n");
         db.execSQL("CREATE TABLE LoaiSanPham(\n" +

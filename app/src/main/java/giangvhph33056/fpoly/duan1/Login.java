@@ -11,7 +11,6 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.material.textfield.TextInputEditText;
@@ -23,7 +22,6 @@ public class Login extends AppCompatActivity {
     TextInputEditText edtUser,edtPass;
     AppCompatButton btnLOGIN;
     ThanhVienDAO tvdao;
-    TextView txtQuenMk;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -31,10 +29,9 @@ public class Login extends AppCompatActivity {
         edtUser = findViewById(R.id.edtUser);
         edtPass = findViewById(R.id.edtPass);
         btnLOGIN = findViewById(R.id.btnLOGIN);
-        txtQuenMk = findViewById(R.id.txtQuenMk);
         CheckBox chkNho = findViewById(R.id.chkNho);
-        // hiên thi tài khoản mật khẩu đã nhớ lêm edt: lần đăng nhập tiếp theo
-        SharedPreferences sharedPreferences = getSharedPreferences("DANGNHAPTV", MODE_PRIVATE);
+        // hiên thi tài khoản mật khẩu đã nhớ lêm edt
+        SharedPreferences sharedPreferences = getSharedPreferences("DANGNHAPTT", MODE_PRIVATE);
         String saveduser = sharedPreferences.getString("MaTV", "");
         String savedPassword = sharedPreferences.getString("MatKhau", "");
         if (!savedPassword.isEmpty()) {
@@ -66,16 +63,7 @@ public class Login extends AppCompatActivity {
                 }
             }
         });
-        txtQuenMk.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(Login.this, quenmatkhau.class);
-                startActivity(intent);
-                Toast.makeText(Login.this, "Chức năng quên mật khẩu", Toast.LENGTH_SHORT).show();
-            }
-        });
     }
-
 
 
 }

@@ -6,7 +6,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 
 public class Dbhelper extends SQLiteOpenHelper {
     private static final String DB_NAME = "THOIDAISHOP";
-    private static final int DB_VERSION= 3;
+    private static final int DB_VERSION= 4;
 
     public Dbhelper(Context context) {
         super(context, DB_NAME,null , DB_VERSION);
@@ -24,6 +24,7 @@ public class Dbhelper extends SQLiteOpenHelper {
                 ");\n");
         db.execSQL("CREATE TABLE ThuongHieu(\n" +
                 "    MaTH    INTEGER PRIMARY KEY  AUTOINCREMENT,\n" +
+                "    Anh     TEXT NOT NULL,\n" +
                 "    SDT     INTEGER NOT NULL,\n" +
                 "    TenTH   TEXT NOT NULL\n" +
                 ");\n");
@@ -33,8 +34,8 @@ public class Dbhelper extends SQLiteOpenHelper {
                 ");\n");
         db.execSQL("CREATE TABLE KichThuoc(\n" +
                 "    MaKT    INTEGER PRIMARY KEY  AUTOINCREMENT,\n" +
-                "    KichThuoc   TEXT NOT NULL,\n" +
-                "    SoLuong TEXT NOT NULL\n" +
+                "    Size   INTEGER NOT NULL,\n" +
+                "    SoLuong INTEGER NOT NULL\n" +
                 ");\n");
         db.execSQL("CREATE TABLE SanPham(\n" +
                 "    MaSP    INTEGER PRIMARY KEY  AUTOINCREMENT,\n" +
@@ -56,7 +57,9 @@ public class Dbhelper extends SQLiteOpenHelper {
                 ");\n");
         //Thủ Thư
         db.execSQL("INSERT INTO  ThanhVien VALUES('admin','Lê Hoàng Tú','admin',0982322079,'lehoangtu56@gmail.com','hà nội')");
-        db.execSQL("INSERT INTO  ThuongHieu VALUES(1, 0982322079, 'Nike'), (2, 0868761723, 'Adidas')");
+        db.execSQL("INSERT INTO  ThuongHieu VALUES(1, 'anh1', 0982322079, 'Nike'), (2, 'anh2', 0868761723, 'Adidas'), (3, 'anh3', 0734423235, 'Nike')");
+        db.execSQL("INSERT INTO  LoaiSanPham VALUES(1, 'Nike 1'), (2, 'Adidas 1'), (3, 'Nike 2')");
+        db.execSQL("INSERT INTO  KichThuoc VALUES(1, 39, 3), (2, 40, 6), (3, 41, 8)");
 
     }
 

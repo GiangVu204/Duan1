@@ -12,7 +12,6 @@ import giangvhph33056.fpoly.duan1.R;
 
 public class Fragment_thuong_hieu extends Fragment {
     public Fragment_thuong_hieu() {
-        // Required empty public constructor
     }
 
     @Override

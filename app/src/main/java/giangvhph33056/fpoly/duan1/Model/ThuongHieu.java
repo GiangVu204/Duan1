@@ -1,14 +1,15 @@
 package giangvhph33056.fpoly.duan1.Model;
 
 public class ThuongHieu {
-    int MaTH;
+    int MaTH, SDT;
     String TenTH;
 
     public ThuongHieu() {
     }
 
-    public ThuongHieu(int maTH, String tenTH) {
+    public ThuongHieu(int maTH, int SDT, String tenTH) {
         MaTH = maTH;
+        this.SDT = SDT;
         TenTH = tenTH;
     }
 
@@ -18,6 +19,14 @@ public class ThuongHieu {
 
     public void setMaTH(int maTH) {
         MaTH = maTH;
+    }
+
+    public int getSDT() {
+        return SDT;
+    }
+
+    public void setSDT(int SDT) {
+        this.SDT = SDT;
     }
 
     public String getTenTH() {

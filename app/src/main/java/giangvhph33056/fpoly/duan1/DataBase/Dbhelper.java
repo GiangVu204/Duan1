@@ -6,7 +6,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 
 public class Dbhelper extends SQLiteOpenHelper {
     private static final String DB_NAME = "THOIDAISHOP";
-    private static final int DB_VERSION= 2;
+    private static final int DB_VERSION= 3;
 
     public Dbhelper(Context context) {
         super(context, DB_NAME,null , DB_VERSION);
@@ -56,6 +56,7 @@ public class Dbhelper extends SQLiteOpenHelper {
                 ");\n");
         //Thủ Thư
         db.execSQL("INSERT INTO  ThanhVien VALUES('admin','Lê Hoàng Tú','admin',0982322079,'lehoangtu56@gmail.com','hà nội')");
+        db.execSQL("INSERT INTO  ThuongHieu VALUES(1, 0982322079, 'Nike'), (2, 0868761723, 'Adidas')");
 
     }
 

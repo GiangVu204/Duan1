@@ -21,19 +21,20 @@ public class ThuongHieuDAO {
     public ArrayList<ThuongHieu> getDSThuongHieu(){
         ArrayList<ThuongHieu> list = new ArrayList<>();
         SQLiteDatabase db = dbhelper.getReadableDatabase();
-        Cursor cursor =db.rawQuery("SELECT th.MaTH, th.TenTH from ThuongHieu th", null);
+        Cursor cursor = db.rawQuery("SELECT * from ThuongHieu", null);
         if (cursor.getCount() != 0){
             cursor.moveToFirst();
                 do {
-                    list.add(new ThuongHieu(cursor.getInt(0), cursor.getString(1)));
+                    list.add(new ThuongHieu(cursor.getInt(0), cursor.getInt(1), cursor.getString(2)));
                 } while (cursor.moveToNext());
         }
         return list;
     }
 
-    public boolean insert (String TenTH){
+    public boolean insert (String SDT, String TenTH){
         SQLiteDatabase db = dbhelper.getWritableDatabase();
         ContentValues values = new ContentValues();
+        values.put("SDT", SDT);
         values.put("TenTH", TenTH);
         long check = db.insert("ThuongHieu", null, values);
         if (check == -1){
@@ -43,9 +44,10 @@ public class ThuongHieuDAO {
         }
     }
 
-    public boolean update(int MaTH, String TenTH){
+    public boolean update(int MaTH, String SDT, String TenTH){
         SQLiteDatabase db = dbhelper.getWritableDatabase();
         ContentValues values = new ContentValues();
+        values.put("SDT", SDT);
         values.put("TenTH", TenTH);
         long check = db.update("ThuongHieu", values, "MaTH = ?", new String[]{String.valueOf(MaTH)});
         if (check == -1){

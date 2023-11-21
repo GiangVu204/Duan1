@@ -39,7 +39,7 @@ public class ThanhVienDAO {
             return false;
         }
     }
-    public ArrayList<ThanhVien> selectAllThuthu(){
+    public ArrayList<ThanhVien> selectAllthanhVien(){
         ArrayList<ThanhVien> list = new ArrayList<>();
         SQLiteDatabase db = dbhelper.getReadableDatabase();
         try {

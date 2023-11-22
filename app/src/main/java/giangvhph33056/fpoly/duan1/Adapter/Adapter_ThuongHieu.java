@@ -6,8 +6,6 @@ import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
-import android.content.Intent;
-import android.net.Uri;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.LayoutInflater;
@@ -123,7 +121,7 @@ public class Adapter_ThuongHieu extends RecyclerView.Adapter<Adapter_ThuongHieu.
     private void dialogUpdateTH(ThuongHieu th) {
         AlertDialog.Builder builder = new AlertDialog.Builder(context);
         LayoutInflater inflater = ((Activity)context).getLayoutInflater();
-        View view = inflater.inflate(R.layout.update_thuonghieu,null);
+        View view = inflater.inflate(R.layout.item_update_thuonghieu,null);
         builder.setView(view);
         Dialog dialog = builder.create();
         dialog.show();

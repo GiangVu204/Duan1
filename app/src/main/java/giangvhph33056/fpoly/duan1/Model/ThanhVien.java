@@ -19,6 +19,14 @@ public class ThanhVien {
         Email = email;
         this.DChi = DChi;
     }
+// hien thi
+    public ThanhVien(String maTV, String hoTen, int SDT, String email, String DChi) {
+        MaTV = maTV;
+        HoTen = hoTen;
+        this.SDT = SDT;
+        Email = email;
+        this.DChi = DChi;
+    }
 
     public String getMaTV() {
         return MaTV;

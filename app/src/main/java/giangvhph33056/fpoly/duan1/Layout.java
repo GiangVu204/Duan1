@@ -50,12 +50,16 @@ public class Layout extends AppCompatActivity {
         ActionBarDrawerToggle toggle =new ActionBarDrawerToggle(this, drawerLayout, toolbar, R.string.open, R.string.close);
         toggle.syncState();
 
+
         // Thêm mã để hiển thị Fragment_san_pham khi ứng dụng được khởi chạy
         Fragment_san_pham frgSP = new Fragment_san_pham();
         relaceFrg(frgSP);
         toolbar.setTitle("Quản lý sản phẩm");
-
+if (savedInstanceState == null){
+    relaceFrg(new Fragment_san_pham());
+}
         navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
+
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                 if (item.getItemId() == R.id.SanPham){

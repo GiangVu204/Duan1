@@ -1,13 +1,17 @@
 package giangvhph33056.fpoly.duan1.DAO;
 
+import static androidx.constraintlayout.helper.widget.MotionEffect.TAG;
+
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.util.Log;
 
 import java.util.ArrayList;
 
 import giangvhph33056.fpoly.duan1.DataBase.Dbhelper;
+import giangvhph33056.fpoly.duan1.Model.KichThuoc;
 import giangvhph33056.fpoly.duan1.Model.ThuongHieu;
 
 public class ThuongHieuDAO {
@@ -18,22 +22,47 @@ public class ThuongHieuDAO {
         dbhelper = new Dbhelper(context);
     }
 
+//    public ArrayList<ThuongHieu> getDSThuongHieuu(){
+//        ArrayList<ThuongHieu> list = new ArrayList<>();
+//        SQLiteDatabase db = dbhelper.getReadableDatabase();
+//        Cursor cursor = db.rawQuery("SELECT * from ThuongHieu", null);
+//        if (cursor.getCount() != 0){
+//            cursor.moveToFirst();
+//                do {
+//                    list.add(new ThuongHieu(cursor.getInt(0), cursor.getString(1), cursor.getString(2), cursor.getString(3)));
+//                } while (cursor.moveToNext());
+//        }
+//        return list;
+//    }
+
     public ArrayList<ThuongHieu> getDSThuongHieu(){
         ArrayList<ThuongHieu> list = new ArrayList<>();
         SQLiteDatabase db = dbhelper.getReadableDatabase();
-        Cursor cursor = db.rawQuery("SELECT * from ThuongHieu", null);
-        if (cursor.getCount() != 0){
-            cursor.moveToFirst();
-                do {
-                    list.add(new ThuongHieu(cursor.getInt(0), cursor.getInt(1), cursor.getString(2)));
-                } while (cursor.moveToNext());
+        try {
+            Cursor cursor = db.rawQuery("select * from ThuongHieu",null);
+            if(cursor.getCount() >0 ){
+                cursor.moveToFirst();
+                while (!cursor.isAfterLast()){
+                    ThuongHieu th = new ThuongHieu();
+                    th.setMaTH(cursor.getInt(0));
+                    th.setAnh(cursor.getString(1));
+                    th.setSDT(cursor.getString(2));
+                    th.setTenTH(cursor.getString(3));
+                    list.add(th);
+                    cursor.moveToNext();
+
+                }
+            }
+        }catch (Exception e){
+            Log.i(TAG,"Lỗi",e);
         }
         return list;
     }
 
-    public boolean insert (String SDT, String TenTH){
+    public boolean insert (String SDT, String Anh, String TenTH){
         SQLiteDatabase db = dbhelper.getWritableDatabase();
         ContentValues values = new ContentValues();
+        values.put("Anh", Anh);
         values.put("SDT", SDT);
         values.put("TenTH", TenTH);
         long check = db.insert("ThuongHieu", null, values);
@@ -44,12 +73,13 @@ public class ThuongHieuDAO {
         }
     }
 
-    public boolean update(int MaTH, String SDT, String TenTH){
+    public boolean update(ThuongHieu th){
         SQLiteDatabase db = dbhelper.getWritableDatabase();
         ContentValues values = new ContentValues();
-        values.put("SDT", SDT);
-        values.put("TenTH", TenTH);
-        long check = db.update("ThuongHieu", values, "MaTH = ?", new String[]{String.valueOf(MaTH)});
+        values.put("Anh", th.getAnh());
+        values.put("SDT", th.getSDT());
+        values.put("TenTH", th.getTenTH());
+        long check = db.update("ThuongHieu", values, "MaTH = ?", new String[]{String.valueOf(th.getMaTH())});
         if (check == -1){
             return false;
         }else {

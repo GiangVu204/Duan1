@@ -12,13 +12,6 @@
         android:background="#ddd"
         android:orientation="horizontal">
 
-        <ImageView
-            android:layout_width="100dp"
-            android:layout_height="100dp"
-            android:layout_marginTop="10dp"
-            android:layout_marginLeft="2dp"
-            android:id="@+id/ImgAnh"/>
-
         <LinearLayout
             android:layout_width="240dp"
             android:layout_height="wrap_content"
@@ -32,14 +25,14 @@
                     android:layout_height="wrap_content"
                     android:padding="10dp"
                     android:textStyle="bold"
-                    android:text="Mã thương hiệu: "/>
+                    android:text="Mã loại sản phẩm: "/>
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="ABC"
                     android:textColor="@color/black"
                     android:textStyle="bold"
-                    android:id="@+id/MaTH"/>
+                    android:id="@+id/MaLSP"/>
             </LinearLayout>
 
             <LinearLayout
@@ -51,42 +44,24 @@
                     android:layout_height="wrap_content"
                     android:padding="10dp"
                     android:textStyle="bold"
-                    android:text="Số điện thoai: "/>
+                    android:text="Tên loại sản phẩm: "/>
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="ABC"
                     android:textColor="@color/black"
                     android:textStyle="bold"
-                    android:id="@+id/SDT"/>
+                    android:id="@+id/TenLSP"/>
             </LinearLayout>
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textStyle="bold"
-                    android:padding="10dp"
-                    android:text="Tên thương hiệu: "/>
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="ABC"
-                    android:textColor="@color/black"
-                    android:textStyle="bold"
-                    android:id="@+id/TenTH"/>
-            </LinearLayout>
         </LinearLayout>
         <ImageView
             android:layout_width="30dp"
             android:layout_height="30dp"
             android:layout_marginTop="10dp"
-            android:layout_marginLeft="5dp"
+            android:layout_marginLeft="85dp"
             android:src="@drawable/img_delete"
-            android:id="@+id/TH_Delete"/>
+            android:id="@+id/LSP_Delete"/>
     </LinearLayout>
 
 </LinearLayout>

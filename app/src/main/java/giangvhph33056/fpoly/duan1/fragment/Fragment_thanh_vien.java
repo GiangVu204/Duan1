@@ -18,5 +18,6 @@ public class Fragment_thanh_vien extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_thanh_vien, container, false);
+        return view;
     }
 }

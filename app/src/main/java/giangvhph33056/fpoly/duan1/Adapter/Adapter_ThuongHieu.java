@@ -6,6 +6,7 @@ import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.net.Uri;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.LayoutInflater;
@@ -19,6 +20,7 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
 
@@ -52,6 +54,9 @@ public class Adapter_ThuongHieu extends RecyclerView.Adapter<Adapter_ThuongHieu.
         holder.MaTH.setText(String.valueOf(list.get(position).getMaTH()));
         holder.SDT.setText(list.get(position).getSDT());
         holder.TenTH.setText(list.get(position).getTenTH());
+        String imageUrl = list.get(position).getAnh();
+        Glide.with(context).load(Uri.parse(imageUrl)).into(holder.ImgAnh);
+
         ThuongHieu th = list.get(position);
 
         holder.TH_Delete.setOnClickListener(new View.OnClickListener() {

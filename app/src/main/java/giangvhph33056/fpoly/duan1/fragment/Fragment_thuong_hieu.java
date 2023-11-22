@@ -132,30 +132,40 @@ public class Fragment_thuong_hieu extends Fragment {
             public void onClick(View view) {
                 String SDT = ed_SDT.getText().toString();
                 String TenTH = ed_TenTH.getText().toString();
-                String Anhh = ImgAnhh.getResources().toString();
 
-                if (SDT.isEmpty() || TenTH.isEmpty()){
-                    if (SDT.equals("")){
-                        in_SDT.setError("Vui lòng không để trống Số điện thoại!");
-                    }else {
-                        in_SDT.setError(null);
+                // Check if an image is selected
+                if (selectedImageUri != null) {
+                    String Anhh = selectedImageUri.toString();
+
+                    if (SDT.isEmpty() || TenTH.isEmpty()) {
+                        // Display error messages if necessary fields are empty
+                        if (SDT.isEmpty()) {
+                            in_SDT.setError("Vui lòng không để trống Số điện thoại!");
+                        } else {
+                            in_SDT.setError(null);
+                        }
+                        if (TenTH.isEmpty()) {
+                            in_TenTH.setError("Vui lòng không để trống tên thương hiệu!");
+                        } else {
+                            in_TenTH.setError(null);
+                        }
+                    } else {
+                        // Insert the data into the database
+                        if (THdao.insert(SDT, Anhh, TenTH)) {
+                            loadData();
+                            Toast.makeText(getContext(), "Thêm thương hiệu thành công!", Toast.LENGTH_SHORT).show();
+                            dialog.dismiss();
+                        } else {
+                            Toast.makeText(getContext(), "Thêm thương hiệu thất bại!!!", Toast.LENGTH_SHORT).show();
+                        }
                     }
-                    if (TenTH.equals("")){
-                        in_TenTH.setError("Vui lòng không để trống tên thương hiệu!");
-                    }else {
-                        in_TenTH.setError(null);
-                    }
-                }else {
-                    if (THdao.insert(SDT,Anhh, TenTH)){
-                        loadData();
-                        Toast.makeText(getContext(), "Thêm thương hiệu thành công!", Toast.LENGTH_SHORT).show();
-                        dialog.dismiss();
-                    }else {
-                        Toast.makeText(getContext(), "Thêm thương hiệu thất bại!!!", Toast.LENGTH_SHORT).show();
-                    }
+                } else {
+                    // Handle the case when no image is selected
+                    Toast.makeText(getContext(), "Vui lòng chọn ảnh thương hiệu!", Toast.LENGTH_SHORT).show();
                 }
             }
         });
+
         CancelTH.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

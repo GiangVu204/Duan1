@@ -1,6 +1,7 @@
 package giangvhph33056.fpoly.duan1;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
@@ -12,12 +13,17 @@ import androidx.fragment.app.FragmentManager;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.FrameLayout;
+import android.widget.TextView;
 
 import com.google.android.material.navigation.NavigationView;
 
+import giangvhph33056.fpoly.duan1.DAO.ThanhVienDAO;
 import giangvhph33056.fpoly.duan1.fragment.Fragment_add_user;
 import giangvhph33056.fpoly.duan1.fragment.Fragment_doanh_thu;
 import giangvhph33056.fpoly.duan1.fragment.Fragment_doi_mk;
@@ -35,6 +41,7 @@ public class Layout extends AppCompatActivity {
     FrameLayout frameLayout;
     NavigationView navigationView;
     Context context = this;
+    ThanhVienDAO dao;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,11 +52,16 @@ public class Layout extends AppCompatActivity {
         toolbar = findViewById(R.id.toolbar);
         frameLayout = findViewById(R.id.frameLayout);
         navigationView = findViewById(R.id.navigationView);
+        View view = navigationView.getHeaderView(0);
+        TextView txtloaitv = view.findViewById(R.id.txtloaitv_hd);
+        TextView txtemailtv = view.findViewById(R.id.txtemailtv_hd);
+        TextView txthotentv_hd = view.findViewById(R.id.txthotentv_hd);
+        dao = new ThanhVienDAO(this);
 
         setSupportActionBar(toolbar);
         ActionBarDrawerToggle toggle =new ActionBarDrawerToggle(this, drawerLayout, toolbar, R.string.open, R.string.close);
         toggle.syncState();
-
+        // set drawer toggle
 
         // Thêm mã để hiển thị Fragment_san_pham khi ứng dụng được khởi chạy
         Fragment_san_pham frgSP = new Fragment_san_pham();
@@ -116,6 +128,39 @@ if (savedInstanceState == null){
                 return false;
             }
         });
+        SharedPreferences sharedPreferences = getSharedPreferences("DANGNHAPTV",MODE_PRIVATE);
+        String Loai = sharedPreferences.getString("Loai","");
+        if(Loai.equalsIgnoreCase("admin")){
+            Menu menu = navigationView.getMenu();
+            menu.findItem(R.id.menuTND).setVisible(true);
+            menu.findItem(R.id.thongtin).setVisible(false);
+            menu.findItem(R.id.lienhe).setVisible(false);
+        }
+        if(Loai.equalsIgnoreCase("Nhân Viên")){
+            Menu menu = navigationView.getMenu();
+            menu.findItem(R.id.menuTND).setVisible(false);
+            menu.findItem(R.id.thongtin).setVisible(false);
+            menu.findItem(R.id.lienhe).setVisible(false);
+
+        }
+        if(Loai.equalsIgnoreCase("Khách Hàng")){
+            Menu menu = navigationView.getMenu();
+            menu.findItem(R.id.LoaiSanPham).setVisible(false);
+            menu.findItem(R.id.KichThuoc).setVisible(false);
+            menu.findItem(R.id.ThanhVien).setVisible(false);
+            menu.findItem(R.id.menuDT).setVisible(false);
+            menu.findItem(R.id.menuDT).setVisible(false);
+            menu.findItem(R.id.ThuongHieu).setVisible(false);
+            menu.findItem(R.id.menuTND).setVisible(false);
+
+        }
+        String loai = sharedPreferences.getString("Loai","");
+        txtloaitv.setText(loai);
+        String email = sharedPreferences.getString("Email","");
+        txtemailtv.setText(email);
+        String Hoten = sharedPreferences.getString("HoTen","");
+        txthotentv_hd.setText(Hoten);
+
     }
     public void relaceFrg(Fragment frg){
         FragmentManager fg = getSupportFragmentManager();

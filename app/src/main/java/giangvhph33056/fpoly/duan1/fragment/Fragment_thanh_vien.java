@@ -16,19 +16,20 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import java.util.ArrayList;
 
 import giangvhph33056.fpoly.duan1.Adapter.Adapter_KichThuoc;
+import giangvhph33056.fpoly.duan1.Adapter.Adapter_LoaiSanPham;
 import giangvhph33056.fpoly.duan1.Adapter.Adapter_ThanhVien;
 import giangvhph33056.fpoly.duan1.DAO.KichThuocDAO;
+import giangvhph33056.fpoly.duan1.DAO.LoaiSanPhamDAO;
 import giangvhph33056.fpoly.duan1.DAO.ThanhVienDAO;
 import giangvhph33056.fpoly.duan1.Model.KichThuoc;
+import giangvhph33056.fpoly.duan1.Model.LoaiSanPham;
 import giangvhph33056.fpoly.duan1.Model.ThanhVien;
 import giangvhph33056.fpoly.duan1.R;
 public class Fragment_thanh_vien extends Fragment {
     ThanhVienDAO tvDAO;
-    Adapter_ThanhVien adaptertv;
+
     RecyclerView rcv_thanhvien;
     FloatingActionButton fltadd;
-
-    private ArrayList<ThanhVien> list = new ArrayList<>();
     public Fragment_thanh_vien() {
         // Required empty public constructor
     }
@@ -39,14 +40,17 @@ public class Fragment_thanh_vien extends Fragment {
         View view = inflater.inflate(R.layout.fragment_thanh_vien, container, false);
         rcv_thanhvien = view.findViewById(R.id.rcv_thanhvien);
         fltadd = view.findViewById(R.id.fltadd);
-        tvDAO= new ThanhVienDAO(getContext());
-        list = tvDAO.selectAllthanhVien();
-        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext());
-        rcv_thanhvien.setLayoutManager(linearLayoutManager);
-        rcv_thanhvien.addItemDecoration(new DividerItemDecoration(getContext(), LinearLayoutManager.VERTICAL));
-        adaptertv = new Adapter_ThanhVien(getContext(), list);
-        rcv_thanhvien.setAdapter(adaptertv);
+        tvDAO = new ThanhVienDAO(getContext());
+        loadData();
+
 
         return view;
+    }
+    public void loadData(){
+        LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
+        rcv_thanhvien.setLayoutManager(layoutManager);
+        ArrayList<ThanhVien> list = tvDAO.selectAllthanhVien();
+        Adapter_ThanhVien adapter = new Adapter_ThanhVien(getContext(),list);
+        rcv_thanhvien.setAdapter(adapter);
     }
 }

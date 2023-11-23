@@ -56,7 +56,7 @@ public class Adapter_ThanhVien  extends RecyclerView.Adapter<Adapter_ThanhVien.V
                 builder.setPositiveButton("CÓ", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        int check =dao.delete(Integer.parseInt(list.get(holder.getAdapterPosition()).getMaTV()));
+                        int check =dao.delete(list.get(holder.getAdapterPosition()).getId());
                         if (check ==1){
                             list.clear();
                             list.addAll(dao.selectAllthanhVien());

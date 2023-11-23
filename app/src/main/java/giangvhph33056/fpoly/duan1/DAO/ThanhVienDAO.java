@@ -30,9 +30,11 @@ public class ThanhVienDAO {
         if (cursor.getCount() != 0) {
             cursor.moveToFirst();
             SharedPreferences.Editor editor = sharedPreferences.edit();
-            editor.putString("MaTV", cursor.getString(0));
-            editor.putString("HoTen", cursor.getString(1));
-            editor.putString("MatKhau", cursor.getString(2));
+            editor.putString("MaTV", cursor.getString(1));
+            editor.putString("HoTen", cursor.getString(2));
+            editor.putString("MatKhau", cursor.getString(3));
+            editor.putString("Email", cursor.getString(5));
+            editor.putString("Loai", cursor.getString(7));
             // Lưu mật khẩu vào SharedPreferences
            // editor.putString("Loai", cursor.getString(3));
             editor.commit();
@@ -45,17 +47,19 @@ public class ThanhVienDAO {
         ArrayList<ThanhVien> list = new ArrayList<>();
         SQLiteDatabase db = dbhelper.getReadableDatabase();
         try {
-            Cursor cursor = db.rawQuery("select * from ThanhVien",null);
+            Cursor cursor = db.rawQuery("SELECT *  FROM ThanhVien",null);
             if(cursor.getCount() >0 ){
                 cursor.moveToFirst();
                 while (!cursor.isAfterLast()){
                     ThanhVien tv = new ThanhVien();
-                    tv.setMaTV(cursor.getString(0));
-                    tv.setHoTen(cursor.getString(1));
-                    tv.setMatKhau(cursor.getString(2));
-                    tv.setSDT(cursor.getInt(3));
-                    tv.setEmail(cursor.getString(4));
-                    tv.setDChi(cursor.getString(5));
+                    tv.setId(cursor.getInt(0));
+                    tv.setMaTV(cursor.getString(1));
+                    tv.setHoTen(cursor.getString(2));
+                    tv.setMatKhau(cursor.getString(3));
+                    tv.setSDT(cursor.getInt(4));
+                    tv.setEmail(cursor.getString(5));
+                    tv.setDChi(cursor.getString(6));
+                    tv.setLoai(cursor.getString(7));
                     list.add(tv);
                     cursor.moveToNext();
 
@@ -66,13 +70,13 @@ public class ThanhVienDAO {
         }
         return list;
     }
-    public int delete(int MaTV) {
+    public int delete(int id) {
         SQLiteDatabase db = dbhelper.getWritableDatabase();
-        Cursor cursor = db.rawQuery("SELECT *  FROM HoaDon WHERE MaTV=? ",new String[]{String.valueOf(MaTV)});
+        Cursor cursor = db.rawQuery("SELECT *  FROM HoaDon WHERE id=? ",new String[]{String.valueOf(id)});
         if (cursor.getCount()!=0){
             return -1;
         }else{
-            long check = db.delete("ThanhVien", "MaTV=?", new String[]{String.valueOf(MaTV)});
+            long check = db.delete("ThanhVien", "id=?", new String[]{String.valueOf(id)});
             if (check ==-1){
                 return 0;
             }else{

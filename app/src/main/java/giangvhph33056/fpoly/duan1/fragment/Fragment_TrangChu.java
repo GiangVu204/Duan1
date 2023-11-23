@@ -1,4 +1,4 @@
-package giangvhph33056.fpoly.duan1.Fragment;
+package giangvhph33056.fpoly.duan1.fragment;
 
 import android.os.Bundle;
 
@@ -20,10 +20,6 @@ public class Fragment_TrangChu extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment__trang_chu, container, false);
-
-
-
-
 
 
 

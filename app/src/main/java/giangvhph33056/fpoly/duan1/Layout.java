@@ -1,7 +1,6 @@
 package giangvhph33056.fpoly.duan1;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
@@ -24,6 +23,9 @@ import android.widget.TextView;
 import com.google.android.material.navigation.NavigationView;
 
 import giangvhph33056.fpoly.duan1.DAO.ThanhVienDAO;
+
+
+import giangvhph33056.fpoly.duan1.fragment.Fragment_TrangChu;
 import giangvhph33056.fpoly.duan1.fragment.Fragment_add_user;
 import giangvhph33056.fpoly.duan1.fragment.Fragment_doanh_thu;
 import giangvhph33056.fpoly.duan1.fragment.Fragment_doi_mk;
@@ -67,9 +69,10 @@ public class Layout extends AppCompatActivity {
         Fragment_san_pham frgSP = new Fragment_san_pham();
         relaceFrg(frgSP);
         toolbar.setTitle("Quản lý sản phẩm");
-if (savedInstanceState == null){
-    relaceFrg(new Fragment_san_pham());
-}
+            if (savedInstanceState == null){
+                relaceFrg(new Fragment_TrangChu());
+                setTitle("Trang chủ");
+            }
         navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
 
             @Override
@@ -78,6 +81,10 @@ if (savedInstanceState == null){
                     Fragment_san_pham frgPM = new Fragment_san_pham();
                     relaceFrg(frgPM);
                     toolbar.setTitle("Quản lý sản phẩm");
+                }else if (item.getItemId() == R.id.trangchu) {
+                    Fragment_TrangChu ftc = new Fragment_TrangChu();
+                    relaceFrg(ftc);
+                    toolbar.setTitle("Trang chủ");
                 } else if (item.getItemId() == R.id.LoaiSanPham) {
                     Fragment_loai_san_pham frgLS = new Fragment_loai_san_pham();
                     relaceFrg(frgLS);

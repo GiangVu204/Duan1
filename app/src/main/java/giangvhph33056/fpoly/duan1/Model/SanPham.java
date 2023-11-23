@@ -16,6 +16,11 @@ public class SanPham {
     }
 // them
 
+    public SanPham(String tenSP, int gia) {
+        TenSP = tenSP;
+        Gia = gia;
+    }
+
     public SanPham(int maSP, String tenSP, int gia, int soLuong, String size, String tenthuonghieu, String tenlsp) {
         MaSP = maSP;
         TenSP = tenSP;

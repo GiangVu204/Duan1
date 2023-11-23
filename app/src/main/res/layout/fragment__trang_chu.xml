@@ -36,8 +36,11 @@
         <EditText
             android:layout_width="match_parent"
             android:layout_height="50dp"
+            android:ems="10"
             android:hint="Search anything"
-            android:background="#CDDC39"
+            android:background="@drawable/edtbackgroud_tt"
+            android:drawablePadding="10dp"
+            android:drawableStart="@drawable/baseline_search_24"
             android:padding="10dp"
             android:layout_marginTop="10dp"
             android:layout_marginBottom="10dp"/>
@@ -133,6 +136,7 @@
                 android:layout_marginTop="10dp"
                 android:layout_marginBottom="10dp"/>
             <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rcvsanpham_tt"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"/>
         </LinearLayout>

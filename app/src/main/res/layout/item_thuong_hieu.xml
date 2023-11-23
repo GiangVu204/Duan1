@@ -10,6 +10,9 @@
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="10dp"
         android:layout_marginTop="10dp"
+        android:paddingTop="8dp"
+        android:paddingLeft="5dp"
+        android:paddingBottom="10dp"
         android:background="#ddd"
         android:orientation="horizontal">
         <androidx.cardview.widget.CardView
@@ -20,10 +23,9 @@
             <ImageView
                 android:layout_width="100dp"
                 android:layout_height="100dp"
-                android:layout_marginTop="10dp"
                 android:layout_marginLeft="2dp"
-                android:id="@+id/ImgAnh"
-                android:src="@drawable/thuong_hieu"/>
+                android:layout_marginRight="5dp"
+                android:id="@+id/ImgAnhth"/>
         </androidx.cardview.widget.CardView>
 
 
@@ -31,24 +33,6 @@
             android:layout_width="240dp"
             android:layout_height="wrap_content"
             android:orientation="vertical">
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:padding="10dp"
-                    android:textStyle="bold"
-                    android:text="Mã thương hiệu: "/>
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="ABC"
-                    android:textColor="@color/black"
-                    android:textStyle="bold"
-                    android:id="@+id/MaTH"/>
-            </LinearLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"

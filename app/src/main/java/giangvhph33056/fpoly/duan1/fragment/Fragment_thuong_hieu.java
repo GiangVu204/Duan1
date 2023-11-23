@@ -180,7 +180,7 @@ public class Fragment_thuong_hieu extends Fragment {
         LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
         rcvTH.setLayoutManager(layoutManager);
         ArrayList<ThuongHieu> list = THdao.getDSThuongHieu();
-        Adapter_ThuongHieu adapter = new Adapter_ThuongHieu(getContext(),list);
+        Adapter_ThuongHieu adapter = new Adapter_ThuongHieu(getContext(), list);
         rcvTH.setAdapter(adapter);
     }
 

@@ -6,7 +6,9 @@ import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.net.Uri;
+import android.provider.MediaStore;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.LayoutInflater;
@@ -30,11 +32,13 @@ import giangvhph33056.fpoly.duan1.DAO.ThuongHieuDAO;
 import giangvhph33056.fpoly.duan1.Model.ThuongHieu;
 import giangvhph33056.fpoly.duan1.R;
 
-public class Adapter_ThuongHieu extends RecyclerView.Adapter<Adapter_ThuongHieu.ViewHolder>{
+public class Adapter_ThuongHieu extends RecyclerView.Adapter<Adapter_ThuongHieu.ViewHolder> {
     private Context context;
     private ArrayList<ThuongHieu> list;
     ThuongHieuDAO dao;
-
+    private int selectedPosition = -1;
+    private Dialog dialog;
+    private Uri selectedImageUri;
 
     public Adapter_ThuongHieu(Context context, ArrayList<ThuongHieu> list) {
         this.context = context;
@@ -42,22 +46,31 @@ public class Adapter_ThuongHieu extends RecyclerView.Adapter<Adapter_ThuongHieu.
         dao = new ThuongHieuDAO(context);
     }
 
+
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         LayoutInflater inflater = ((Activity) context).getLayoutInflater();
         View view = inflater.inflate(R.layout.item_thuong_hieu, parent, false);
-        return new  ViewHolder(view);
+        return new ViewHolder(view);
     }
+
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        holder.MaTH.setText(String.valueOf(list.get(position).getMaTH()));
-        holder.SDT.setText(list.get(position).getSDT());
+        holder.SDT.setText(String.valueOf(list.get(position).getSDT()));
         holder.TenTH.setText(list.get(position).getTenTH());
         String imageUrl = list.get(position).getAnh();
         Glide.with(context).load(Uri.parse(imageUrl)).into(holder.ImgAnh);
 
         ThuongHieu th = list.get(position);
+
+        holder.ImgAnh.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                selectedPosition = holder.getAdapterPosition();
+                dialogUpdateTH(list.get(selectedPosition));
+            }
+        });
 
         holder.TH_Delete.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -71,7 +84,7 @@ public class Adapter_ThuongHieu extends RecyclerView.Adapter<Adapter_ThuongHieu.
                     public void onClick(DialogInterface dialogInterface, int i) {
                         ThuongHieuDAO dao = new ThuongHieuDAO(context);
                         int check = dao.delete(list.get(holder.getAdapterPosition()).getMaTH());
-                        switch (check){
+                        switch (check) {
                             case 1:
                                 list.clear();
                                 list = dao.getDSThuongHieu();
@@ -89,7 +102,7 @@ public class Adapter_ThuongHieu extends RecyclerView.Adapter<Adapter_ThuongHieu.
                         }
                     }
                 });
-                builder.setNegativeButton("Cancel",null);
+                builder.setNegativeButton("Cancel", null);
                 builder.create().show();
             }
         });
@@ -108,15 +121,15 @@ public class Adapter_ThuongHieu extends RecyclerView.Adapter<Adapter_ThuongHieu.
     }
 
 
-    public class ViewHolder extends RecyclerView.ViewHolder{
+    public class ViewHolder extends RecyclerView.ViewHolder {
         TextView MaTH, TenTH, SDT;
         ImageView ImgAnh, TH_Delete;
+
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
-            MaTH = itemView.findViewById(R.id.MaTH);
             TenTH = itemView.findViewById(R.id.TenTH);
             SDT = itemView.findViewById(R.id.SDT);
-            ImgAnh = itemView.findViewById(R.id.ImgAnh);
+            ImgAnh = itemView.findViewById(R.id.ImgAnhth);
             TH_Delete = itemView.findViewById(R.id.TH_Delete);
 
         }
@@ -125,25 +138,30 @@ public class Adapter_ThuongHieu extends RecyclerView.Adapter<Adapter_ThuongHieu.
     @SuppressLint("MissingInflatedId")
     private void dialogUpdateTH(ThuongHieu th) {
         AlertDialog.Builder builder = new AlertDialog.Builder(context);
-        LayoutInflater inflater = ((Activity)context).getLayoutInflater();
-        View view = inflater.inflate(R.layout.item_update_thuonghieu,null);
+        LayoutInflater inflater = ((Activity) context).getLayoutInflater();
+        View view = inflater.inflate(R.layout.item_update_thuonghieu, null);
         builder.setView(view);
         Dialog dialog = builder.create();
         dialog.show();
 
-        TextInputLayout in_MaTH = view.findViewById(R.id.in_updateMaTH);
-        TextInputEditText ed_MaTH = view.findViewById(R.id.ed_updateMaTH);
         TextInputLayout in_SDT = view.findViewById(R.id.in_updateSDT);
         TextInputEditText ed_SDT = view.findViewById(R.id.ed_updateSDT);
         TextInputLayout in_TenTH = view.findViewById(R.id.in_updateTenTH);
         TextInputEditText ed_TenTH = view.findViewById(R.id.ed_updateTenTH);
-        ImageView ImgAnhh = view.findViewById(R.id.ImgAnhh);
+        ImageView ImgAnhh = view.findViewById(R.id.ImgAnhhh);
         Button UpdateTH = view.findViewById(R.id.TH_update);
         Button CancelTH = view.findViewById(R.id.TH_Cancelupdtae);
 
-        ed_MaTH.setText(String.valueOf(th.getMaTH()));
         ed_SDT.setText(th.getSDT());
         ed_TenTH.setText(th.getTenTH());
+
+        ImgAnhh.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                openGallery();
+            }
+        });
+
 
         ed_SDT.addTextChangedListener(new TextWatcher() {
             @Override
@@ -153,9 +171,9 @@ public class Adapter_ThuongHieu extends RecyclerView.Adapter<Adapter_ThuongHieu.
 
             @Override
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-                if (charSequence.length() == 0){
+                if (charSequence.length() == 0) {
                     in_SDT.setError("Vui lòng không để trống Số điện thoại");
-                }else {
+                } else {
                     in_SDT.setError(null);
                 }
             }
@@ -174,18 +192,23 @@ public class Adapter_ThuongHieu extends RecyclerView.Adapter<Adapter_ThuongHieu.
 
             @Override
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-                if (charSequence.length() == 0){
+                if (charSequence.length() == 0) {
                     in_TenTH.setError("Vui lòng không để trống Tên thương hiệu");
-                }else {
+                } else {
                     in_TenTH.setError(null);
                 }
             }
+
             @Override
             public void afterTextChanged(Editable editable) {
 
             }
         });
 
+
+        if (selectedImageUri != null) {
+            Glide.with(context).load(selectedImageUri).into(ImgAnhh);
+        }
         UpdateTH.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -195,27 +218,34 @@ public class Adapter_ThuongHieu extends RecyclerView.Adapter<Adapter_ThuongHieu.
                 th.setTenTH(ed_TenTH.getText().toString());
                 String TenTH = ed_TenTH.getText().toString();
 
-                if (SDT.isEmpty() || TenTH.isEmpty()){
-                    if (SDT.equals("")){
-                        in_SDT.setError("Vui lòng nhập thương hiệu");
-                    }else {
-                        in_SDT.setError(null);
-                    }
-                    if (TenTH.equals("")){
-                        in_TenTH.setError("Vui lòng nhập tên thương hiệu");
-                    }else {
-                        in_TenTH.setError(null);
+                if (selectedImageUri != null) {
+                    th.setAnh(selectedImageUri.toString());
+
+                    if (SDT.isEmpty() || TenTH.isEmpty()) {
+                        // Display error messages if necessary fields are empty
+                        if (SDT.isEmpty()) {
+                            in_SDT.setError("Vui lòng không để trống Số điện thoại!");
+                        } else {
+                            in_SDT.setError(null);
+                        }
+                        if (TenTH.isEmpty()) {
+                            in_TenTH.setError("Vui lòng không để trống tên thương hiệu!");
+                        } else {
+                            in_TenTH.setError(null);
+                        }
+                    } else {
+                        if (dao.update(th)) {
+                            list.clear();
+                            list.addAll(dao.getDSThuongHieu());
+                            notifyDataSetChanged();
+                            dialog.dismiss();
+                            Toast.makeText(context, "Update thành công!", Toast.LENGTH_SHORT).show();
+                        } else {
+                            Toast.makeText(context, "Update thất bại!!!", Toast.LENGTH_SHORT).show();
+                        }
                     }
                 }else {
-                    if (dao.update(th)){
-                        list.clear();
-                        list.addAll(dao.getDSThuongHieu());
-                        notifyDataSetChanged();
-                        dialog.dismiss();
-                        Toast.makeText(context, "Update thành công!", Toast.LENGTH_SHORT).show();
-                    }else {
-                        Toast.makeText(context, "Update thất bại!!!", Toast.LENGTH_SHORT).show();
-                    }
+                    Toast.makeText(context, "Vui lòng chọn ảnh thương hiệu!", Toast.LENGTH_SHORT).show();
                 }
             }
         });
@@ -229,4 +259,8 @@ public class Adapter_ThuongHieu extends RecyclerView.Adapter<Adapter_ThuongHieu.
         });
     }
 
+    private void openGallery() {
+        Intent intent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+        ((Activity) context).startActivityForResult(intent, 1);
+    }
 }

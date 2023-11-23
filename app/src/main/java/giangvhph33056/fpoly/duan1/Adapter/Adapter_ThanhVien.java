@@ -1,12 +1,15 @@
 package giangvhph33056.fpoly.duan1.Adapter;
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -42,6 +45,40 @@ public class Adapter_ThanhVien  extends RecyclerView.Adapter<Adapter_ThanhVien.V
         holder.txtSDT_tv.setText(String.valueOf(list.get(position).getSDT()));
         holder.txtEmail_tv.setText(list.get(position).getEmail());
         holder.txtDchi_tv.setText(list.get(position).getDChi());
+        holder.imgDelete_tv.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                AlertDialog.Builder builder = new AlertDialog.Builder(context);
+                builder.setTitle("CẢNH BÁO");// set tieu de
+                builder.setIcon(R.drawable.baseline_warning_amber_24);
+                builder.setMessage("BẠN CÓ CHẮC CHẮN MUỐN XÓA LOẠI SÁCH NÀY KHÔNG");
+                /// tạo nut buttun yes , xuli su kien cho nut
+                builder.setPositiveButton("CÓ", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        int check =dao.delete(Integer.parseInt(list.get(holder.getAdapterPosition()).getMaTV()));
+                        if (check ==1){
+                            list.clear();
+                            list.addAll(dao.selectAllthanhVien());
+                            notifyDataSetChanged();
+                            Toast.makeText(context, "Xóa Thành Công", Toast.LENGTH_SHORT).show();
+                        }else if (check == -1) {
+                            Toast.makeText(context, "Không thể xóa (kich thước) này vì đã có (sản phẩm) thuộc thể loại này", Toast.LENGTH_SHORT).show();
+                        }else {
+                            Toast.makeText(context, "Xóa Thất Bại", Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                });
+                builder.setNegativeButton("KHÔNG", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        Toast.makeText(context, "XÓA THẤT BẠI", Toast.LENGTH_SHORT).show();
+                    }
+                }) ;
+                AlertDialog di = builder.create();
+                di.show();
+            }
+        });
 
     }
 

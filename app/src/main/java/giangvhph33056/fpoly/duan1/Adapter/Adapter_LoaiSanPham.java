@@ -2,11 +2,13 @@ package giangvhph33056.fpoly.duan1.Adapter;
 
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -18,6 +20,7 @@ import java.util.ArrayList;
 
 import giangvhph33056.fpoly.duan1.DAO.LoaiSanPhamDAO;
 import giangvhph33056.fpoly.duan1.DAO.ThuongHieuDAO;
+import giangvhph33056.fpoly.duan1.Model.KichThuoc;
 import giangvhph33056.fpoly.duan1.Model.LoaiSanPham;
 import giangvhph33056.fpoly.duan1.R;
 
@@ -25,7 +28,7 @@ public class Adapter_LoaiSanPham extends RecyclerView.Adapter<Adapter_LoaiSanPha
     private Context context;
     private ArrayList<LoaiSanPham> list;
     LoaiSanPhamDAO dao;
-
+    EditText edt_updateTenLoaisp;
 
     public Adapter_LoaiSanPham(Context context, ArrayList<LoaiSanPham> list) {
         this.context = context;
@@ -80,6 +83,14 @@ public class Adapter_LoaiSanPham extends RecyclerView.Adapter<Adapter_LoaiSanPha
                 builder.create().show();
             }
         });
+        holder.itemView.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View view) {
+                opendialogsua(list.get(holder.getAdapterPosition()));
+                return true;
+            }
+        });
+
 
     }
 
@@ -100,5 +111,39 @@ public class Adapter_LoaiSanPham extends RecyclerView.Adapter<Adapter_LoaiSanPha
             TenTh = itemView.findViewById(R.id.TenLSP);
             LSP_Delete = itemView.findViewById(R.id.LSP_Delete);
         }
+    }
+    public void opendialogsua(LoaiSanPham lsp){
+        AlertDialog.Builder builder = new AlertDialog.Builder(context);
+        LayoutInflater inflater = ((Activity)context).getLayoutInflater();
+        View view = inflater.inflate(R.layout.item_update_loai_san_pham,null);
+        builder.setView(view);
+        edt_updateTenLoaisp = view.findViewById(R.id.edt_updateTenLoaisp);
+        builder.setPositiveButton("UPDATE", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                String tenloaisp =edt_updateTenLoaisp.getText().toString();
+                int id = lsp.getMaLSP();
+                LoaiSanPham lspu = new LoaiSanPham(id,tenloaisp);
+                if (dao.update(lspu)) {
+                    list.clear();
+                    list.addAll(dao.getDSLoaiSanPham());
+                    notifyDataSetChanged();
+                    dialog.dismiss();
+                    Toast.makeText(context, "UPDATE thanh cong", Toast.LENGTH_SHORT).show();
+                } else {
+                    Toast.makeText(context, "UPDATE that bai", Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+        builder.setNegativeButton("Hủy", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+
+            }
+        });
+        Dialog dialog = builder.create();
+        dialog.show();
+
+
     }
 }

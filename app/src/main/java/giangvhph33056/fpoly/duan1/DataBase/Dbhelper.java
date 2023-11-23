@@ -56,7 +56,7 @@ public class Dbhelper extends SQLiteOpenHelper {
                 "    MaSP    INTEGER REFERENCES SanPham (MaSP) \n" +
                 ");\n");
         //Thủ Thư
-        db.execSQL("INSERT INTO  ThanhVien VALUES('admin','Lê Hoàng Tú','admin',0982322079,'lehoangtu56@gmail.com','hà nội')");
+        db.execSQL("INSERT INTO  ThanhVien VALUES('admin','Lê Hoàng Tú','admin',0982322079,'lehoangtu56@gmail.com','hà nội'),('admin1','Lê Hoàng Tú','admin1',0982322079,'lehoangtu56@gmail.com','hà nội')");
         db.execSQL("INSERT INTO  ThuongHieu VALUES(1, 'anh1', 0982322079, 'Nike'), (2, 'anh2', 0868761723, 'Adidas'), (3, 'anh3', 0734423235, 'Nike')");
         db.execSQL("INSERT INTO  LoaiSanPham VALUES(1, 'Nike 1'), (2, 'Adidas 1'), (3, 'Nike 2')");
         db.execSQL("INSERT INTO  KichThuoc VALUES(1, 39, 3), (2, 40, 6), (3, 41, 8)");

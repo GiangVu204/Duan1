@@ -2,6 +2,7 @@ package giangvhph33056.fpoly.duan1.DAO;
 
 import static androidx.constraintlayout.helper.widget.MotionEffect.TAG;
 
+import android.content.ContentValues;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.database.Cursor;
@@ -11,6 +12,7 @@ import android.util.Log;
 import java.util.ArrayList;
 
 import giangvhph33056.fpoly.duan1.DataBase.Dbhelper;
+import giangvhph33056.fpoly.duan1.Model.KichThuoc;
 import giangvhph33056.fpoly.duan1.Model.ThanhVien;
 
 public class ThanhVienDAO {
@@ -63,5 +65,32 @@ public class ThanhVienDAO {
             Log.i(TAG,"Lỗi",e);
         }
         return list;
+    }
+    public int delete(int MaTV) {
+        SQLiteDatabase db = dbhelper.getWritableDatabase();
+        Cursor cursor = db.rawQuery("SELECT *  FROM HoaDon WHERE MaTV=? ",new String[]{String.valueOf(MaTV)});
+        if (cursor.getCount()!=0){
+            return -1;
+        }else{
+            long check = db.delete("ThanhVien", "MaTV=?", new String[]{String.valueOf(MaTV)});
+            if (check ==-1){
+                return 0;
+            }else{
+                return 1;
+            }
+        }
+
+    }
+    public  boolean update(ThanhVien tv){
+        SQLiteDatabase db = dbhelper.getWritableDatabase();
+        ContentValues values = new ContentValues();
+        values.put("MaTV",tv.getMaTV());
+        values.put("HoTen",tv.getHoTen());
+        values.put("MatKhau",tv.getMatKhau());
+        values.put("SDT",tv.getSDT());
+        values.put("Email",tv.getEmail());
+        values.put("DChi",tv.getDChi());
+        long row = db.update("ThanhVien", values, "MaTV=?", new String[]{String.valueOf(tv.getMaTV())});
+        return (row > 0);
     }
 }

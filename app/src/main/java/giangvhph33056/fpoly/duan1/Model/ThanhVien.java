@@ -13,6 +13,7 @@ public class ThanhVien {
     public ThanhVien() {
     }
 /// add
+    ///
     public ThanhVien(String maTV, String hoTen, String matKhau, int SDT, String email, String DChi, String loai) {
         MaTV = maTV;
         HoTen = hoTen;

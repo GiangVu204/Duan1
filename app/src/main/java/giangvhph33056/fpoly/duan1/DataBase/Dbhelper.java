@@ -6,7 +6,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 
 public class Dbhelper extends SQLiteOpenHelper {
     private static final String DB_NAME = "THOIDAISHOP";
-    private static final int DB_VERSION= 21;
+    private static final int DB_VERSION= 22;
 
     public Dbhelper(Context context) {
         super(context, DB_NAME,null , DB_VERSION);
@@ -54,7 +54,7 @@ public class Dbhelper extends SQLiteOpenHelper {
                 "    TrangThai     INTEGER NOT NULL,\n" +
                 "    SoLuong     INTEGER NOT NULL,\n" +
                 "    Gia     INTEGER NOT NULL,\n" +
-                "    id    TEXT REFERENCES ThanhVien (id), \n" +
+                "    id    INTEGER REFERENCES ThanhVien (id), \n" +
                 "    MaSP    INTEGER REFERENCES SanPham (MaSP) \n" +
                 ");\n");
         //Thủ Thư
@@ -63,7 +63,7 @@ public class Dbhelper extends SQLiteOpenHelper {
         db.execSQL("INSERT INTO  LoaiSanPham VALUES(1, 'Nike 1'), (2, 'Adidas 1'), (3, 'Nike 2')");
         db.execSQL("INSERT INTO  KichThuoc VALUES(1, 39, 3), (2, 40, 6), (3, 41, 8)");
         db.execSQL("INSERT INTO  SanPham VALUES(1,'Giày Thể Thao', 3000,3,1,1,1),(2,'Giày Thể Thao', 3000,3,1,1,1),(7,'Giày Thể Thao', 3000,3,1,1,1),(3,'Giày Thể Thao', 3000,3,1,1,1),(4,'Giày Thể Thao', 3000,3,1,1,1),(5,'Giày Thể Thao', 3000,3,1,1,1),(6,'Giày Thể Thao', 3000,3,1,1,1)");
-
+        db.execSQL("INSERT INTO  HoaDon VALUES(1,'20/04/2004', 1, 13, 9000, 1, 1)");
     }
 
 

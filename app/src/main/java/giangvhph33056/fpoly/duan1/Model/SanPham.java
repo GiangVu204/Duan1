@@ -1,6 +1,11 @@
 package giangvhph33056.fpoly.duan1.Model;
 
-public class SanPham {
+import android.os.Parcel;
+import android.os.Parcelable;
+
+import androidx.annotation.NonNull;
+
+public class SanPham implements Parcelable {
     private int MaSP;
     private String TenSP;
     private  int Gia;
@@ -15,6 +20,7 @@ public class SanPham {
     public SanPham() {
     }
 // them
+
 
     public SanPham(String tenSP, int gia) {
         TenSP = tenSP;
@@ -120,5 +126,41 @@ public class SanPham {
 
     public void setMaLSP(int maLSP) {
         MaLSP = maLSP;
+    }
+    public static final  Creator<SanPham> CREATOR = new Creator<SanPham>() {
+        @Override
+        public SanPham createFromParcel(Parcel parcel) {
+            return new SanPham(parcel);
+        }
+
+        @Override
+        public SanPham[] newArray(int i) {
+            return new SanPham[i];
+        }
+    };
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+    public SanPham(Parcel in ){
+        MaSP = in.readInt();
+        TenSP = in.readString();
+        Gia = in.readInt();
+        SoLuong = in.readInt();
+        size = in.readString();
+        tenthuonghieu = in.readString();
+        tenlsp = in.readString();
+    }
+    @Override
+    public void writeToParcel(@NonNull Parcel parcel, int i) {
+            parcel.writeInt(MaSP);
+        parcel.writeString(TenSP);
+        parcel.writeInt(Gia);
+        parcel.writeInt(SoLuong);
+        parcel.writeString(size);
+        parcel.writeString(tenthuonghieu);
+        parcel.writeString(tenlsp);
+
     }
 }

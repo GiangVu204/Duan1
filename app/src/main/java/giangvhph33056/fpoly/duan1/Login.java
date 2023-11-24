@@ -11,6 +11,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.material.textfield.TextInputEditText;
@@ -22,10 +23,13 @@ public class Login extends AppCompatActivity {
     TextInputEditText edtUser,edtPass;
     AppCompatButton btnLOGIN;
     ThanhVienDAO tvdao;
+    TextView txtDangki_dn;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+        //anh xa
+        txtDangki_dn = findViewById(R.id.txtDangki_dn);
         edtUser = findViewById(R.id.edtUser);
         edtPass = findViewById(R.id.edtPass);
         btnLOGIN = findViewById(R.id.btnLOGIN);
@@ -40,6 +44,15 @@ public class Login extends AppCompatActivity {
         }
         //xử lí nút đăng nhập
         tvdao = new ThanhVienDAO(this);
+        txtDangki_dn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(Login.this,DangKi.class);
+                startActivity(intent);
+                Toast.makeText(Login.this, "Đăng ký", Toast.LENGTH_SHORT).show();
+
+            }
+        });
         btnLOGIN.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

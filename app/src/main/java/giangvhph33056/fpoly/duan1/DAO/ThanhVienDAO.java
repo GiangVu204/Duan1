@@ -94,7 +94,20 @@ public class ThanhVienDAO {
         values.put("SDT",tv.getSDT());
         values.put("Email",tv.getEmail());
         values.put("DChi",tv.getDChi());
-        long row = db.update("ThanhVien", values, "MaTV=?", new String[]{String.valueOf(tv.getMaTV())});
+        long row = db.update("ThanhVien", values, "id=?", new String[]{String.valueOf(tv.getId())});
+        return (row > 0);
+    }
+    public  boolean insert(ThanhVien tv) {
+        SQLiteDatabase db = dbhelper.getWritableDatabase();
+        ContentValues values = new ContentValues();
+        values.put("MaTV", tv.getMaTV());
+        values.put("HoTen",tv.getHoTen());
+        values.put("MatKhau", tv.getMatKhau());
+        values.put("SDT",tv.getSDT());
+        values.put("Email",tv.getEmail());
+        values.put("DChi",tv.getDChi());
+        values.put("Loai",tv.getLoai());
+        long row = db.insert("ThanhVien", null, values);
         return (row > 0);
     }
 }

@@ -1,5 +1,6 @@
 package giangvhph33056.fpoly.duan1.fragment;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -22,6 +23,8 @@ import giangvhph33056.fpoly.duan1.DAO.ThanhVienDAO;
 import giangvhph33056.fpoly.duan1.Model.SanPham;
 import giangvhph33056.fpoly.duan1.Model.ThanhVien;
 import giangvhph33056.fpoly.duan1.R;
+import giangvhph33056.fpoly.duan1.sanphamchitiet;
+
 public class Fragment_san_pham extends Fragment {
     SanPhamDAO spDAO;
     Adapter_SanPham adaptersp;
@@ -43,6 +46,15 @@ public class Fragment_san_pham extends Fragment {
         rcv_sanpham.addItemDecoration(new DividerItemDecoration(getContext(), LinearLayoutManager.VERTICAL));
         adaptersp = new Adapter_SanPham(getContext(), list);
         rcv_sanpham.setAdapter(adaptersp);
+        adaptersp.setClick(new Adapter_SanPham.click() {
+            @Override
+            public void click(int pos) {
+                SanPham hienthi = list.get(pos);
+                Intent intent = new Intent(getContext(), sanphamchitiet.class);
+                intent.putExtra("sanphamct",hienthi);
+                startActivity(intent);
+            }
+        });
         return view;
     }
 }

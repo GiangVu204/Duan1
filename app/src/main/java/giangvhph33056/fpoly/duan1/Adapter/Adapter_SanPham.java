@@ -22,6 +22,13 @@ public class Adapter_SanPham extends RecyclerView.Adapter<Adapter_SanPham.ViewHo
     private Context context;
     private ArrayList<SanPham> list;
     SanPhamDAO dao;
+    public interface click{
+        void click (int pos);
+    }
+    private click click;
+    public void setClick(click click1){
+        click = click1;
+    }
     public Adapter_SanPham(Context context, ArrayList<SanPham> list) {
         this.context = context;
         this.list = list;
@@ -45,6 +52,14 @@ public class Adapter_SanPham extends RecyclerView.Adapter<Adapter_SanPham.ViewHo
         holder.txtmakichthuoc_sp.setText("SIZE "+list.get(position).getSize());
         holder.txtTenthuonghieu_sp.setText(list.get(position).getTenthuonghieu());
         holder.txtloaisp_sp.setText(list.get(position).getTenlsp());
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(click != null){
+                    click.click(holder.getAdapterPosition());
+                }
+            }
+        });
     }
 
     @Override

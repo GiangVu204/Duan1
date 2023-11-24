@@ -12,6 +12,16 @@ public class ThanhVien {
 
     public ThanhVien() {
     }
+/// add
+    public ThanhVien(String maTV, String hoTen, String matKhau, int SDT, String email, String DChi, String loai) {
+        MaTV = maTV;
+        HoTen = hoTen;
+        MatKhau = matKhau;
+        this.SDT = SDT;
+        Email = email;
+        this.DChi = DChi;
+        this.loai = loai;
+    }
 
     public ThanhVien(int id, String maTV, String hoTen, String matKhau, int SDT, String email, String DChi, String loai) {
         this.id = id;

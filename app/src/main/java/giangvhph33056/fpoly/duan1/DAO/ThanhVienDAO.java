@@ -110,4 +110,16 @@ public class ThanhVienDAO {
         long row = db.insert("ThanhVien", null, values);
         return (row > 0);
     }
+
+    //forgot
+    public String ForgotPassword(String email){
+        SQLiteDatabase sqLiteDatabase = dbhelper.getReadableDatabase();
+        Cursor cursor = sqLiteDatabase.rawQuery("SELECT MatKhau FROM ThanhVien WHERE Email = ?", new String[]{email});
+        if (cursor.getCount() > 0){
+            cursor.moveToFirst();
+            return  cursor.getString(0);
+        }else {
+            return "Thông tin sai";
+        }
+    }
 }

@@ -5,17 +5,30 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.DividerItemDecoration;
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import java.util.ArrayList;
+
+import giangvhph33056.fpoly.duan1.Adapter.Adapter_SanPham;
+import giangvhph33056.fpoly.duan1.Adapter.Adapter_trangchu;
+import giangvhph33056.fpoly.duan1.DAO.SanPhamDAO;
+import giangvhph33056.fpoly.duan1.Model.SanPham;
 import giangvhph33056.fpoly.duan1.R;
 
 public class Fragment_TrangChu extends Fragment {
     TextView txttennguoidung_tt;
-
+    RecyclerView rcvsanpham_tt;
+    SanPhamDAO spDAO;
+    Adapter_trangchu adaptersptt;
+    private ArrayList<SanPham> list = new ArrayList<>();
     public Fragment_TrangChu() {
     }
 
@@ -27,6 +40,15 @@ public class Fragment_TrangChu extends Fragment {
         SharedPreferences sharedPreferences = getActivity().getSharedPreferences("DANGNHAPTV", Context.MODE_PRIVATE);
         String loai = sharedPreferences.getString("HoTen","");
         txttennguoidung_tt.setText(loai);
+        ///
+
+        rcvsanpham_tt =view.findViewById(R.id.rcvsanpham_tt);
+        spDAO= new SanPhamDAO(getContext());
+        list = spDAO.selectAllSanPham();
+        GridLayoutManager layoutManager = new GridLayoutManager(getContext(), 2);
+        rcvsanpham_tt.setLayoutManager(layoutManager);
+        adaptersptt = new Adapter_trangchu(getContext(), list);
+        rcvsanpham_tt.setAdapter(adaptersptt);
 
         return view;
     }

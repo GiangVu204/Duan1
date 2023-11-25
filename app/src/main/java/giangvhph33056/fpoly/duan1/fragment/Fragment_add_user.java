@@ -49,7 +49,7 @@ public class Fragment_add_user extends Fragment {
                     String email = edtEmail_tnd.getText().toString();
                     int sdt = Integer.parseInt(edtsdt_tnd.getText().toString());
                     String dc = "Hà Nội";
-                    String loai ="Khách Hàng";
+                    String loai ="Nhân Viên";
                     ThanhVien kt = new ThanhVien(ma,hten,pass,sdt,email,dc,loai);
                     if(tvDAO.insert(kt)){
                         Toast.makeText(getContext(), "DĂNG KÝ THÀNH CÔNG", Toast.LENGTH_SHORT).show();

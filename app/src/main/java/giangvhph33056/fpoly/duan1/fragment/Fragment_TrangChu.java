@@ -25,6 +25,7 @@ import giangvhph33056.fpoly.duan1.DAO.SanPhamDAO;
 import giangvhph33056.fpoly.duan1.Model.SanPham;
 import giangvhph33056.fpoly.duan1.R;
 import giangvhph33056.fpoly.duan1.TimKiem;
+import giangvhph33056.fpoly.duan1.sanphamchitiet;
 
 public class Fragment_TrangChu extends Fragment {
     TextView txttennguoidung_tt;
@@ -53,6 +54,15 @@ public class Fragment_TrangChu extends Fragment {
         rcvsanpham_tt.setLayoutManager(layoutManager);
         adaptersptt = new Adapter_trangchu(getContext(), list);
         rcvsanpham_tt.setAdapter(adaptersptt);
+        adaptersptt.setClick(new Adapter_SanPham.click() {
+            @Override
+            public void click(int pos) {
+                SanPham hienthi = list.get(pos);
+                Intent intent = new Intent(getContext(), sanphamchitiet.class);
+                intent.putExtra("sanphamct",hienthi);
+                startActivity(intent);
+            }
+        });
         edttimkiem.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

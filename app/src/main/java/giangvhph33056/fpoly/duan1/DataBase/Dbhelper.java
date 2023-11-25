@@ -6,7 +6,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 
 public class Dbhelper extends SQLiteOpenHelper {
     private static final String DB_NAME = "THOIDAISHOP";
-    private static final int DB_VERSION= 2;
+    private static final int DB_VERSION= 22;
 
     public Dbhelper(Context context) {
         super(context, DB_NAME,null , DB_VERSION);
@@ -15,15 +15,18 @@ public class Dbhelper extends SQLiteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase db) {
         db.execSQL("CREATE TABLE ThanhVien(\n" +
-                "    MaTV    TEXT PRIMARY KEY,\n" +
+                "    id    INTEGER PRIMARY KEY AUTOINCREMENT,\n" +
+                "    MaTV    TEXT NOT NULL,\n" +
                 "    HoTen   TEXT NOT NULL,\n" +
                 "    MatKhau TEXT NOT NULL,\n" +
                 "    SDT     INTEGER NOT NULL,\n" +
                 "    Email TEXT NOT NULL,\n" +
-                "    DChi TEXT NOT NULL\n" +
+                "    DChi TEXT NOT NULL,\n" +
+                "    Loai TEXT NOT NULL\n" +
                 ");\n");
         db.execSQL("CREATE TABLE ThuongHieu(\n" +
                 "    MaTH    INTEGER PRIMARY KEY  AUTOINCREMENT,\n" +
+                "    Anh     TEXT NOT NULL,\n" +
                 "    SDT     INTEGER NOT NULL,\n" +
                 "    TenTH   TEXT NOT NULL\n" +
                 ");\n");
@@ -33,8 +36,8 @@ public class Dbhelper extends SQLiteOpenHelper {
                 ");\n");
         db.execSQL("CREATE TABLE KichThuoc(\n" +
                 "    MaKT    INTEGER PRIMARY KEY  AUTOINCREMENT,\n" +
-                "    KichThuoc   TEXT NOT NULL,\n" +
-                "    SoLuong TEXT NOT NULL\n" +
+                "    Size   INTEGER NOT NULL,\n" +
+                "    SoLuong INTEGER NOT NULL\n" +
                 ");\n");
         db.execSQL("CREATE TABLE SanPham(\n" +
                 "    MaSP    INTEGER PRIMARY KEY  AUTOINCREMENT,\n" +
@@ -51,12 +54,16 @@ public class Dbhelper extends SQLiteOpenHelper {
                 "    TrangThai     INTEGER NOT NULL,\n" +
                 "    SoLuong     INTEGER NOT NULL,\n" +
                 "    Gia     INTEGER NOT NULL,\n" +
-                "    MaTV    TEXT REFERENCES ThanhVien (MaTV), \n" +
+                "    id    INTEGER REFERENCES ThanhVien (id), \n" +
                 "    MaSP    INTEGER REFERENCES SanPham (MaSP) \n" +
                 ");\n");
         //Thủ Thư
-        db.execSQL("INSERT INTO  ThanhVien VALUES('admin','Lê Hoàng Tú','admin',0982322079,'lehoangtu56@gmail.com','hà nội')");
-
+        db.execSQL("INSERT INTO  ThanhVien VALUES(1,'admin','Lê Hoàng Tú','admin',0982322079,'lehoangtu56@gmail.com','hà nội','ADMIN'),(2,'nhanvien','Nguyễn Văn A','nhanvien',0982322079,'Nhanvien56@gmail.com','hà nội','Nhân Viên'),(3,'khanghang','Sùng A Pháo','khachhang',0982322079,'Khachhang56@gmail.com','hà nội','Khách Hàng')");
+        db.execSQL("INSERT INTO  ThuongHieu VALUES(1, 'anh1', 0982322079, 'Nike'), (2, 'anh2', 0868761723, 'Adidas'), (3, 'anh3', 0734423235, 'Nike')");
+        db.execSQL("INSERT INTO  LoaiSanPham VALUES(1, 'Nike 1'), (2, 'Adidas 1'), (3, 'Nike 2')");
+        db.execSQL("INSERT INTO  KichThuoc VALUES(1, 39, 3), (2, 40, 6), (3, 41, 8)");
+        db.execSQL("INSERT INTO  SanPham VALUES(1,'Giày Thể Thao', 3000,3,1,1,1),(2,'Giày Thể Thao', 3000,3,1,1,1),(7,'Giày Thể Thao', 3000,3,1,1,1),(3,'Giày Thể Thao', 3000,3,1,1,1),(4,'Giày Thể Thao', 3000,3,1,1,1),(5,'Giày Thể Thao', 3000,3,1,1,1),(6,'Giày Thể Thao', 3000,3,1,1,1)");
+        db.execSQL("INSERT INTO  HoaDon VALUES(1,'20/04/2004', 1, 13, 9000, 1, 1)");
     }
 
 

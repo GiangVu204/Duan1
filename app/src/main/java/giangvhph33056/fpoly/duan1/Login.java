@@ -1,5 +1,6 @@
 package giangvhph33056.fpoly.duan1;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatButton;
 
@@ -7,25 +8,33 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.material.textfield.TextInputEditText;
 
 import giangvhph33056.fpoly.duan1.DAO.ThanhVienDAO;
 import giangvhph33056.fpoly.duan1.Model.ThanhVien;
+import giangvhph33056.fpoly.duan1.util.SendMail;
 
 public class Login extends AppCompatActivity {
     TextInputEditText edtUser,edtPass;
     AppCompatButton btnLOGIN;
     ThanhVienDAO tvdao;
+    TextView txtDangki_dn, txtQuenMk;
+    private SendMail sendMail;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+        //anh xa
+        txtDangki_dn = findViewById(R.id.txtDangki_dn);
+        txtQuenMk = findViewById(R.id.txtQuenMk);
         edtUser = findViewById(R.id.edtUser);
         edtPass = findViewById(R.id.edtPass);
         btnLOGIN = findViewById(R.id.btnLOGIN);
@@ -40,6 +49,16 @@ public class Login extends AppCompatActivity {
         }
         //xử lí nút đăng nhập
         tvdao = new ThanhVienDAO(this);
+        sendMail = new SendMail();
+        txtDangki_dn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(Login.this,DangKi.class);
+                startActivity(intent);
+                Toast.makeText(Login.this, "Đăng ký", Toast.LENGTH_SHORT).show();
+
+            }
+        });
         btnLOGIN.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -63,7 +82,52 @@ public class Login extends AppCompatActivity {
                 }
             }
         });
+
+        txtQuenMk.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                showDialogForgot();
+            }
+        });
     }
 
+    private void showDialogForgot(){
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        LayoutInflater inflater = getLayoutInflater();
+        View view = inflater.inflate(R.layout.dialog_forgot, null);
+        builder.setView(view);
+
+
+        AlertDialog alertDialog = builder.create();
+        alertDialog.setCancelable(false);
+        alertDialog.show();
+
+        //Ánh xạ
+        EditText edtEmail = view.findViewById(R.id.edtEmail);
+        Button btnSend = view.findViewById(R.id.btnSend);
+        Button btnCancel = view.findViewById(R.id.btnCancel);
+
+        btnCancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                alertDialog.dismiss();
+            }
+        });
+
+        btnSend.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                String email = edtEmail.getText().toString();
+                String matkhau = tvdao.ForgotPassword(email);
+//                Toast.makeText(Login.this, matkhau, Toast.LENGTH_SHORT).show();
+                if (matkhau.equals("")){
+                    Toast.makeText(Login.this, "Không tìm thấy tài khoản", Toast.LENGTH_SHORT).show();
+                }else {
+                    sendMail.Send(Login.this, email, "Lấy lại mật khẩu", "Mật khẩu của bạn là: " + matkhau);
+                    alertDialog.dismiss();
+                }
+            }
+        });
+    }
 
 }

@@ -1,23 +1,55 @@
 package giangvhph33056.fpoly.duan1.Model;
 
 public class ThanhVien {
+    private  int id;
     private String MaTV;
     private String HoTen;
     private String MatKhau;
     private int SDT;
     private String Email;
     private String DChi;
+    private String loai;
 
     public ThanhVien() {
     }
-
-    public ThanhVien(String maTV, String hoTen, String matKhau, int SDT, String email, String DChi) {
+/// add
+    ///
+    public ThanhVien(String maTV, String hoTen, String matKhau, int SDT, String email, String DChi, String loai) {
         MaTV = maTV;
         HoTen = hoTen;
         MatKhau = matKhau;
         this.SDT = SDT;
         Email = email;
         this.DChi = DChi;
+        this.loai = loai;
+    }
+
+    public ThanhVien(int id, String maTV, String hoTen, String matKhau, int SDT, String email, String DChi, String loai) {
+        this.id = id;
+        MaTV = maTV;
+        HoTen = hoTen;
+        MatKhau = matKhau;
+        this.SDT = SDT;
+        Email = email;
+        this.DChi = DChi;
+        this.loai = loai;
+    }
+
+    // hien thi
+    public ThanhVien(String maTV, String hoTen, int SDT, String email, String DChi) {
+        MaTV = maTV;
+        HoTen = hoTen;
+        this.SDT = SDT;
+        Email = email;
+        this.DChi = DChi;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public String getMaTV() {
@@ -66,5 +98,13 @@ public class ThanhVien {
 
     public void setDChi(String DChi) {
         this.DChi = DChi;
+    }
+
+    public String getLoai() {
+        return loai;
+    }
+
+    public void setLoai(String loai) {
+        this.loai = loai;
     }
 }

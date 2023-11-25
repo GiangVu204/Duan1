@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="UPDATE"
+        android:textStyle="bold"
+        android:textSize="30dp"
+        android:layout_gravity="center"
+        android:layout_marginTop="20dp"/>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="10dp"
+
+        android:layout_marginTop="10dp"
+        android:id="@+id/in_size"
+        >
+        <com.google.android.material.textfield.TextInputEditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:drawablePadding="10dp"
+            android:hint="Nhập size giày"
+            android:textSize="22sp"
+
+            android:textColor="@color/black"
+            android:id="@+id/edtsize_kt"/>
+    </com.google.android.material.textfield.TextInputLayout>
+    <com.google.android.material.textfield.TextInputLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="10dp"
+
+        android:layout_marginTop="10dp"
+        android:id="@+id/in_soluong"
+        >
+        <com.google.android.material.textfield.TextInputEditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:drawablePadding="10dp"
+            android:hint="Nhập Số lượng"
+            android:textSize="22sp"
+
+            android:textColor="@color/black"
+            android:id="@+id/edtSoluong_kt"/>
+    </com.google.android.material.textfield.TextInputLayout>
+
+
+</LinearLayout>

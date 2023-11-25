@@ -47,7 +47,7 @@ public class LoaiSanPhamDAO {
 
     public int delete(int MaLSP){
         SQLiteDatabase db = dbhelper.getWritableDatabase();
-        Cursor cursor = db.rawQuery("SELECT * FROM LoaiSanPham WHERE MaLSP = ?", new String[]{String.valueOf(MaLSP)});
+        Cursor cursor = db.rawQuery("SELECT * FROM SanPham WHERE MaLSP = ?", new String[]{String.valueOf(MaLSP)});
         if (cursor.getCount() != 0){
             return -1;
         }

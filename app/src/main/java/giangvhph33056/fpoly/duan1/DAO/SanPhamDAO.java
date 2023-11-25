@@ -2,6 +2,7 @@ package giangvhph33056.fpoly.duan1.DAO;
 
 import static androidx.constraintlayout.helper.widget.MotionEffect.TAG;
 
+import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
@@ -45,4 +46,19 @@ public class SanPhamDAO {
         }
         return list;
     }
+
+    public int delete(int MaLSP){
+        SQLiteDatabase db = dbhelper.getWritableDatabase();
+        Cursor cursor = db.rawQuery("SELECT * FROM HoaDon WHERE MaSP = ?", new String[]{String.valueOf(MaLSP)});
+        if (cursor.getCount() != 0){
+            return -1;
+        }
+        long check = db.delete("SanPham", "MaSP = ?", new String[]{String.valueOf(MaLSP)});
+        if (check == -1){
+            return 0;
+        }else {
+            return 1;
+        }
+    }
+
 }

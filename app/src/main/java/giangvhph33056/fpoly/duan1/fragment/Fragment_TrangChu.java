@@ -1,6 +1,7 @@
 package giangvhph33056.fpoly.duan1.fragment;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 
@@ -13,6 +14,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
 import android.widget.TextView;
 
 import java.util.ArrayList;
@@ -22,6 +24,7 @@ import giangvhph33056.fpoly.duan1.Adapter.Adapter_trangchu;
 import giangvhph33056.fpoly.duan1.DAO.SanPhamDAO;
 import giangvhph33056.fpoly.duan1.Model.SanPham;
 import giangvhph33056.fpoly.duan1.R;
+import giangvhph33056.fpoly.duan1.TimKiem;
 
 public class Fragment_TrangChu extends Fragment {
     TextView txttennguoidung_tt;
@@ -37,6 +40,7 @@ public class Fragment_TrangChu extends Fragment {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment__trang_chu, container, false);
         txttennguoidung_tt = view.findViewById(R.id.txttennguoidung_tt);
+        EditText edttimkiem = view.findViewById(R.id.edttimkiem);
         SharedPreferences sharedPreferences = getActivity().getSharedPreferences("DANGNHAPTV", Context.MODE_PRIVATE);
         String loai = sharedPreferences.getString("HoTen","");
         txttennguoidung_tt.setText(loai);
@@ -49,7 +53,13 @@ public class Fragment_TrangChu extends Fragment {
         rcvsanpham_tt.setLayoutManager(layoutManager);
         adaptersptt = new Adapter_trangchu(getContext(), list);
         rcvsanpham_tt.setAdapter(adaptersptt);
-
+        edttimkiem.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getActivity(),  TimKiem.class);
+                startActivity(intent);
+            }
+        });
         return view;
     }
 }

@@ -60,5 +60,17 @@ public class SanPhamDAO {
             return 1;
         }
     }
-
+    public  boolean insert(SanPham pm) {
+        SQLiteDatabase db = dbhelper.getWritableDatabase();
+        ContentValues values = new ContentValues();
+//        values.put("MaSP", pm.getMaLSP());
+        values.put("TenSP", pm.getTenSP());
+        values.put("Gia",pm.getGia());
+        values.put("SoLuong", pm.getSoLuong());
+        values.put("MaKT", pm.getMaKT());
+        values.put("MaTH", pm.getMaTH());
+        values.put("MaLSP", pm.getMaLSP());
+        long row = db.insert("SanPham", null, values);
+        return (row > 0);
+    }
 }

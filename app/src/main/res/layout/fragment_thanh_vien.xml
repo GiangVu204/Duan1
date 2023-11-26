@@ -17,13 +17,4 @@
             android:id="@+id/rcv_thanhvien"/>
     </LinearLayout>
 
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/fltadd"
-        android:src="@drawable/add_35"
-        android:layout_gravity="bottom|end"
-        android:layout_marginRight="20dp"
-        android:layout_marginBottom="20dp"/>
-
 </FrameLayout>

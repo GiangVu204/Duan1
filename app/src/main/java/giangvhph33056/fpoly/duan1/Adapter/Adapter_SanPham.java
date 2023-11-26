@@ -1,11 +1,15 @@
 package giangvhph33056.fpoly.duan1.Adapter;
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -45,13 +49,43 @@ public class Adapter_SanPham extends RecyclerView.Adapter<Adapter_SanPham.ViewHo
 
     @Override
     public void onBindViewHolder(@NonNull Adapter_SanPham.ViewHolder holder, int position) {
-        holder.txtMasp_sp.setText(String.valueOf(list.get(position).getMaSP()));
         holder.txttensamphan_sp.setText(list.get(position).getTenSP());
         holder.txtgiasp_sp.setText(String.valueOf(list.get(position).getGia()));
-        holder.txtsoluong_sp.setText(String.valueOf(list.get(position).getSoLuong()));
-        holder.txtmakichthuoc_sp.setText("SIZE "+list.get(position).getSize());
         holder.txtTenthuonghieu_sp.setText(list.get(position).getTenthuonghieu());
-        holder.txtloaisp_sp.setText(list.get(position).getTenlsp());
+        holder.imgDelete_sp.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                AlertDialog.Builder builder = new AlertDialog.Builder(context);
+                builder.setTitle("CẢNH BÁO");// set tieu de
+                builder.setIcon(R.drawable.baseline_warning_amber_24);
+                builder.setMessage("BẠN CÓ CHẮC CHẮN MUỐN XÓA SẢN PHẨM NÀY KHÔNG");
+                /// tạo nut buttun yes , xuli su kien cho nut
+                builder.setPositiveButton("CÓ", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        int check =dao.delete(list.get(holder.getAdapterPosition()).getMaSP());
+                        if (check ==1){
+                            list.clear();
+                            list.addAll(dao.selectAllSanPham());
+                            notifyDataSetChanged();
+                            Toast.makeText(context, "Xóa Thành Công", Toast.LENGTH_SHORT).show();
+                        }else if (check == -1) {
+                            Toast.makeText(context, "Không thể xóa (Sản phẩm) này vì đã có (Hóa đơn) thuộc thể loại này", Toast.LENGTH_SHORT).show();
+                        }else {
+                            Toast.makeText(context, "Xóa Thất Bại", Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                });
+                builder.setNegativeButton("KHÔNG", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        Toast.makeText(context, "XÓA THẤT BẠI", Toast.LENGTH_SHORT).show();
+                    }
+                }) ;
+                AlertDialog di = builder.create();
+                di.show();
+            }
+        });
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -68,16 +102,14 @@ public class Adapter_SanPham extends RecyclerView.Adapter<Adapter_SanPham.ViewHo
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
-        TextView txtMasp_sp,txttensamphan_sp,txtgiasp_sp,txtsoluong_sp,txtmakichthuoc_sp,txtTenthuonghieu_sp,txtloaisp_sp;
+        TextView txttensamphan_sp,txtgiasp_sp,txtTenthuonghieu_sp;
+        ImageView imgDelete_sp;
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
-            txtMasp_sp = itemView.findViewById(R.id.txtMasp_sp);
+            imgDelete_sp = itemView.findViewById(R.id.imgDelete_sp);
             txttensamphan_sp = itemView.findViewById(R.id.txttensamphan_sp);
             txtgiasp_sp = itemView.findViewById(R.id.txtgiasp_sp);
-            txtsoluong_sp = itemView.findViewById(R.id.txtsoluong_sp);
-            txtmakichthuoc_sp = itemView.findViewById(R.id.txtmakichthuoc_sp);
             txtTenthuonghieu_sp = itemView.findViewById(R.id.txtTenthuonghieu_sp);
-            txtloaisp_sp = itemView.findViewById(R.id.txtloaisp_sp);
 
         }
     }

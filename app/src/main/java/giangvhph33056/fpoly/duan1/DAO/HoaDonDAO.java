@@ -24,7 +24,7 @@ public class HoaDonDAO {
         try {
             Cursor cursor = db.rawQuery("SELECT hd.MaHD ,hd.NgayDH, hd.TrangThai,hd.SoLuong,hd.Gia,hd.id, tv.MaTV, tv.HoTen,tv.MatKhau,tv.SDT,tv.Email,tv.DChi,tv.Loai,hd.MaSP, sp.TenSP, sp.Gia,sp.SoLuong\n" +
                     "FROM HoaDon hd, ThanhVien tv, SanPham sp\n" +
-                    "Where hd.id = tv.id and hd.MaSP = hd.MaSP",null);
+                    "Where hd.id = tv.id and hd.MaSP = sp.MaSP",null);
             if(cursor.getCount() >0 ){
                 cursor.moveToFirst();
                 while (!cursor.isAfterLast()){
@@ -45,5 +45,10 @@ public class HoaDonDAO {
             Log.i(TAG,"Lỗi",e);
         }
         return list;
+    }
+    public boolean delete(int mapm) {
+        SQLiteDatabase db = dbhelper.getWritableDatabase();
+        long row = db.delete("HoaDon", "MaHD=?", new String[]{String.valueOf(mapm)});
+        return (row > 0);
     }
 }

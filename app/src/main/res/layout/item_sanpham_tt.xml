@@ -19,14 +19,16 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             app:cardCornerRadius="10dp"
+            android:layout_gravity="center"
             >
             <ImageView
-                android:layout_width="100dp"
+                android:layout_width="130dp"
                 android:layout_height="100dp"
                 android:src="@drawable/giaysptt"
                 android:layout_marginLeft="2dp"
                 android:layout_marginRight="5dp"
-                android:id="@+id/ImgAnhth"/>
+                android:id="@+id/ImgAnhth"
+                />
         </androidx.cardview.widget.CardView>
 
 
@@ -65,7 +67,7 @@
                     android:padding="10dp"
                     android:text="Có giá chỉ: "/>
                 <TextView
-                    android:layout_width="wrap_content"
+                    android:layout_width="100dp"
                     android:layout_height="wrap_content"
                     android:text="ABC"
                     android:textColor="@color/black"

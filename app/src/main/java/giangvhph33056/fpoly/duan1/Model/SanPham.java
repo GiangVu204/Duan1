@@ -148,19 +148,19 @@ public class SanPham implements Parcelable {
         TenSP = in.readString();
         Gia = in.readInt();
         SoLuong = in.readInt();
-        size = in.readString();
-        tenthuonghieu = in.readString();
-        tenlsp = in.readString();
+        this.size = in.readString();
+        this.tenthuonghieu = in.readString();
+        this.tenlsp = in.readString();
     }
     @Override
     public void writeToParcel(@NonNull Parcel parcel, int i) {
-            parcel.writeInt(MaSP);
+        parcel.writeInt(MaSP);
         parcel.writeString(TenSP);
         parcel.writeInt(Gia);
         parcel.writeInt(SoLuong);
-        parcel.writeString(size);
-        parcel.writeString(tenthuonghieu);
-        parcel.writeString(tenlsp);
+        parcel.writeString( this.size);
+        parcel.writeString(this.tenthuonghieu);
+        parcel.writeString(this.tenlsp);
 
     }
 }

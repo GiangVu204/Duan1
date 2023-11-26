@@ -20,6 +20,13 @@ public class Adapter_trangchu extends RecyclerView.Adapter<Adapter_trangchu.View
     private Context context;
     private ArrayList<SanPham> list;
     SanPhamDAO dao;
+    public interface click{
+        void click (int pos);
+    }
+    private Adapter_SanPham.click click;
+    public void setClick(Adapter_SanPham.click click1){
+        click = click1;
+    }
     public Adapter_trangchu(Context context, ArrayList<SanPham> list) {
         this.context = context;
         this.list = list;
@@ -37,6 +44,14 @@ public class Adapter_trangchu extends RecyclerView.Adapter<Adapter_trangchu.View
     public void onBindViewHolder(@NonNull Adapter_trangchu.ViewHolder holder, int position) {
         holder.txttensp_tt.setText(list.get(position).getTenSP());
         holder.txtgiasp_tt.setText(String.valueOf(list.get(position).getGia()));
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(click != null){
+                    click.click(holder.getAdapterPosition());
+                }
+            }
+        });
 
     }
 

@@ -65,4 +65,10 @@ public class LoaiSanPhamDAO {
         long row = db.update("LoaiSanPham", values, "MaLSP=?", new String[]{String.valueOf(lsp.getMaLSP())});
         return (row > 0);
     }
+
+    public boolean them(String lsp){
+        ContentValues values = new ContentValues();
+        values.put("TenLSP",lsp);
+        return dbhelper.getWritableDatabase().insert("LoaiSanPham", null, values)>0;
+    }
 }

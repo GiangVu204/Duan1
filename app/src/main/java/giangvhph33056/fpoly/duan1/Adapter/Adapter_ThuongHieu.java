@@ -1,6 +1,5 @@
 package giangvhph33056.fpoly.duan1.Adapter;
 
-import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
@@ -35,9 +34,8 @@ import giangvhph33056.fpoly.duan1.R;
 public class Adapter_ThuongHieu extends RecyclerView.Adapter<Adapter_ThuongHieu.ViewHolder> {
     private Context context;
     private ArrayList<ThuongHieu> list;
-    ThuongHieuDAO dao;
+    private ThuongHieuDAO dao;
     private int selectedPosition = -1;
-    private Dialog dialog;
     private Uri selectedImageUri;
 
     public Adapter_ThuongHieu(Context context, ArrayList<ThuongHieu> list) {
@@ -45,7 +43,6 @@ public class Adapter_ThuongHieu extends RecyclerView.Adapter<Adapter_ThuongHieu.
         this.list = list;
         dao = new ThuongHieuDAO(context);
     }
-
 
     @NonNull
     @Override
@@ -77,6 +74,7 @@ public class Adapter_ThuongHieu extends RecyclerView.Adapter<Adapter_ThuongHieu.
             public void onClick(View view) {
                 AlertDialog.Builder builder = new AlertDialog.Builder(context);
                 builder.setTitle("Warning!!!");
+                builder.setIcon(R.drawable.baseline_warning_amber_24);
                 builder.setMessage("Bạn có chắc muốn xóa thương hiệu này chứ!");
 
                 builder.setPositiveButton("Delete", new DialogInterface.OnClickListener() {
@@ -120,7 +118,6 @@ public class Adapter_ThuongHieu extends RecyclerView.Adapter<Adapter_ThuongHieu.
         return list.size();
     }
 
-
     public class ViewHolder extends RecyclerView.ViewHolder {
         TextView MaTH, TenTH, SDT;
         ImageView ImgAnh, TH_Delete;
@@ -131,11 +128,9 @@ public class Adapter_ThuongHieu extends RecyclerView.Adapter<Adapter_ThuongHieu.
             SDT = itemView.findViewById(R.id.SDT);
             ImgAnh = itemView.findViewById(R.id.ImgAnhth);
             TH_Delete = itemView.findViewById(R.id.TH_Delete);
-
         }
     }
 
-    @SuppressLint("MissingInflatedId")
     private void dialogUpdateTH(ThuongHieu th) {
         AlertDialog.Builder builder = new AlertDialog.Builder(context);
         LayoutInflater inflater = ((Activity) context).getLayoutInflater();
@@ -152,6 +147,8 @@ public class Adapter_ThuongHieu extends RecyclerView.Adapter<Adapter_ThuongHieu.
         Button UpdateTH = view.findViewById(R.id.TH_update);
         Button CancelTH = view.findViewById(R.id.TH_Cancelupdtae);
 
+        // Load ảnh hiện tại vào ImageView trong dialog
+        Glide.with(context).load(Uri.parse(th.getAnh())).into(ImgAnhh);
         ed_SDT.setText(th.getSDT());
         ed_TenTH.setText(th.getTenTH());
 
@@ -161,7 +158,6 @@ public class Adapter_ThuongHieu extends RecyclerView.Adapter<Adapter_ThuongHieu.
                 openGallery();
             }
         });
-
 
         ed_SDT.addTextChangedListener(new TextWatcher() {
             @Override
@@ -204,9 +200,8 @@ public class Adapter_ThuongHieu extends RecyclerView.Adapter<Adapter_ThuongHieu.
 
             }
         });
-
-
         if (selectedImageUri != null) {
+            // Hiển thị ảnh đã chọn trong ImageView
             Glide.with(context).load(selectedImageUri).into(ImgAnhh);
         }
         UpdateTH.setOnClickListener(new View.OnClickListener() {
@@ -214,38 +209,34 @@ public class Adapter_ThuongHieu extends RecyclerView.Adapter<Adapter_ThuongHieu.
             public void onClick(View view) {
                 th.setSDT(ed_SDT.getText().toString());
                 String SDT = ed_SDT.getText().toString();
-                //
                 th.setTenTH(ed_TenTH.getText().toString());
                 String TenTH = ed_TenTH.getText().toString();
 
                 if (selectedImageUri != null) {
                     th.setAnh(selectedImageUri.toString());
+                }
 
-                    if (SDT.isEmpty() || TenTH.isEmpty()) {
-                        // Display error messages if necessary fields are empty
-                        if (SDT.isEmpty()) {
-                            in_SDT.setError("Vui lòng không để trống Số điện thoại!");
-                        } else {
-                            in_SDT.setError(null);
-                        }
-                        if (TenTH.isEmpty()) {
-                            in_TenTH.setError("Vui lòng không để trống tên thương hiệu!");
-                        } else {
-                            in_TenTH.setError(null);
-                        }
+                if (SDT.isEmpty() || TenTH.isEmpty()) {
+                    if (SDT.isEmpty()) {
+                        in_SDT.setError("Vui lòng không để trống Số điện thoại!");
                     } else {
-                        if (dao.update(th)) {
-                            list.clear();
-                            list.addAll(dao.getDSThuongHieu());
-                            notifyDataSetChanged();
-                            dialog.dismiss();
-                            Toast.makeText(context, "Update thành công!", Toast.LENGTH_SHORT).show();
-                        } else {
-                            Toast.makeText(context, "Update thất bại!!!", Toast.LENGTH_SHORT).show();
-                        }
+                        in_SDT.setError(null);
                     }
-                }else {
-                    Toast.makeText(context, "Vui lòng chọn ảnh thương hiệu!", Toast.LENGTH_SHORT).show();
+                    if (TenTH.isEmpty()) {
+                        in_TenTH.setError("Vui lòng không để trống tên thương hiệu!");
+                    } else {
+                        in_TenTH.setError(null);
+                    }
+                } else {
+                    if (dao.update(th)) {
+                        list.clear();
+                        list.addAll(dao.getDSThuongHieu());
+                        notifyDataSetChanged();
+                        dialog.dismiss();
+                        Toast.makeText(context, "Update thành công!", Toast.LENGTH_SHORT).show();
+                    } else {
+                        Toast.makeText(context, "Update thất bại!!!", Toast.LENGTH_SHORT).show();
+                    }
                 }
             }
         });
@@ -253,8 +244,7 @@ public class Adapter_ThuongHieu extends RecyclerView.Adapter<Adapter_ThuongHieu.
         CancelTH.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                ed_SDT.setText("");
-                ed_TenTH.setText("");
+                dialog.dismiss();
             }
         });
     }
@@ -262,5 +252,11 @@ public class Adapter_ThuongHieu extends RecyclerView.Adapter<Adapter_ThuongHieu.
     private void openGallery() {
         Intent intent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
         ((Activity) context).startActivityForResult(intent, 1);
+    }
+
+    // Thêm phương thức để cập nhật ảnh trong Adapter
+    public void setCurrentImageUri(Uri uri) {
+        selectedImageUri = uri;
+        notifyDataSetChanged();
     }
 }

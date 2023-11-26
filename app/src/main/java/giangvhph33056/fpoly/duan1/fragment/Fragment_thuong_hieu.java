@@ -8,6 +8,7 @@ import android.net.Uri;
 import android.os.Bundle;
 
 import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -40,7 +41,8 @@ public class Fragment_thuong_hieu extends Fragment {
     ThuongHieuDAO THdao;
 
     ImageView ImgAnhh;
-    Uri selectedImageUri;
+    private Uri selectedImageUri;
+    Adapter_ThuongHieu adapter;
     public Fragment_thuong_hieu() {
     }
 
@@ -52,6 +54,10 @@ public class Fragment_thuong_hieu extends Fragment {
         rcvTH = view.findViewById(R.id.rcvThuonghieu);
         fltAdd = view.findViewById(R.id.fltadd);
         THdao = new ThuongHieuDAO(getContext());
+        // Khởi tạo và gán giá trị cho Adapter
+        adapter = new Adapter_ThuongHieu(getContext(), new ArrayList<>());
+        rcvTH.setAdapter(adapter);
+
         loadData();
         fltAdd.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -176,11 +182,11 @@ public class Fragment_thuong_hieu extends Fragment {
 
     }
 
-    private void loadData(){
+    private void loadData() {
         LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
         rcvTH.setLayoutManager(layoutManager);
         ArrayList<ThuongHieu> list = THdao.getDSThuongHieu();
-        Adapter_ThuongHieu adapter = new Adapter_ThuongHieu(getContext(), list);
+        adapter = new Adapter_ThuongHieu(getContext(), list);
         rcvTH.setAdapter(adapter);
     }
 
@@ -200,6 +206,28 @@ public class Fragment_thuong_hieu extends Fragment {
             selectedImageUri = data.getData();
             // Hiển thị ảnh trong ImageView (hoặc thực hiện các xử lý khác tùy ý)
             ImgAnhh.setImageURI(selectedImageUri);
+            // Gọi phương thức để cập nhật ảnh trong Adapter_ThuongHieu
+            adapter.setCurrentImageUri(selectedImageUri);
         }
     }
+//    // Trong Activity hoặc Fragment chứa RecyclerView
+//    public class YourActivityOrFragment extends AppCompatActivity {
+//
+//        // ...
+//
+//        // Gọi khi bạn chọn ảnh mới từ thư viện
+//        private void onImageSelected(Uri selectedImageUri) {
+//            adapter.setCurrentImageUri(selectedImageUri);
+//        }
+//
+//        // Gọi khi kết quả trả về từ Intent.ACTION_PICK
+//        @Override
+//        protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+//            super.onActivityResult(requestCode, resultCode, data);
+//            if (requestCode == 1 && resultCode == RESULT_OK && data != null) {
+//                Uri selectedImageUri = data.getData();
+//                onImageSelected(selectedImageUri);
+//            }
+//        }
+//    }
 }

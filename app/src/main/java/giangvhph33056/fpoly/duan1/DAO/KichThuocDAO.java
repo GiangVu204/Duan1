@@ -63,9 +63,27 @@ public class KichThuocDAO {
     public  boolean update(KichThuoc kt){
         SQLiteDatabase db = dbhelper.getWritableDatabase();
         ContentValues values = new ContentValues();
+        values.put("MaKT",kt.getMaKT());
         values.put("Size",kt.getSize());
         values.put("SoLuong",kt.getSoLuong());
-        long row = db.update("KichThuoc", values, "MaKT=?", new String[]{String.valueOf(kt.getMaKT())});
-        return (row > 0);
+        long check = db.update("KichThuoc", values, "MaKT=?", new String[]{String.valueOf(kt.getMaKT())});
+        if (check == -1){
+            return false;
+        }else {
+            return true;
+        }
+    }
+
+    public boolean insert (String Size, String SoLuong){
+        SQLiteDatabase db = dbhelper.getWritableDatabase();
+        ContentValues values = new ContentValues();
+        values.put("Size", Size);
+        values.put("SoLuong", SoLuong);
+        long check = db.insert("KichThuoc", null, values);
+        if (check == -1){
+            return false;
+        }else {
+            return true;
+        }
     }
 }

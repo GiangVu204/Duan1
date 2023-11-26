@@ -73,19 +73,39 @@ public class ThuongHieuDAO {
         }
     }
 
-    public boolean update(ThuongHieu th){
-        SQLiteDatabase db = dbhelper.getWritableDatabase();
-        ContentValues values = new ContentValues();
-        values.put("Anh", th.getAnh());
-        values.put("SDT", th.getSDT());
-        values.put("TenTH", th.getTenTH());
-        long check = db.update("ThuongHieu", values, "MaTH = ?", new String[]{String.valueOf(th.getMaTH())});
-        if (check == -1){
+//    public boolean update(ThuongHieu th){
+//        SQLiteDatabase db = dbhelper.getWritableDatabase();
+//        ContentValues values = new ContentValues();
+//        values.put("Anh", th.getAnh());
+//        values.put("SDT", th.getSDT());
+//        values.put("TenTH", th.getTenTH());
+//        long check = db.update("ThuongHieu", values, "MaTH = ?", new String[]{String.valueOf(th.getMaTH())});
+//        if (check == -1){
+//            return false;
+//        }else {
+//            return true;
+//        }
+//    }
+
+    public boolean update(ThuongHieu th) {
+        if (th == null) {
             return false;
-        }else {
-            return true;
+        }
+
+        try (SQLiteDatabase db = dbhelper.getWritableDatabase()) {
+            ContentValues values = new ContentValues();
+            values.put("Anh", th.getAnh());
+            values.put("SDT", th.getSDT());
+            values.put("TenTH", th.getTenTH());
+            long check = db.update("ThuongHieu", values, "MaTH = ?", new String[]{String.valueOf(th.getMaTH())});
+
+            return check != -1;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
         }
     }
+
 
     // xóa loại sách
     // 1: xóa thành công, 0: xóa thất bại, -1 : có sách tồn tại trong loại đó

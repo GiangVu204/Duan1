@@ -20,21 +20,13 @@ public class SanPham implements Parcelable {
     public SanPham() {
     }
 // them
-
-
-    public SanPham(String tenSP, int gia) {
-        TenSP = tenSP;
-        Gia = gia;
-    }
-
-    public SanPham(int maSP, String tenSP, int gia, int soLuong, String size, String tenthuonghieu, String tenlsp) {
-        MaSP = maSP;
+    public SanPham(String tenSP, int gia, int soLuong, int maKT, int maTH, int maLSP) {
         TenSP = tenSP;
         Gia = gia;
         SoLuong = soLuong;
-        this.size = size;
-        this.tenthuonghieu = tenthuonghieu;
-        this.tenlsp = tenlsp;
+        MaKT = maKT;
+        MaTH = maTH;
+        MaLSP = maLSP;
     }
 
     //goc

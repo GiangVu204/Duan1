@@ -12,7 +12,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -55,7 +54,7 @@ public class Fragment_loai_san_pham extends Fragment {
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         // Tạo giao diện của Dialog từ layout XML
         LayoutInflater inflater = requireActivity().getLayoutInflater();
-        View dialogView = inflater.inflate(R.layout.dialogthemlsp, null);
+        View dialogView = inflater.inflate(R.layout.item_add_loaisp, null);
         EditText tenlsp = dialogView.findViewById(R.id.tenlsp_add);
         // Thiết lập giao diện cho Dialog
         builder.setView(dialogView)

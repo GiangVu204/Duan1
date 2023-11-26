@@ -45,8 +45,8 @@ public class Fragment_kich_thuoc extends Fragment {
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext());
         rcv_kichthuoc.setLayoutManager(linearLayoutManager);
         rcv_kichthuoc.addItemDecoration(new DividerItemDecoration(getContext(), LinearLayoutManager.VERTICAL));
-//       adapterkt = new Adapter_KichThuoc(getContext(), list);
-//      rcv_kichthuoc.setAdapter(adapterkt);
+       adapterkt = new Adapter_KichThuoc(getContext(), list);
+      rcv_kichthuoc.setAdapter(adapterkt);
 
         return view;
     }

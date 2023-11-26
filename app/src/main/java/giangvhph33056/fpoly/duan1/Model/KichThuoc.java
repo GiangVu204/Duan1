@@ -1,24 +1,34 @@
 package giangvhph33056.fpoly.duan1.Model;
 
 public class KichThuoc {
-    private int MaKT;
+
+    private int id;
+    private String MaKT;
     private int Size;
     private int SoLuong;
 
-    public KichThuoc() {
-    }
-
-    public KichThuoc(int maKT, int size, int soLuong) {
+    public KichThuoc(String maKT, int size, int soLuong) {
         MaKT = maKT;
         Size = size;
         SoLuong = soLuong;
     }
 
-    public int getMaKT() {
+    public KichThuoc() {
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public String getMaKT() {
         return MaKT;
     }
 
-    public void setMaKT(int maKT) {
+    public void setMaKT(String maKT) {
         MaKT = maKT;
     }
 

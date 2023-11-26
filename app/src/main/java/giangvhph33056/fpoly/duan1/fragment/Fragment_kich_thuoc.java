@@ -66,6 +66,7 @@ public class Fragment_kich_thuoc extends Fragment {
         View dialogView = inflater.inflate(R.layout.item_kich_thuoc_add, null);
         EditText edtsize_kt = dialogView.findViewById(R.id.edtsize_kt);
         EditText edtSoluong_kt = dialogView.findViewById(R.id.edtSoluong_kt);
+        EditText edtma_kt = dialogView.findViewById(R.id.edtma_kt);
         // Thiết lập giao diện cho Dialog
         builder.setView(dialogView)
                 .setTitle("Thêm kích thước")
@@ -73,12 +74,13 @@ public class Fragment_kich_thuoc extends Fragment {
                 .setPositiveButton("Đồng ý", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
                         // Xử lý khi người dùng chọn "Đồng ý"
+                        String kt = edtma_kt.getText().toString();
                         String size = edtsize_kt.getText().toString();
                         String Soluong = edtSoluong_kt.getText().toString();
-                        if (size.isEmpty() || Soluong.isEmpty()){
+                        if (size.isEmpty() || Soluong.isEmpty()||kt.isEmpty()){
                             Toast.makeText(getActivity(), "Không được để trống", Toast.LENGTH_SHORT).show();
                         }else{
-                            boolean check = ktDAO.insert(size, Soluong);
+                            boolean check = ktDAO.insert(kt,size, Soluong);
                             if(check){
                                 Toast.makeText(getActivity(), "Thêm thành công", Toast.LENGTH_SHORT).show();
                                 loadData();

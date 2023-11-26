@@ -109,7 +109,7 @@ public class Fragment_san_pham extends Fragment {
             public void onClick(DialogInterface dialog, int which) {
                  //lay ma Kich Thuoc
                 HashMap<String , String> hsKT = (HashMap<String, String>) spnKichthuoc_add.getSelectedItem();
-                int MaKT= Integer.parseInt(hsKT.get("MaKT"));
+                int id= Integer.parseInt(hsKT.get("id"));
                 int sluong = Integer.parseInt(hsKT.get("SoLuong"));
                 // lay ma thuong hiêu
                 HashMap<String , String> hsTH = (HashMap<String, String>) spnthuong_add.getSelectedItem();
@@ -120,7 +120,7 @@ public class Fragment_san_pham extends Fragment {
                 String tensp = edtTensp_sp_add.getText().toString();
                 int gia = Integer.parseInt(edtgia_sp_add.getText().toString());
                 //int soluong = Integer.parseInt(edtSoLuong_sp_add.getText().toString());
-                themPhieuMuon(tensp,gia,sluong,MaKT,MaTH,MaLSP);
+                themPhieuMuon(tensp,gia,sluong,id,MaTH,MaLSP);
 
             }
         });
@@ -140,12 +140,13 @@ public class Fragment_san_pham extends Fragment {
         ArrayList<HashMap<String,String>> listHM = new ArrayList<>();
         for ( KichThuoc s : list) {
             HashMap<String , String> hs = new HashMap<>();
-            hs.put("MaKT" , String.valueOf(s.getMaKT()));
+            hs.put("id" , String.valueOf(s.getId()));
+            hs.put("MaKT" , s.getMaKT());
             hs.put("Size", String.valueOf("Size "+ s.getSize()));
             hs.put("SoLuong", String.valueOf(s.getSoLuong()));
             listHM.add(hs);
         }
-        SimpleAdapter adapter = new SimpleAdapter(getContext(),listHM,android.R.layout.simple_list_item_1,new String[]{"Size"}, new int[]{android.R.id.text1});
+        SimpleAdapter adapter = new SimpleAdapter(getContext(),listHM,android.R.layout.simple_list_item_1,new String[]{"MaKT"}, new int[]{android.R.id.text1});
         spnKichthuoc_add.setAdapter(adapter);
     }
     private void getDataLoai(Spinner spnloaisp_add) {
@@ -176,8 +177,8 @@ public class Fragment_san_pham extends Fragment {
         SimpleAdapter adapter = new SimpleAdapter(getContext(),listHM,android.R.layout.simple_list_item_1,new String[]{"TenTH"}, new int[]{android.R.id.text1});
         spnthuong_add.setAdapter(adapter);
     }
-    private void themPhieuMuon(String tensp , int gia,int soluong ,int MaKT ,int MaTH  ,int MaLSP ){
-        SanPham  sp = new SanPham( tensp ,gia,soluong,MaKT, MaTH,MaLSP);
+    private void themPhieuMuon(String tensp , int gia,int soluong ,int id ,int MaTH  ,int MaLSP ){
+        SanPham  sp = new SanPham( tensp ,gia,soluong,id, MaTH,MaLSP);
         boolean kiemtra =spDAO.insert(sp);
         if (kiemtra == true){
             Toast.makeText(getContext(), "Thêm sản phẩm thành  thành công!", Toast.LENGTH_SHORT).show();

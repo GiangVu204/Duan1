@@ -6,7 +6,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 
 public class Dbhelper extends SQLiteOpenHelper {
     private static final String DB_NAME = "THOIDAISHOP";
-    private static final int DB_VERSION= 28;
+    private static final int DB_VERSION= 29;
 
     public Dbhelper(Context context) {
         super(context, DB_NAME,null , DB_VERSION);
@@ -35,7 +35,8 @@ public class Dbhelper extends SQLiteOpenHelper {
                 "    TenLSP   TEXT NOT NULL\n" +
                 ");\n");
         db.execSQL("CREATE TABLE KichThuoc(\n" +
-                "    MaKT    INTEGER PRIMARY KEY  AUTOINCREMENT,\n" +
+                "    id    INTEGER PRIMARY KEY  AUTOINCREMENT,\n" +
+                "    MaKT   TEXT NOT NULL,\n" +
                 "    Size   INTEGER NOT NULL,\n" +
                 "    SoLuong INTEGER NOT NULL\n" +
                 ");\n");
@@ -44,7 +45,7 @@ public class Dbhelper extends SQLiteOpenHelper {
                 "    TenSP   TEXT NOT NULL,\n" +
                 "    Gia     INTEGER NOT NULL,\n" +
                 "    SoLuong     INTEGER NOT NULL,\n" +
-                "    MaKT    INTEGER REFERENCES KichThuoc (MaKT), \n" +
+                "    id    INTEGER REFERENCES KichThuoc (id), \n" +
                 "    MaTH    INTEGER REFERENCES ThuongHieu (MaTH), \n" +
                 "    MaLSP    INTEGER REFERENCES LoaiSanPham (MaLSP) \n" +
                 ");\n");
@@ -61,7 +62,7 @@ public class Dbhelper extends SQLiteOpenHelper {
         db.execSQL("INSERT INTO  ThanhVien VALUES(1,'admin','Lê Hoàng Tú','admin',0982322079,'lehoangtu56@gmail.com','hà nội','ADMIN'),(2,'nhanvien','Nguyễn Văn A','nhanvien',0982322079,'Nhanvien56@gmail.com','hà nội','Nhân Viên'),(3,'khanghang','Sùng A Pháo','khachhang',0982322079,'Khachhang56@gmail.com','hà nội','Khách Hàng')");
         db.execSQL("INSERT INTO  ThuongHieu VALUES(1, 'anh1', 0982322079, 'Nike'), (2, 'anh2', 0868761723, 'Adidas'), (3, 'anh3', 0734423235, 'Converse')");
         db.execSQL("INSERT INTO  LoaiSanPham VALUES(1, 'Nike 1'), (2, 'Adidas 1'), (3, 'Nike 2')");
-        db.execSQL("INSERT INTO  KichThuoc VALUES(1, 39, 3), (2, 40, 6), (3, 41, 8)");
+        db.execSQL("INSERT INTO  KichThuoc VALUES(1,'CS39', 39, 3), (2, 'AD40',40, 6), (3,'NK41', 41, 8)");
         db.execSQL("INSERT INTO  SanPham VALUES(0,'Giày Thể Thao', 3000,3,1,1,1),(1,'Giày A', 3000,3,1,2,1),(2,'Giay b', 3000,3,1,3,1),(3,'Giay c', 3000,3,1,2,1)");
         db.execSQL("INSERT INTO  HoaDon VALUES(1,'20/04/2004', 1, 13, 9000, 1, 2),(2,'20/04/2004', 1, 13, 9000, 1, 3)");
     }

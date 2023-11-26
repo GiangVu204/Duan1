@@ -32,9 +32,10 @@ public class KichThuocDAO {
                 cursor.moveToFirst();
                 while (!cursor.isAfterLast()){
                     KichThuoc kt = new KichThuoc();
-                    kt.setMaKT(cursor.getInt(0));
-                    kt.setSize(cursor.getInt(1));
-                    kt.setSoLuong(cursor.getInt(2));
+                    kt.setId(cursor.getInt(0));
+                    kt.setMaKT(cursor.getString(1));
+                    kt.setSize(cursor.getInt(2));
+                    kt.setSoLuong(cursor.getInt(3));
                     list.add(kt);
                     cursor.moveToNext();
 
@@ -47,11 +48,11 @@ public class KichThuocDAO {
     }
     public int delete(int MaKT) {
         SQLiteDatabase db = dbhelper.getWritableDatabase();
-        Cursor cursor = db.rawQuery("SELECT *  FROM SanPham WHERE MaKT=? ",new String[]{String.valueOf(MaKT)});
+        Cursor cursor = db.rawQuery("SELECT *  FROM SanPham WHERE id=? ",new String[]{String.valueOf(MaKT)});
         if (cursor.getCount()!=0){
             return -1;
         }else{
-            long check = db.delete("KichThuoc", "MaKT=?", new String[]{String.valueOf(MaKT)});
+            long check = db.delete("KichThuoc", "id=?", new String[]{String.valueOf(MaKT)});
             if (check ==-1){
                 return 0;
             }else{
@@ -66,7 +67,7 @@ public class KichThuocDAO {
         values.put("MaKT",kt.getMaKT());
         values.put("Size",kt.getSize());
         values.put("SoLuong",kt.getSoLuong());
-        long check = db.update("KichThuoc", values, "MaKT=?", new String[]{String.valueOf(kt.getMaKT())});
+        long check = db.update("KichThuoc", values, "id=?", new String[]{String.valueOf(kt.getId())});
         if (check == -1){
             return false;
         }else {
@@ -74,9 +75,10 @@ public class KichThuocDAO {
         }
     }
 
-    public boolean insert (String Size, String SoLuong){
+    public boolean insert (String MaKT,String Size, String SoLuong ){
         SQLiteDatabase db = dbhelper.getWritableDatabase();
         ContentValues values = new ContentValues();
+        values.put("MaKT", MaKT);
         values.put("Size", Size);
         values.put("SoLuong", SoLuong);
         long check = db.insert("KichThuoc", null, values);

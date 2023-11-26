@@ -49,7 +49,7 @@ public class Adapter_KichThuoc extends RecyclerView.Adapter<Adapter_KichThuoc.Vi
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        holder.txtMaKT_kt.setText(String.valueOf(list.get(position).getMaKT()));
+        holder.txtMaKT_kt.setText(list.get(position).getMaKT());
         holder.txtSize_kt.setText("SIZE " + list.get(position).getSize());
         holder.txtSoLuong_kt.setText(String.valueOf(list.get(position).getSoLuong()));
 
@@ -66,7 +66,7 @@ public class Adapter_KichThuoc extends RecyclerView.Adapter<Adapter_KichThuoc.Vi
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
                         KichThuocDAO dao = new KichThuocDAO(context);
-                        int check = dao.delete(list.get(holder.getAdapterPosition()).getMaKT());
+                        int check = dao.delete(list.get(holder.getAdapterPosition()).getId());
                         switch (check) {
                             case 1:
                                 list.clear();
@@ -124,9 +124,10 @@ public class Adapter_KichThuoc extends RecyclerView.Adapter<Adapter_KichThuoc.Vi
         builder.setView(view);
         Dialog dialog = builder.create();
         dialog.show();
-
+        TextInputEditText edtma_kt_up = view.findViewById(R.id.edtma_kt_up);
         TextInputEditText edtsize_kt = view.findViewById(R.id.edtsize_kt);
         TextInputEditText edtSoluong_kt = view.findViewById(R.id.edtSoluong_kt);
+        TextInputLayout in_ma_up = view.findViewById(R.id.in_size);
         TextInputLayout in_size = view.findViewById(R.id.in_size);
         TextInputLayout in_soluong = view.findViewById(R.id.in_soluong);
         Button UpdateTH = view.findViewById(R.id.KT_update);
@@ -134,7 +135,28 @@ public class Adapter_KichThuoc extends RecyclerView.Adapter<Adapter_KichThuoc.Vi
 
         edtsize_kt.setText(String.valueOf(kt.getSize()));
         edtSoluong_kt.setText(String.valueOf(kt.getSoLuong()));
+        edtma_kt_up.setText(kt.getMaKT());
 
+        edtma_kt_up.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                if (charSequence.length() == 0) {
+                    in_ma_up.setError("Vui lòng không để trống mã");
+                } else {
+                    in_ma_up.setError(null);
+                }
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+
+            }
+        });
         edtsize_kt.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
@@ -180,6 +202,7 @@ public class Adapter_KichThuoc extends RecyclerView.Adapter<Adapter_KichThuoc.Vi
         UpdateTH.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                String MaKT = edtma_kt_up.getText().toString();
                 String sizeText = edtsize_kt.getText().toString();
                 String soluongText = edtSoluong_kt.getText().toString();
 
@@ -188,11 +211,14 @@ public class Adapter_KichThuoc extends RecyclerView.Adapter<Adapter_KichThuoc.Vi
                         in_size.setError("Vui lòng không để trống Size!");
                     } else {
                         in_size.setError(null);
-                    }
-                    if (soluongText.isEmpty()) {
+                    }if (soluongText.isEmpty()) {
                         in_soluong.setError("Vui lòng không để trống Số lượng!");
                     } else {
                         in_soluong.setError(null);
+                    }if (MaKT.isEmpty()) {
+                        in_ma_up.setError("Vui lòng không để trống mã!");
+                    }else{
+                        in_ma_up.setError(null);
                     }
                 } else {
 
@@ -211,7 +237,7 @@ public class Adapter_KichThuoc extends RecyclerView.Adapter<Adapter_KichThuoc.Vi
                     } else {
                         in_soluong.setError(null);
                     }
-
+                    kt.setMaKT(MaKT);
                     kt.setSize(Integer.parseInt(sizeText));
                     kt.setSoLuong(Integer.parseInt(soluongText));
 

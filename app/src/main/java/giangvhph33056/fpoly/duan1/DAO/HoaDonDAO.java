@@ -2,6 +2,7 @@ package giangvhph33056.fpoly.duan1.DAO;
 
 import static androidx.constraintlayout.helper.widget.MotionEffect.TAG;
 
+import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
@@ -45,6 +46,73 @@ public class HoaDonDAO {
             Log.i(TAG,"Lỗi",e);
         }
         return list;
+    }
+    public long thucHienMuaHang(int maSanPham, int soLuong, int maThanhVien) {
+        SQLiteDatabase db = dbhelper.getWritableDatabase();
+        long ketQua = -1; // Giá trị mặc định cho trường hợp thất bại
+
+        try {
+            // Tạo một đối tượng ContentValues để chứa dữ liệu muốn chèn vào bảng HoaDon
+            ContentValues giaTri = new ContentValues();
+
+            // Đặt giá trị cho cột NgayDH, ở đây bạn cần thay thế "Định_dạng_Ngay_cua_ban" bằng định dạng ngày thực tế
+            giaTri.put("NgayDH", "Định_dạng_Ngay_cua_ban");
+
+            // Đặt giá trị cho cột TrangThai, giả sử 1 biểu thị một giao dịch mua hàng thành công
+            giaTri.put("TrangThai", 1);
+
+            // Đặt giá trị cho cột SoLuong, được truyền vào từ tham số của phương thức
+            giaTri.put("SoLuong", soLuong);
+
+            // Tính tổng giá dựa trên giá và số lượng của sản phẩm
+            int giaSanPham = layGiaSanPham(maSanPham, db);
+            int tongGia = giaSanPham * soLuong;
+
+            // Đặt giá trị cho cột Gia trong ContentValues
+            giaTri.put("Gia", tongGia);
+
+            // Đặt giá trị cho cột id trong ContentValues, là ID của thành viên thực hiện mua hàng
+            giaTri.put("id", maThanhVien);
+
+            // Đặt giá trị cho cột MaSP trong ContentValues, là ID của sản phẩm được mua
+            giaTri.put("MaSP", maSanPham);
+
+            // Chèn giao dịch mua hàng vào bảng HoaDon và nhận ID của giao dịch đó
+            ketQua = db.insert("HoaDon", null, giaTri);
+        } catch (Exception e) {
+            // Ghi log nếu có lỗi xảy ra
+            Log.i(TAG, "Lỗi", e);
+        } finally {
+            // Đảm bảo đóng kết nối với database trong mọi trường hợp
+            if (db != null && db.isOpen()) {
+                db.close();
+            }
+        }
+
+        // Trả về ID của giao dịch mua hàng hoặc giá trị mặc định (-1) nếu có lỗi
+        return ketQua;
+    }
+
+    // Phương thức hỗ trợ để lấy giá của một sản phẩm từ bảng SanPham
+    private int layGiaSanPham(int maSanPham, SQLiteDatabase db) {
+        // Truy vấn cơ sở dữ liệu để lấy giá của sản phẩm với mã sản phẩm được chỉ định
+        Cursor cursor = db.query("SanPham", new String[]{"Gia"}, "MaSP = ?",
+                new String[]{String.valueOf(maSanPham)}, null, null, null);
+
+        // Khởi tạo giá trị mặc định cho giá
+        int gia = 0;
+
+        // Kiểm tra xem có dữ liệu trong Cursor hay không
+        if (cursor != null && cursor.moveToFirst()) {
+            // Lấy giá từ cột "Gia" trong Cursor
+            gia = cursor.getInt(cursor.getColumnIndexOrThrow("Gia"));
+
+            // Đóng Cursor sau khi sử dụng
+            cursor.close();
+        }
+
+        // Trả về giá của sản phẩm
+        return gia;
     }
     public boolean delete(int mapm) {
         SQLiteDatabase db = dbhelper.getWritableDatabase();

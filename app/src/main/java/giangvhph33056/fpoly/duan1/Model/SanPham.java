@@ -10,7 +10,7 @@ public class SanPham implements Parcelable {
     private String TenSP;
     private  int Gia;
     private  int SoLuong;
-    private  int MaKT;
+    private  int id;
     private  int MaTH;
     private  int MaLSP;
 /// thêm
@@ -20,48 +20,38 @@ public class SanPham implements Parcelable {
     public SanPham() {
     }
 // them
-    public SanPham(String tenSP, int gia, int soLuong, int maKT, int maTH, int maLSP) {
-        TenSP = tenSP;
-        Gia = gia;
-        SoLuong = soLuong;
-        MaKT = maKT;
-        MaTH = maTH;
-        MaLSP = maLSP;
-    }
 
-    //goc
-    public SanPham(int maSP, String tenSP, int gia, int soLuong, int maKT, int maTH, int maLSP) {
+
+    public SanPham(int maSP, String tenSP, int gia, int soLuong, int id, int maTH, int maLSP, String size, String tenthuonghieu, String tenlsp) {
         MaSP = maSP;
         TenSP = tenSP;
         Gia = gia;
         SoLuong = soLuong;
-        MaKT = maKT;
+        this.id = id;
+        MaTH = maTH;
+        MaLSP = maLSP;
+        this.size = size;
+        this.tenthuonghieu = tenthuonghieu;
+        this.tenlsp = tenlsp;
+    }
+
+    public SanPham(String tenSP, int gia, int soLuong, int id, int maTH, int maLSP) {
+        TenSP = tenSP;
+        Gia = gia;
+        SoLuong = soLuong;
+        this.id = id;
         MaTH = maTH;
         MaLSP = maLSP;
     }
 
-    public String getSize() {
-        return size;
-    }
-
-    public void setSize(String size) {
-        this.size = size;
-    }
-
-    public String getTenthuonghieu() {
-        return tenthuonghieu;
-    }
-
-    public void setTenthuonghieu(String tenthuonghieu) {
-        this.tenthuonghieu = tenthuonghieu;
-    }
-
-    public String getTenlsp() {
-        return tenlsp;
-    }
-
-    public void setTenlsp(String tenlsp) {
-        this.tenlsp = tenlsp;
+    public SanPham(int maSP, String tenSP, int gia, int soLuong, int id, int maTH, int maLSP) {
+        MaSP = maSP;
+        TenSP = tenSP;
+        Gia = gia;
+        SoLuong = soLuong;
+        this.id = id;
+        MaTH = maTH;
+        MaLSP = maLSP;
     }
 
     public int getMaSP() {
@@ -96,12 +86,12 @@ public class SanPham implements Parcelable {
         SoLuong = soLuong;
     }
 
-    public int getMaKT() {
-        return MaKT;
+    public int getId() {
+        return id;
     }
 
-    public void setMaKT(int maKT) {
-        MaKT = maKT;
+    public void setId(int id) {
+        this.id = id;
     }
 
     public int getMaTH() {
@@ -119,6 +109,31 @@ public class SanPham implements Parcelable {
     public void setMaLSP(int maLSP) {
         MaLSP = maLSP;
     }
+
+    public String getSize() {
+        return size;
+    }
+
+    public void setSize(String size) {
+        this.size = size;
+    }
+
+    public String getTenthuonghieu() {
+        return tenthuonghieu;
+    }
+
+    public void setTenthuonghieu(String tenthuonghieu) {
+        this.tenthuonghieu = tenthuonghieu;
+    }
+
+    public String getTenlsp() {
+        return tenlsp;
+    }
+
+    public void setTenlsp(String tenlsp) {
+        this.tenlsp = tenlsp;
+    }
+
     public static final  Creator<SanPham> CREATOR = new Creator<SanPham>() {
         @Override
         public SanPham createFromParcel(Parcel parcel) {

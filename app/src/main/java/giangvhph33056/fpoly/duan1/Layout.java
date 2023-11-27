@@ -104,7 +104,7 @@ public class Layout extends AppCompatActivity {
                 }else if (item.getItemId() == R.id.HoaDon){
                     Fragment_hoa_don frgT = new Fragment_hoa_don();
                     relaceFrg(frgT);
-                    toolbar.setTitle("Quản lý hóa đon");
+                    toolbar.setTitle("Quản lý hóa đơn");
                 }else if (item.getItemId() == R.id.menuDT){
                     Fragment_doanh_thu frgDT = new Fragment_doanh_thu();
                     relaceFrg(frgDT);

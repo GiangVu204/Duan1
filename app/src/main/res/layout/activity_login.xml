@@ -44,6 +44,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:backgroundTint="@color/black"
         android:background="@drawable/car_backgroud_login">
      <ImageView
          android:layout_width="match_parent"
@@ -60,7 +61,7 @@
     <androidx.cardview.widget.CardView
         android:id="@+id/cardView"
         android:layout_width="match_parent"
-        android:layout_height="450dp"
+        android:layout_height="430dp"
         android:layout_marginLeft="30dp"
         android:layout_marginTop="50dp"
         android:layout_marginRight="30sp"
@@ -169,9 +170,11 @@
         app:layout_constraintStart_toStartOf="@+id/cardView"
         app:layout_constraintTop_toBottomOf="@+id/cardView"
         app:layout_constraintVertical_bias="0.568" >
+
         <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:src="@drawable/ic_gg" />
     </androidx.cardview.widget.CardView>
 
     <androidx.cardview.widget.CardView
@@ -186,9 +189,11 @@
         app:layout_constraintStart_toStartOf="@+id/cardView"
         app:layout_constraintTop_toBottomOf="@+id/cardView"
         app:layout_constraintVertical_bias="0.22">
+
         <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:src="@drawable/icon_facebock" />
 
 
     </androidx.cardview.widget.CardView>
@@ -207,7 +212,8 @@
         app:layout_constraintVertical_bias="0.0">
         <ImageView
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
+            android:layout_height="wrap_content"
+            android:src="@drawable/notification"/>
 
 
     </androidx.cardview.widget.CardView>

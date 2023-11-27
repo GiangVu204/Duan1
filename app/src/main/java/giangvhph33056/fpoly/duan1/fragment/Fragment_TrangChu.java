@@ -50,7 +50,7 @@ public class Fragment_TrangChu extends Fragment {
         rcvsanpham_tt =view.findViewById(R.id.rcvsanpham_tt);
         spDAO= new SanPhamDAO(getContext());
         list = spDAO.selectAllSanPham();
-        GridLayoutManager layoutManager = new GridLayoutManager(getContext(), 2);
+        GridLayoutManager layoutManager = new GridLayoutManager(getContext(), 1);
         rcvsanpham_tt.setLayoutManager(layoutManager);
         adaptersptt = new Adapter_trangchu(getContext(), list);
         rcvsanpham_tt.setAdapter(adaptersptt);

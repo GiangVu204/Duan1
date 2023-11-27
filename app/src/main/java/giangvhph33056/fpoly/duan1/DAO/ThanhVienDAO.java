@@ -122,4 +122,21 @@ public class ThanhVienDAO {
             return "Thông tin sai";
         }
     }
+
+    public boolean updateMK(String username, String oldPass, String newPass) {
+        SQLiteDatabase db = dbhelper.getWritableDatabase();
+        Cursor cursor = db.rawQuery("SELECT * FROM ThanhVien WHERE MaTV = ? AND MatKhau = ?", new String[]{username, oldPass});
+        if (cursor.getCount() > 0) {
+            ContentValues values = new ContentValues();
+            values.put("MatKhau", newPass);
+            int check = db.update("ThanhVien", values, "MaTV = ?", new String[]{username});
+            if (check > 0) {
+                return true;
+            } else {
+                return false;
+            }
+        }
+        return false;
+    }
+
 }

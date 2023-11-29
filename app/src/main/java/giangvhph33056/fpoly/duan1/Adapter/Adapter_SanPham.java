@@ -4,7 +4,9 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.SharedPreferences;
 import android.view.LayoutInflater;
+import android.view.Menu;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
@@ -86,6 +88,24 @@ public class Adapter_SanPham extends RecyclerView.Adapter<Adapter_SanPham.ViewHo
                 di.show();
             }
         });
+        // phân quyền
+        SharedPreferences sharedPreferences = context.getSharedPreferences("DANGNHAPTV", Context.MODE_PRIVATE);
+        String Loai = sharedPreferences.getString("Loai","");
+        if(Loai.equalsIgnoreCase("admin")){
+            holder.imgDelete_sp.setVisibility(View.VISIBLE);
+            holder.imgChinhSua_sp.setVisibility(View.VISIBLE);
+        }
+        if(Loai.equalsIgnoreCase("Nhân Viên")){
+            holder.imgDelete_sp.setVisibility(View.VISIBLE);
+            holder.imgChinhSua_sp.setVisibility(View.VISIBLE);
+
+
+        }
+        if(Loai.equalsIgnoreCase("Khách Hàng")){
+            holder.imgDelete_sp.setVisibility(View.GONE);
+            holder.imgChinhSua_sp.setVisibility(View.GONE);
+
+        }
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -103,9 +123,10 @@ public class Adapter_SanPham extends RecyclerView.Adapter<Adapter_SanPham.ViewHo
 
     public class ViewHolder extends RecyclerView.ViewHolder {
         TextView txttensamphan_sp,txtgiasp_sp,txtTenthuonghieu_sp;
-        ImageView imgDelete_sp;
+        ImageView imgDelete_sp,imgChinhSua_sp;
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
+            imgChinhSua_sp= itemView.findViewById(R.id.imgChinhSua_sp);
             imgDelete_sp = itemView.findViewById(R.id.imgDelete_sp);
             txttensamphan_sp = itemView.findViewById(R.id.txttensamphan_sp);
             txtgiasp_sp = itemView.findViewById(R.id.txtgiasp_sp);
@@ -113,4 +134,5 @@ public class Adapter_SanPham extends RecyclerView.Adapter<Adapter_SanPham.ViewHo
 
         }
     }
+
 }

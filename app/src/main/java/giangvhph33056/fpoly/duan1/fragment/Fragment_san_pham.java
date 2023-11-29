@@ -77,6 +77,23 @@ public class Fragment_san_pham extends Fragment {
                 startActivity(intent);
             }
         });
+        // phân quyền
+        SharedPreferences sharedPreferences = getActivity().getSharedPreferences("DANGNHAPTV", Context.MODE_PRIVATE);
+        String Loai = sharedPreferences.getString("Loai","");
+        if(Loai.equalsIgnoreCase("admin")){
+            fltadd.setVisibility(view.VISIBLE);
+
+        }
+        if(Loai.equalsIgnoreCase("Nhân Viên")){
+            fltadd.setVisibility(view.VISIBLE);
+
+
+
+        }
+        if(Loai.equalsIgnoreCase("Khách Hàng")){
+            fltadd.setVisibility(view.GONE);
+
+        }
         return view;
     }
     private  void loaddata(){

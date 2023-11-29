@@ -39,9 +39,9 @@ public class Fragment_thanh_vien extends Fragment {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_thanh_vien, container, false);
         rcv_thanhvien = view.findViewById(R.id.rcv_thanhvien);
-        fltadd = view.findViewById(R.id.fltadd);
         tvDAO = new ThanhVienDAO(getContext());
         loadData();
+
 
 
         return view;

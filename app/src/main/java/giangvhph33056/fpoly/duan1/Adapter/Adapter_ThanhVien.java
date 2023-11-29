@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.SharedPreferences;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -79,6 +80,24 @@ public class Adapter_ThanhVien  extends RecyclerView.Adapter<Adapter_ThanhVien.V
                 di.show();
             }
         });
+        // phân quyền
+        SharedPreferences sharedPreferences = context.getSharedPreferences("DANGNHAPTV", Context.MODE_PRIVATE);
+        String Loai = sharedPreferences.getString("Loai","");
+        if(Loai.equalsIgnoreCase("admin")){
+            holder.imgDelete_tv.setVisibility(View.VISIBLE);
+            holder.imgChinhSua_tv.setVisibility(View.VISIBLE);
+        }
+        if(Loai.equalsIgnoreCase("Nhân Viên")){
+            holder.imgDelete_tv.setVisibility(View.GONE);
+            holder.imgChinhSua_tv.setVisibility(View.GONE);
+
+
+        }
+        if(Loai.equalsIgnoreCase("Khách Hàng")){
+            holder.imgDelete_tv.setVisibility(View.GONE);
+            holder.imgChinhSua_tv.setVisibility(View.GONE);
+
+        }
 
     }
 
@@ -89,7 +108,7 @@ public class Adapter_ThanhVien  extends RecyclerView.Adapter<Adapter_ThanhVien.V
 
     public class ViewHolder extends RecyclerView.ViewHolder {
         TextView txtMaTV_tv, txtHoten_tv, txtSDT_tv,txtEmail_tv,txtDchi_tv;
-        ImageView ImgAnh, imgDelete_tv;
+        ImageView ImgAnh, imgDelete_tv,imgChinhSua_tv;
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             txtMaTV_tv = itemView.findViewById(R.id.txtMaTV_tv);
@@ -99,6 +118,7 @@ public class Adapter_ThanhVien  extends RecyclerView.Adapter<Adapter_ThanhVien.V
             txtDchi_tv = itemView.findViewById(R.id.txtDchi_tv);
             ImgAnh = itemView.findViewById(R.id.ImgAnh);
             imgDelete_tv = itemView.findViewById(R.id.imgDelete_tv);
+            imgChinhSua_tv = itemView.findViewById(R.id.imgChinhSua_tv);
 
         }
     }

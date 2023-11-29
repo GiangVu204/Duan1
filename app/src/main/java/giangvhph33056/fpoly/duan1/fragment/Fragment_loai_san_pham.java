@@ -1,6 +1,7 @@
 package giangvhph33056.fpoly.duan1.fragment;
 
 import android.app.AlertDialog;
+import android.app.Dialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
 
@@ -11,6 +12,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
@@ -28,6 +30,8 @@ public class Fragment_loai_san_pham extends Fragment {
     FloatingActionButton fltadd;
 
     LoaiSanPhamDAO dao;
+    private EditText tenlsp, avataSp;
+    private Button LSP_add, LSP_cancel;
     public Fragment_loai_san_pham() {
 
     }
@@ -52,39 +56,44 @@ public class Fragment_loai_san_pham extends Fragment {
 
     private void dialogAdd() {
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-        // Tạo giao diện của Dialog từ layout XML
-        LayoutInflater inflater = requireActivity().getLayoutInflater();
-        View dialogView = inflater.inflate(R.layout.item_add_loaisp, null);
-        EditText tenlsp = dialogView.findViewById(R.id.tenlsp_add);
-        // Thiết lập giao diện cho Dialog
-        builder.setView(dialogView)
-                .setTitle("Thêm loại sản phẩm")
-                // Cấu hình các nút hoặc hành động trong Dialog nếu cần
-                .setPositiveButton("Đồng ý", new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int id) {
-                        // Xử lý khi người dùng chọn "Đồng ý"
-                        String tslp = tenlsp.getText().toString();
-                        if (tslp.isEmpty()){
-                            Toast.makeText(getActivity(), "Không được để trống", Toast.LENGTH_SHORT).show();
-                        }else{
-                            boolean check = dao.them(tslp);
-                            if(check){
-                                Toast.makeText(getActivity(), "Thêm thành công", Toast.LENGTH_SHORT).show();
-                                loadData();
-                            }
-                        }
-                    }
-                })
-                .setNegativeButton("Hủy", new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int id) {
-                        // Xử lý khi người dùng chọn "Hủy"
-                        dialog.cancel();
-                    }
-                });
+        LayoutInflater inflater = getLayoutInflater();
+        View view = inflater.inflate(R.layout.item_add_loaisp, null);
 
-        // Hiển thị Dialog
-        AlertDialog dialog = builder.create();
+        builder.setView(view);
+        Dialog dialog = builder.create();
         dialog.show();
+
+        tenlsp = view.findViewById(R.id.tenlsp_add);
+        avataSp = view.findViewById(R.id.avataSp_add);
+        LSP_add = view.findViewById(R.id.LSP_Add);
+        LSP_cancel = view.findViewById(R.id.LSP_Cancel);
+
+        LSP_add.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                String urlAvata = avataSp.getText().toString();
+                String tlsp = tenlsp.getText().toString();
+
+                if (tlsp.isEmpty() || urlAvata.isEmpty()){
+                    if (tlsp.equals("")){
+                        Toast.makeText(getActivity(), "Vui lòng không để trống Tên loại sản phẩm", Toast.LENGTH_SHORT).show();
+                    } else if (urlAvata.equals("")) {
+                        Toast.makeText(getActivity(), "Vui lòng không để trống link ảnh", Toast.LENGTH_SHORT).show();
+                    }else {
+
+                    }
+                }else {
+                    if (dao.insert(urlAvata, tlsp)){
+                        loadData();
+                        Toast.makeText(getActivity(), "Thêm loại sản phẩm thành công!", Toast.LENGTH_SHORT).show();
+                        dialog.dismiss();
+                    }else {
+                        Toast.makeText(getActivity(), "Thêm loại sản phẩm thất bại!!!", Toast.LENGTH_SHORT).show();
+                    }
+                }
+            }
+        });
     }
 
 

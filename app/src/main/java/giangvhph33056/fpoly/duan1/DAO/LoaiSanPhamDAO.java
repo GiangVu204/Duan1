@@ -32,7 +32,8 @@ public class LoaiSanPhamDAO {
                 while (!cursor.isAfterLast()){
                     LoaiSanPham lsp = new LoaiSanPham();
                     lsp.setMaLSP(cursor.getInt(0));
-                    lsp.setTenLSP(cursor.getString(1));
+                    lsp.setAvata(cursor.getString(1));
+                    lsp.setTenLSP(cursor.getString(2));
                     list.add(lsp);
                     cursor.moveToNext();
                 }
@@ -61,6 +62,7 @@ public class LoaiSanPhamDAO {
     public  boolean update(LoaiSanPham lsp){
         SQLiteDatabase db = dbhelper.getWritableDatabase();
         ContentValues values = new ContentValues();
+        values.put("Avata",lsp.getAvata());
         values.put("TenLSP",lsp.getTenLSP());
         long row = db.update("LoaiSanPham", values, "MaLSP=?", new String[]{String.valueOf(lsp.getMaLSP())});
         return (row > 0);
@@ -68,7 +70,21 @@ public class LoaiSanPhamDAO {
 
     public boolean them(String lsp){
         ContentValues values = new ContentValues();
+        values.put("Avata",lsp);
         values.put("TenLSP",lsp);
         return dbhelper.getWritableDatabase().insert("LoaiSanPham", null, values)>0;
+    }
+
+    public boolean insert (String Avata, String TenLSP){
+        SQLiteDatabase db = dbhelper.getWritableDatabase();
+        ContentValues values = new ContentValues();
+        values.put("Avata",Avata);
+        values.put("TenLSP",TenLSP);
+        long check = db.insert("LoaiSanPham", null, values);
+        if (check == -1){
+            return false;
+        }else {
+            return true;
+        }
     }
 }

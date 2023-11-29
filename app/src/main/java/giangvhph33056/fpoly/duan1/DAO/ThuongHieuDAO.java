@@ -40,7 +40,7 @@ public class ThuongHieuDAO {
         SQLiteDatabase db = dbhelper.getReadableDatabase();
         try {
             Cursor cursor = db.rawQuery("select * from ThuongHieu",null);
-            if(cursor.getCount() >0 ){
+            if(cursor.getCount() > 0 ){
                 cursor.moveToFirst();
                 while (!cursor.isAfterLast()){
                     ThuongHieu th = new ThuongHieu();
@@ -50,11 +50,10 @@ public class ThuongHieuDAO {
                     th.setTenTH(cursor.getString(3));
                     list.add(th);
                     cursor.moveToNext();
-
                 }
             }
         }catch (Exception e){
-            Log.i(TAG,"Lỗi",e);
+            Log.e(TAG,"Lỗi",e);
         }
         return list;
     }
@@ -73,38 +72,38 @@ public class ThuongHieuDAO {
         }
     }
 
-//    public boolean update(ThuongHieu th){
-//        SQLiteDatabase db = dbhelper.getWritableDatabase();
-//        ContentValues values = new ContentValues();
-//        values.put("Anh", th.getAnh());
-//        values.put("SDT", th.getSDT());
-//        values.put("TenTH", th.getTenTH());
-//        long check = db.update("ThuongHieu", values, "MaTH = ?", new String[]{String.valueOf(th.getMaTH())});
-//        if (check == -1){
-//            return false;
-//        }else {
-//            return true;
-//        }
-//    }
-
-    public boolean update(ThuongHieu th) {
-        if (th == null) {
+    public boolean update(ThuongHieu th){
+        SQLiteDatabase db = dbhelper.getWritableDatabase();
+        ContentValues values = new ContentValues();
+        values.put("Anh", th.getAnh());
+        values.put("SDT", th.getSDT());
+        values.put("TenTH", th.getTenTH());
+        long check = db.update("ThuongHieu", values, "MaTH = ?", new String[]{String.valueOf(th.getMaTH())});
+        if (check == -1){
             return false;
-        }
-
-        try (SQLiteDatabase db = dbhelper.getWritableDatabase()) {
-            ContentValues values = new ContentValues();
-            values.put("Anh", th.getAnh());
-            values.put("SDT", th.getSDT());
-            values.put("TenTH", th.getTenTH());
-            long check = db.update("ThuongHieu", values, "MaTH = ?", new String[]{String.valueOf(th.getMaTH())});
-
-            return check != -1;
-        } catch (Exception e) {
-            e.printStackTrace();
-            return false;
+        }else {
+            return true;
         }
     }
+
+//    public boolean update(ThuongHieu th) {
+//        if (th == null) {
+//            return false;
+//        }
+//
+//        try (SQLiteDatabase db = dbhelper.getWritableDatabase()) {
+//            ContentValues values = new ContentValues();
+//            values.put("Anh", th.getAnh());
+//            values.put("SDT", th.getSDT());
+//            values.put("TenTH", th.getTenTH());
+//            long check = db.update("ThuongHieu", values, "MaTH = ?", new String[]{String.valueOf(th.getMaTH())});
+//
+//            return check != -1;
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//            return false;
+//        }
+//    }
 
 
     // xóa loại sách

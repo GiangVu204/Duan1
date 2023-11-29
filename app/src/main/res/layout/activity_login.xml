@@ -173,8 +173,7 @@
 
         <ImageView
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:src="@drawable/ic_gg" />
+            android:layout_height="match_parent" />
     </androidx.cardview.widget.CardView>
 
     <androidx.cardview.widget.CardView
@@ -192,8 +191,7 @@
 
         <ImageView
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:src="@drawable/icon_facebock" />
+            android:layout_height="match_parent" />
 
 
     </androidx.cardview.widget.CardView>

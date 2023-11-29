@@ -10,6 +10,7 @@ import android.net.Uri;
 import android.provider.MediaStore;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -22,6 +23,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestOptions;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
 
@@ -54,6 +56,7 @@ public class Adapter_ThuongHieu extends RecyclerView.Adapter<Adapter_ThuongHieu.
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
+        holder.MaTH.setText(String.valueOf(list.get(position).getMaTH()));
         holder.SDT.setText(String.valueOf(list.get(position).getSDT()));
         holder.TenTH.setText(list.get(position).getTenTH());
         String imageUrl = list.get(position).getAnh();
@@ -124,6 +127,7 @@ public class Adapter_ThuongHieu extends RecyclerView.Adapter<Adapter_ThuongHieu.
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
+            MaTH = itemView.findViewById(R.id.MaTH);
             TenTH = itemView.findViewById(R.id.TenTH);
             SDT = itemView.findViewById(R.id.SDT);
             ImgAnh = itemView.findViewById(R.id.ImgAnhth);
@@ -164,7 +168,6 @@ public class Adapter_ThuongHieu extends RecyclerView.Adapter<Adapter_ThuongHieu.
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
 
             }
-
             @Override
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
                 if (charSequence.length() == 0) {
@@ -200,6 +203,7 @@ public class Adapter_ThuongHieu extends RecyclerView.Adapter<Adapter_ThuongHieu.
 
             }
         });
+
         if (selectedImageUri != null) {
             // Hiển thị ảnh đã chọn trong ImageView
             Glide.with(context).load(selectedImageUri).into(ImgAnhh);
@@ -214,6 +218,11 @@ public class Adapter_ThuongHieu extends RecyclerView.Adapter<Adapter_ThuongHieu.
 
                 if (selectedImageUri != null) {
                     th.setAnh(selectedImageUri.toString());
+                    // Log để kiểm tra giá trị của selectedImageUri
+                    Log.d("SelectedImageUri", "Value: " + selectedImageUri);
+
+                    // Sử dụng setImageURI thay vì Glide
+                    ImgAnhh.setImageURI(selectedImageUri);
                 }
 
                 if (SDT.isEmpty() || TenTH.isEmpty()) {

@@ -2,7 +2,8 @@ package giangvhph33056.fpoly.duan1.Model;
 
 public class ThuongHieu {
     int MaTH;
-    String Anh, TenTH, SDT;
+    private String Anh;
+    String TenTH, SDT;
 
     public ThuongHieu() {
     }

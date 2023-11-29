@@ -13,17 +13,49 @@
         android:textAllCaps="true"
         android:textStyle="bold"/>
 
-    <com.google.android.material.textfield.TextInputLayout
+    <EditText
+        android:id="@+id/avataLsp_up"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:layout_marginHorizontal="10dp"
-        android:id="@+id/in_updatetensp">
-        <com.google.android.material.textfield.TextInputEditText
+        android:hint="Link ảnh Loại sản phẩm"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginTop="20dp"/>
+
+    <EditText
+        android:id="@+id/edt_updateTenLoaisp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Nhập tên sản phâm"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginTop="20dp"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:layout_marginBottom="10dp"
+        android:gravity="center"
+        android:orientation="horizontal">
+        <Button
+            android:layout_width="190dp"
+            android:layout_height="wrap_content"
+            android:text="Add"
+            android:textStyle="bold"
+            android:layout_marginRight="10dp"
+            android:backgroundTint="#2A66FF"
+            android:textSize="17dp"
+            android:id="@+id/LSP_Update"/>
+        <Button
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Nhập tên sản phâm"
-            android:id="@+id/edt_updateTenLoaisp"/>
-    </com.google.android.material.textfield.TextInputLayout>
+            android:text="Cancel"
+            android:textStyle="bold"
+            android:backgroundTint="#555B60"
+            android:textSize="17dp"
+            android:id="@+id/LSP_Cancel_up"/>
+    </LinearLayout>
+
 
 </LinearLayout>

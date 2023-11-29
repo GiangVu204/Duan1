@@ -2,14 +2,16 @@ package giangvhph33056.fpoly.duan1.Model;
 
 public class LoaiSanPham {
 
-    int MaLSP;
-    String TenLSP;
+    private int MaLSP;
+    private String Avata;
+    private String TenLSP;
 
     public LoaiSanPham() {
     }
 
-    public LoaiSanPham(int maLSP, String tenLSP) {
+    public LoaiSanPham(int maLSP, String avata, String tenLSP) {
         MaLSP = maLSP;
+        Avata = avata;
         TenLSP = tenLSP;
     }
 
@@ -19,6 +21,14 @@ public class LoaiSanPham {
 
     public void setMaLSP(int maLSP) {
         MaLSP = maLSP;
+    }
+
+    public String getAvata() {
+        return Avata;
+    }
+
+    public void setAvata(String avata) {
+        Avata = avata;
     }
 
     public String getTenLSP() {

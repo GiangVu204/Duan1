@@ -19,7 +19,7 @@ import giangvhph33056.fpoly.duan1.Model.ThanhVien;
 import giangvhph33056.fpoly.duan1.R;
 
 public class Fragment_add_user extends Fragment {
-    EditText edtUser_tnd,edtPass_tnd,edthoten_tnd,edtEmail_tnd,edtsdt_tnd;
+    EditText edtAvata_tnd, edtUser_tnd,edtPass_tnd,edthoten_tnd,edtEmail_tnd,edtsdt_tnd;
     Button btnTHEM;
     ThanhVienDAO tvDAO;
     public Fragment_add_user() {
@@ -28,6 +28,7 @@ public class Fragment_add_user extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view =inflater.inflate(R.layout.fragment_add_user, container, false);
+        edtAvata_tnd = view.findViewById(R.id.edtAvata_tnd);
         edtUser_tnd = view.findViewById(R.id.edtUser_tnd);
         edtPass_tnd = view.findViewById(R.id.edtPass_tnd);
         edthoten_tnd = view.findViewById(R.id.edthoten_tnd);
@@ -43,6 +44,7 @@ public class Fragment_add_user extends Fragment {
                 public void onClick(View v) {
 //                ThanhVien kt = new ThanhVien();
 //                int id = kt.getId();
+                    String avatatnd =edtAvata_tnd.getText().toString();
                     String ma = edtUser_tnd.getText().toString();
                     String pass = edtPass_tnd.getText().toString();
                     String hten = edthoten_tnd.getText().toString();
@@ -50,12 +52,12 @@ public class Fragment_add_user extends Fragment {
                     int sdt = Integer.parseInt(edtsdt_tnd.getText().toString());
                     String dc = "Hà Nội";
                     String loai ="Nhân Viên";
-                    ThanhVien kt = new ThanhVien(ma,hten,pass,sdt,email,dc,loai);
+                    ThanhVien kt = new ThanhVien(ma,avatatnd,hten,pass,sdt,email,dc,loai);
                     if(tvDAO.insert(kt)){
-                        Toast.makeText(getContext(), "DĂNG KÝ THÀNH CÔNG", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getContext(), "ĐĂNG KÝ THÀNH CÔNG", Toast.LENGTH_SHORT).show();
 
                     }else{
-                        Toast.makeText(getContext(), "DĂNG KÝ THẤT BẠI", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getContext(), "ĐĂNG KÝ THẤT BẠI", Toast.LENGTH_SHORT).show();
                     }
 
                 }

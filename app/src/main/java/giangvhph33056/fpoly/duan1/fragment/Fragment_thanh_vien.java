@@ -41,9 +41,6 @@ public class Fragment_thanh_vien extends Fragment {
         rcv_thanhvien = view.findViewById(R.id.rcv_thanhvien);
         tvDAO = new ThanhVienDAO(getContext());
         loadData();
-
-
-
         return view;
     }
     public void loadData(){

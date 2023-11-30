@@ -3,6 +3,7 @@ package giangvhph33056.fpoly.duan1.Model;
 public class ThanhVien {
     private  int id;
     private String MaTV;
+    private String AvataTV;
     private String HoTen;
     private String MatKhau;
     private int SDT;
@@ -14,8 +15,9 @@ public class ThanhVien {
     }
 /// add
     ///
-    public ThanhVien(String maTV, String hoTen, String matKhau, int SDT, String email, String DChi, String loai) {
+    public ThanhVien(String maTV, String avataTV, String hoTen, String matKhau, int SDT, String email, String DChi, String loai) {
         MaTV = maTV;
+        AvataTV = avataTV;
         HoTen = hoTen;
         MatKhau = matKhau;
         this.SDT = SDT;
@@ -24,7 +26,8 @@ public class ThanhVien {
         this.loai = loai;
     }
 
-    public ThanhVien(int id, String maTV, String hoTen, String matKhau, int SDT, String email, String DChi, String loai) {
+
+    public ThanhVien(int id, String maTV,  String hoTen, String matKhau, int SDT, String email, String DChi, String loai) {
         this.id = id;
         MaTV = maTV;
         HoTen = hoTen;
@@ -58,6 +61,14 @@ public class ThanhVien {
 
     public void setMaTV(String maTV) {
         MaTV = maTV;
+    }
+
+    public String getAvataTV() {
+        return AvataTV;
+    }
+
+    public void setAvataTV(String avataTV) {
+        AvataTV = avataTV;
     }
 
     public String getHoTen() {

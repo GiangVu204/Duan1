@@ -2,6 +2,7 @@ package giangvhph33056.fpoly.duan1.Adapter;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,6 +19,7 @@ import java.util.ArrayList;
 import giangvhph33056.fpoly.duan1.DAO.SanPhamDAO;
 import giangvhph33056.fpoly.duan1.Model.SanPham;
 import giangvhph33056.fpoly.duan1.R;
+import giangvhph33056.fpoly.duan1.sanphamchitiet;
 
 public class Adapter_trangchu extends RecyclerView.Adapter<Adapter_trangchu.ViewHolder>{
     private Context context;
@@ -54,6 +56,10 @@ public class Adapter_trangchu extends RecyclerView.Adapter<Adapter_trangchu.View
             public void onClick(View view) {
                 if(click != null){
                     click.click(holder.getAdapterPosition());
+                    Intent intent = new Intent(context, sanphamchitiet.class);
+                    intent.putExtra("sanphamct", list.get(holder.getAdapterPosition()));
+                    intent.putExtra("anhsp", list.get(holder.getAdapterPosition()).getAvataSP());
+                    context.startActivity(intent);
                 }
             }
         });

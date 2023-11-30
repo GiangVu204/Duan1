@@ -112,7 +112,7 @@ public class Layout extends AppCompatActivity {
                 } else if (item.getItemId() == R.id.menuTND) {
                     Fragment_add_user frgTND = new Fragment_add_user();
                     relaceFrg(frgTND);
-                    toolbar.setTitle("Thêm người dùng");
+                    toolbar.setTitle("Thêm nhân viên");
                 } else if (item.getItemId() == R.id.menuDMK) {
                     Fragment_doi_mk frgDMK = new Fragment_doi_mk();
                     relaceFrg(frgDMK);

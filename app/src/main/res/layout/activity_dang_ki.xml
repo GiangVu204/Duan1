@@ -8,7 +8,11 @@
     tools:context=".DangKi"
     android:background="@drawable/top_backgruod_login">
 
-
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:scrollbars="vertical"
+        >
     <androidx.cardview.widget.CardView
         android:id="@+id/cardView"
         android:layout_width="match_parent"
@@ -27,15 +31,31 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="20dp"
-                android:layout_marginTop="50dp"
+                android:layout_marginTop="30dp"
                 android:text="ĐĂNG KÝ"
                 android:textColor="#FF9800"
                 android:textSize="40dp"
                 android:textStyle="bold" />
+
             <com.google.android.material.textfield.TextInputLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginHorizontal="10dp"
+                android:layout_marginTop="10dp">
+                <com.google.android.material.textfield.TextInputEditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:drawableStart="@drawable/baseline_people_outline_24"
+                    android:drawablePadding="10dp"
+                    android:hint="Nhập link ảnh"
+                    android:id="@+id/edtAvata_dk"
+                    android:textColor="@color/black"
+                    android:textSize="22sp" />
+            </com.google.android.material.textfield.TextInputLayout>
 
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
                 android:layout_marginHorizontal="10dp"
                 android:layout_marginTop="10dp">
                 <com.google.android.material.textfield.TextInputEditText
@@ -135,11 +155,13 @@
                 android:background="@drawable/button_backgruod_login"
                 android:text="SIGN"
                 android:textColor="@color/white"
-                android:textSize="27dp" />
+                android:textSize="27dp"
+                android:layout_marginBottom="20dp"/>
 
         </LinearLayout>
 
     </androidx.cardview.widget.CardView>
+    </ScrollView>
 
 
 </LinearLayout>

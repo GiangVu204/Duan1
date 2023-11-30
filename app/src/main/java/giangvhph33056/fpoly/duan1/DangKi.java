@@ -13,7 +13,7 @@ import giangvhph33056.fpoly.duan1.DAO.ThanhVienDAO;
 import giangvhph33056.fpoly.duan1.Model.ThanhVien;
 
 public class DangKi extends AppCompatActivity {
-    EditText edtUser_dk,edtPass_dk,edthoten_dk,edtEmail_dk,edtsdt_dk;
+    EditText edtAvata_dk, edtUser_dk,edtPass_dk,edthoten_dk,edtEmail_dk,edtsdt_dk;
     Button btnSIGN;
     ThanhVienDAO tvDAO;
 
@@ -21,6 +21,7 @@ public class DangKi extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_dang_ki);
+        edtAvata_dk = findViewById(R.id.edtAvata_dk);
         edtUser_dk = findViewById(R.id.edtUser_dk);
         edtPass_dk = findViewById(R.id.edtPass_dk);
         edthoten_dk = findViewById(R.id.edthoten_dk);
@@ -36,6 +37,7 @@ public class DangKi extends AppCompatActivity {
             public void onClick(View v) {
 //                ThanhVien kt = new ThanhVien();
 //                int id = kt.getId();
+                String avatadk = edtAvata_dk.getText().toString();
                 String ma = edtUser_dk.getText().toString();
                 String pass = edtPass_dk.getText().toString();
                 String hten = edthoten_dk.getText().toString();
@@ -43,7 +45,7 @@ public class DangKi extends AppCompatActivity {
                 int sdt = Integer.parseInt(edtsdt_dk.getText().toString());
                 String dc = "Hà Nội";
                 String loai ="Khách Hàng";
-                ThanhVien kt = new ThanhVien(ma,hten,pass,sdt,email,dc,loai);
+                ThanhVien kt = new ThanhVien(ma,avatadk,hten,pass,sdt,email,dc,loai);
                 if(tvDAO.insert(kt)){
                     Toast.makeText(DangKi.this, "DĂNG KÝ THÀNH CÔNG", Toast.LENGTH_SHORT).show();
                     Intent intent = new Intent(DangKi.this,  Login.class);

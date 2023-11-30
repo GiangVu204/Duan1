@@ -31,10 +31,10 @@ public class ThanhVienDAO {
             cursor.moveToFirst();
             SharedPreferences.Editor editor = sharedPreferences.edit();
             editor.putString("MaTV", cursor.getString(1));
-            editor.putString("HoTen", cursor.getString(2));
-            editor.putString("MatKhau", cursor.getString(3));
-            editor.putString("Email", cursor.getString(5));
-            editor.putString("Loai", cursor.getString(7));
+            editor.putString("HoTen", cursor.getString(3));
+            editor.putString("MatKhau", cursor.getString(4));
+            editor.putString("Email", cursor.getString(6));
+            editor.putString("Loai", cursor.getString(8));
             // Lưu mật khẩu vào SharedPreferences
            // editor.putString("Loai", cursor.getString(3));
             editor.commit();
@@ -54,12 +54,13 @@ public class ThanhVienDAO {
                     ThanhVien tv = new ThanhVien();
                     tv.setId(cursor.getInt(0));
                     tv.setMaTV(cursor.getString(1));
-                    tv.setHoTen(cursor.getString(2));
-                    tv.setMatKhau(cursor.getString(3));
-                    tv.setSDT(cursor.getInt(4));
-                    tv.setEmail(cursor.getString(5));
-                    tv.setDChi(cursor.getString(6));
-                    tv.setLoai(cursor.getString(7));
+                    tv.setAvataTV(cursor.getString(2));
+                    tv.setHoTen(cursor.getString(3));
+                    tv.setMatKhau(cursor.getString(4));
+                    tv.setSDT(cursor.getInt(5));
+                    tv.setEmail(cursor.getString(6));
+                    tv.setDChi(cursor.getString(7));
+                    tv.setLoai(cursor.getString(8));
                     list.add(tv);
                     cursor.moveToNext();
 
@@ -85,10 +86,11 @@ public class ThanhVienDAO {
         }
 
     }
-    public  boolean update(ThanhVien tv){
+    public boolean update(ThanhVien tv){
         SQLiteDatabase db = dbhelper.getWritableDatabase();
         ContentValues values = new ContentValues();
         values.put("MaTV",tv.getMaTV());
+        values.put("AvataTV",tv.getAvataTV());
         values.put("HoTen",tv.getHoTen());
         values.put("MatKhau",tv.getMatKhau());
         values.put("SDT",tv.getSDT());
@@ -101,6 +103,7 @@ public class ThanhVienDAO {
         SQLiteDatabase db = dbhelper.getWritableDatabase();
         ContentValues values = new ContentValues();
         values.put("MaTV", tv.getMaTV());
+        values.put("AvataTV",tv.getAvataTV());
         values.put("HoTen",tv.getHoTen());
         values.put("MatKhau", tv.getMatKhau());
         values.put("SDT",tv.getSDT());

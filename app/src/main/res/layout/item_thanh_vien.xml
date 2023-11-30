@@ -14,13 +14,13 @@
         <androidx.cardview.widget.CardView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:cardCornerRadius="10dp">
+            app:cardCornerRadius="10dp"
+            android:layout_marginTop="38dp"
+            android:layout_marginLeft="5dp">
             <ImageView
                 android:layout_width="100dp"
                 android:layout_height="100dp"
-                android:layout_marginTop="10dp"
-                android:layout_marginLeft="2dp"
-                android:id="@+id/ImgAnh"
+                android:id="@+id/ImgAnhTV"
                 android:src="@drawable/thanh_vien"/>
         </androidx.cardview.widget.CardView>
 
@@ -37,7 +37,7 @@
                     android:layout_height="wrap_content"
                     android:padding="10dp"
                     android:textStyle="bold"
-                    android:text="Mã thành viên: "/>
+                    android:text="Mã thành viên:"/>
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -56,7 +56,7 @@
                     android:layout_height="wrap_content"
                     android:padding="10dp"
                     android:textStyle="bold"
-                    android:text="Họ và Tên: "/>
+                    android:text="Họ và Tên:"/>
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -75,7 +75,7 @@
                     android:layout_height="wrap_content"
                     android:textStyle="bold"
                     android:padding="10dp"
-                    android:text="Số Điện thoại: "/>
+                    android:text="Số Điện thoại:"/>
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -94,7 +94,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:padding="10dp"
-                    android:text="Email: "
+                    android:text="Email:"
                     android:textStyle="bold" />
 
                 <TextView
@@ -115,7 +115,7 @@
                     android:layout_height="wrap_content"
                     android:textStyle="bold"
                     android:padding="10dp"
-                    android:text="Dịa chỉ: "/>
+                    android:text="Địa chỉ:"/>
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"

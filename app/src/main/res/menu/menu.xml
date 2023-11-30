@@ -58,7 +58,7 @@
     <item android:title="Người dùng">
         <menu>
             <item android:id="@+id/menuTND"
-                android:title="Thêm người dùng"
+                android:title="Thêm nhân viên"
                 android:icon="@drawable/add_user"/>
             <item android:id="@+id/menuDMK"
                 android:title="Đổi mật khẩu"

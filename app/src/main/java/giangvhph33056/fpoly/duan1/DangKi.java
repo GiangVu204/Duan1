@@ -9,11 +9,15 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.google.android.material.textfield.TextInputEditText;
+import com.google.android.material.textfield.TextInputLayout;
+
 import giangvhph33056.fpoly.duan1.DAO.ThanhVienDAO;
 import giangvhph33056.fpoly.duan1.Model.ThanhVien;
 
 public class DangKi extends AppCompatActivity {
-    EditText edtAvata_dk, edtUser_dk,edtPass_dk,edthoten_dk,edtEmail_dk,edtsdt_dk;
+    TextInputEditText edtAvata_dk, edtUser_dk,edtPass_dk,edthoten_dk,edtEmail_dk,edtsdt_dk;
+    TextInputLayout in_Avata_dk;
     Button btnSIGN;
     ThanhVienDAO tvDAO;
 

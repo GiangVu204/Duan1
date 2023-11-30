@@ -17,6 +17,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.material.textfield.TextInputEditText;
+import com.google.android.material.textfield.TextInputLayout;
 
 import giangvhph33056.fpoly.duan1.DAO.ThanhVienDAO;
 import giangvhph33056.fpoly.duan1.Model.ThanhVien;
@@ -24,6 +25,7 @@ import giangvhph33056.fpoly.duan1.util.SendMail;
 
 public class Login extends AppCompatActivity {
     TextInputEditText edtUser,edtPass;
+    TextInputLayout in_User, in_Pass;
     AppCompatButton btnLOGIN;
     ThanhVienDAO tvdao;
     TextView txtDangki_dn, txtQuenMk;
@@ -35,6 +37,8 @@ public class Login extends AppCompatActivity {
         //anh xa
         txtDangki_dn = findViewById(R.id.txtDangki_dn);
         txtQuenMk = findViewById(R.id.txtQuenMk);
+        in_User = findViewById(R.id.in_User);
+        in_Pass = findViewById(R.id.in_Pass);
         edtUser = findViewById(R.id.edtUser);
         edtPass = findViewById(R.id.edtPass);
         btnLOGIN = findViewById(R.id.btnLOGIN);
@@ -64,6 +68,10 @@ public class Login extends AppCompatActivity {
             public void onClick(View v) {
                 String user = edtUser.getText().toString();
                 String pass = edtPass.getText().toString();
+                if (user.isEmpty() || pass.isEmpty()) {
+                    Toast.makeText(Login.this, "Vui lòng nhập đầy đủ thông tin", Toast.LENGTH_SHORT).show();
+                    return;
+                }
                 if(tvdao.checklogin(user,pass)){
                     /// nhớ tài khoan mật khẩu
                     if (chkNho.isChecked()==true) {

@@ -125,6 +125,13 @@ public class Adapter_SanPham extends RecyclerView.Adapter<Adapter_SanPham.ViewHo
                 }
             }
         });
+        holder.imgChinhSua_sp.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+            }
+        });
+
     }
 
     @Override

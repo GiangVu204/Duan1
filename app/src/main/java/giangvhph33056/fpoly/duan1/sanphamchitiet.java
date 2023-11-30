@@ -22,6 +22,9 @@ import android.widget.Toast;
 import com.squareup.picasso.Callback;
 import com.squareup.picasso.Picasso;
 
+import java.util.ArrayList;
+
+import giangvhph33056.fpoly.duan1.Adapter.Adapter_GioHang;
 import giangvhph33056.fpoly.duan1.Adapter.Adapter_SanPham;
 import giangvhph33056.fpoly.duan1.Model.SanPham;
 import giangvhph33056.fpoly.duan1.Model.ThanhVien;
@@ -29,7 +32,8 @@ import giangvhph33056.fpoly.duan1.Model.ThanhVien;
 public class sanphamchitiet extends AppCompatActivity{
     TextView txttensp_ct,txtmasp_ct,txtgiasp_ct,txtsoluongsp_ct,txtsize_ct,txttenth_ct,txttenlsp_ct;
     Button btnthemgh_ct,btnMuangay_ct;
-    EditText edtmahd,edtngay,edttrangthai,edtsoluong,edttenthanhvien,edttenanpham;
+
+    private ArrayList<SanPham> list;
     ImageView back, ImaSP;
      // Biến thành viên để lưu đường dẫn ảnh
     @Override
@@ -65,9 +69,11 @@ public class sanphamchitiet extends AppCompatActivity{
         btnthemgh_ct.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(sanphamchitiet.this, Gio_Hang.class);
-                startActivity(intent);
-            }
+                    // Truyền đường dẫn ảnh qua Intent
+
+                }
+
+
         });
         // nhận dữ liệu được chuyền
         Intent intent = getIntent();
@@ -89,21 +95,6 @@ public class sanphamchitiet extends AppCompatActivity{
             }
         }
 
-
-    }
-
-
-    private void dialogadd () {
-        AlertDialog.Builder builder = new AlertDialog.Builder(sanphamchitiet.this);
-        LayoutInflater inflater = getLayoutInflater();
-        View view = inflater.inflate(R.layout.item_muahang, null);
-        builder.setView(view);
-        edtmahd = view.findViewById(R.id.edtmahd);
-        edtngay = view.findViewById(R.id.edtngay);
-        edttrangthai = view.findViewById(R.id.edttrangthai);
-        edtsoluong = view.findViewById(R.id.edtsoluong);
-        edttenthanhvien = view.findViewById(R.id.edttenthanhvien);
-        edttenanpham = view.findViewById(R.id.edttenanpham);
 
     }
 

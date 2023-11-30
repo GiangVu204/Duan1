@@ -18,9 +18,11 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.FrameLayout;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.google.android.material.navigation.NavigationView;
+import com.squareup.picasso.Picasso;
 
 import giangvhph33056.fpoly.duan1.DAO.ThanhVienDAO;
 
@@ -58,6 +60,7 @@ public class Layout extends AppCompatActivity {
         TextView txtloaitv = view.findViewById(R.id.txtloaitv_hd);
         TextView txtemailtv = view.findViewById(R.id.txtemailtv_hd);
         TextView txthotentv_hd = view.findViewById(R.id.txthotentv_hd);
+        ImageView logo_user = view.findViewById(R.id.logo_user);
         dao = new ThanhVienDAO(this);
 
         setSupportActionBar(toolbar);
@@ -167,6 +170,8 @@ public class Layout extends AppCompatActivity {
         txtemailtv.setText(email);
         String Hoten = sharedPreferences.getString("HoTen","");
         txthotentv_hd.setText(Hoten);
+        String avt = sharedPreferences.getString("AvataTV","");
+        Picasso.get().load(avt).into(logo_user);
 
     }
     public void relaceFrg(Fragment frg){

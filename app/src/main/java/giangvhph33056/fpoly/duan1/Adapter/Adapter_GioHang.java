@@ -1,6 +1,7 @@
 package giangvhph33056.fpoly.duan1.Adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,13 +14,13 @@ import androidx.recyclerview.widget.RecyclerView;
 import java.util.List;
 
 import giangvhph33056.fpoly.duan1.Gio_Hang;
+import giangvhph33056.fpoly.duan1.Model.SanPham;
 import giangvhph33056.fpoly.duan1.R;
 
 public class Adapter_GioHang extends RecyclerView.Adapter<Adapter_GioHang.MyViewHolder> {
 
     Context context;
     List<Gio_Hang> gioHangList;
-
     public Adapter_GioHang(Context context, List<Gio_Hang> gioHangList) {
         this.context = context;
         this.gioHangList = gioHangList;
@@ -35,9 +36,7 @@ public class Adapter_GioHang extends RecyclerView.Adapter<Adapter_GioHang.MyView
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
         Gio_Hang gioHang = gioHangList.get(position);
-//        holder.item_giohang_tensp.setText(gioHang);
-
-
+        // holder.item_giohang_tensp.setText((SanPham) gioHang);
     }
 
     @Override

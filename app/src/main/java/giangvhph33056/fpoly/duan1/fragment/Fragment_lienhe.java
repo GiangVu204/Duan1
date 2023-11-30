@@ -10,11 +10,7 @@ import android.view.ViewGroup;
 
 import giangvhph33056.fpoly.duan1.R;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link Fragment_lienhe#newInstance} factory method to
- * create an instance of this fragment.
- */
+
 public class Fragment_lienhe extends Fragment {
 
     // TODO: Rename parameter arguments, choose names that match

@@ -47,6 +47,7 @@ public class Login extends AppCompatActivity {
         SharedPreferences sharedPreferences = getSharedPreferences("DANGNHAPTV", MODE_PRIVATE);
         String saveduser = sharedPreferences.getString("MaTV", "");
         String savedPassword = sharedPreferences.getString("MatKhau", "");
+        chkNho.setChecked(true);
         if (!savedPassword.isEmpty()) {
             edtUser.setText(saveduser);
             edtPass.setText(savedPassword);

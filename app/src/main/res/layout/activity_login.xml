@@ -86,7 +86,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="10dp"
-
                 android:layout_marginTop="10dp"
                 android:id="@+id/in_User"
                 >
@@ -97,8 +96,8 @@
                     android:drawablePadding="10dp"
                     android:hint="Nhập username"
                     android:textSize="22sp"
-
                     android:textColor="@color/black"
+                    android:inputType="textVisiblePassword"
                     android:id="@+id/edtUser"/>
             </com.google.android.material.textfield.TextInputLayout>
             <com.google.android.material.textfield.TextInputLayout
@@ -106,7 +105,6 @@
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="10dp"
                 android:layout_marginTop="10dp"
-
                 app:passwordToggleEnabled="true"
                 android:id="@+id/in_Pass"
                 >
@@ -117,7 +115,6 @@
                     android:drawableStart="@drawable/baseline_key_24"
                     android:drawablePadding="10dp"
                     android:inputType="textPassword"
-
                     android:textSize="22sp"
                     android:textColor="@color/black"
                     android:id="@+id/edtPass"/>

@@ -36,6 +36,17 @@ public class SanPham implements Parcelable {
         this.tenlsp = tenlsp;
     }
 
+    public SanPham(int maSP, String avataSP, String tenSP, int gia, int soLuong, int id, int maTH, int maLSP) {
+        MaSP = maSP;
+        AvataSP = avataSP;
+        TenSP = tenSP;
+        Gia = gia;
+        SoLuong = soLuong;
+        this.id = id;
+        MaTH = maTH;
+        MaLSP = maLSP;
+    }
+
     public SanPham(String avataSP, String tenSP, int gia, int soLuong, int id, int maTH, int maLSP) {
         AvataSP = avataSP;
         TenSP = tenSP;

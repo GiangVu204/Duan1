@@ -12,6 +12,7 @@ import java.util.ArrayList;
 
 import giangvhph33056.fpoly.duan1.DataBase.Dbhelper;
 import giangvhph33056.fpoly.duan1.Model.SanPham;
+import giangvhph33056.fpoly.duan1.Model.ThanhVien;
 
 public class SanPhamDAO {
     static Dbhelper dbhelper;
@@ -73,6 +74,20 @@ public class SanPhamDAO {
         values.put("MaTH", pm.getMaTH());
         values.put("MaLSP", pm.getMaLSP());
         long row = db.insert("SanPham", null, values);
+        return (row > 0);
+    }
+    public boolean update(SanPham pm){
+        SQLiteDatabase db = dbhelper.getWritableDatabase();
+        ContentValues values = new ContentValues();
+        values.put("MaSP", pm.getMaLSP());
+        values.put("AvataSP",pm.getAvataSP());
+        values.put("TenSP", pm.getTenSP());
+        values.put("Gia",pm.getGia());
+        values.put("SoLuong", pm.getSoLuong());
+        values.put("id", pm.getId());
+        values.put("MaTH", pm.getMaTH());
+        values.put("MaLSP", pm.getMaLSP());
+        long row = db.update("SanPham", values, "id=?", new String[]{String.valueOf(pm.getId())});
         return (row > 0);
     }
 }

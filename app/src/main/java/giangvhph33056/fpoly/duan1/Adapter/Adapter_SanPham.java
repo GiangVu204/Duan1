@@ -2,6 +2,7 @@ package giangvhph33056.fpoly.duan1.Adapter;
 
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -10,27 +11,42 @@ import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.SimpleAdapter;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.android.material.textfield.TextInputEditText;
+import com.google.android.material.textfield.TextInputLayout;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
+import giangvhph33056.fpoly.duan1.DAO.KichThuocDAO;
+import giangvhph33056.fpoly.duan1.DAO.LoaiSanPhamDAO;
 import giangvhph33056.fpoly.duan1.DAO.SanPhamDAO;
 import giangvhph33056.fpoly.duan1.DAO.ThanhVienDAO;
+import giangvhph33056.fpoly.duan1.DAO.ThuongHieuDAO;
+import giangvhph33056.fpoly.duan1.Model.KichThuoc;
+import giangvhph33056.fpoly.duan1.Model.LoaiSanPham;
 import giangvhph33056.fpoly.duan1.Model.SanPham;
 import giangvhph33056.fpoly.duan1.Model.ThanhVien;
+import giangvhph33056.fpoly.duan1.Model.ThuongHieu;
 import giangvhph33056.fpoly.duan1.R;
 import giangvhph33056.fpoly.duan1.sanphamchitiet;
 
 public class Adapter_SanPham extends RecyclerView.Adapter<Adapter_SanPham.ViewHolder>{
     private Context context;
     private ArrayList<SanPham> list;
+    TextInputEditText edtTensp_sp_up,edtgia_sp_up, edtAnhsp_sp_up;
+    TextInputLayout in_Anh_sp_up, in_Ten_sp_up, in_gia_sp_up;
+    Spinner spnloaisp_up,spnthuong_up,spnKichthuoc_up;
     SanPhamDAO dao;
     public interface click{
         void click (int pos);
@@ -128,7 +144,7 @@ public class Adapter_SanPham extends RecyclerView.Adapter<Adapter_SanPham.ViewHo
         holder.imgChinhSua_sp.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                dialogadd(sp);
             }
         });
 
@@ -152,6 +168,115 @@ public class Adapter_SanPham extends RecyclerView.Adapter<Adapter_SanPham.ViewHo
             txtTenthuonghieu_sp = itemView.findViewById(R.id.txtTenthuonghieu_sp);
 
         }
+    }
+
+    private void dialogadd (SanPham sp){
+        AlertDialog.Builder builder = new AlertDialog.Builder(context);
+        LayoutInflater inflater = ((Activity)context).getLayoutInflater();
+        View view = inflater.inflate(R.layout.item_update_sanpham, null);
+
+        builder.setView(view);
+        Dialog dialog = builder.create();
+        dialog.show();
+        in_Anh_sp_up = view.findViewById(R.id.in_Anh_sp_up);
+        in_Ten_sp_up = view.findViewById(R.id.in_Ten_sp_up);
+        in_gia_sp_up = view.findViewById(R.id.in_gia_sp_up);
+        edtAnhsp_sp_up = view.findViewById(R.id.edtAnhsp_sp_up);
+        edtTensp_sp_up = view.findViewById(R.id.edtTensp_sp_up);
+        edtgia_sp_up = view.findViewById(R.id.edtgia_sp_up);
+
+        spnKichthuoc_up = view.findViewById(R.id.spnKichthuoc_up);
+        spnthuong_up = view.findViewById(R.id.spnthuong_up);
+        spnloaisp_up = view.findViewById(R.id.spnloaisp_up);
+        Button SP_add = view.findViewById(R.id.SP_up);
+        Button SP_cancel_up = view.findViewById(R.id.SP_Cancel_up);
+        edtTensp_sp_up.setText(sp.getTenSP());
+        edtgia_sp_up.setText(String.valueOf(sp.getGia()));
+        edtAnhsp_sp_up.setText(sp.getAvataSP());
+
+        getDataKichThuoc(spnKichthuoc_up);
+        getDataLoai(spnloaisp_up);
+        getDataThuong(spnthuong_up);
+
+        SP_add.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                //lay ma Kich Thuoc
+                HashMap<String , String> hsKT = (HashMap<String, String>) spnKichthuoc_up.getSelectedItem();
+                int id= Integer.parseInt(hsKT.get("id"));
+                int sluong = Integer.parseInt(hsKT.get("SoLuong"));
+                // lay ma thuong hiêu
+                HashMap<String , String> hsTH = (HashMap<String, String>) spnthuong_up.getSelectedItem();
+                int MaTH= Integer.parseInt(hsTH.get("MaTH"));
+                // lay ma loai san pham
+                HashMap<String , String> hsLSP = (HashMap<String, String>) spnloaisp_up.getSelectedItem();
+                int MaLSP= Integer.parseInt(hsLSP.get("MaLSP"));
+                String tensp = edtTensp_sp_up.getText().toString();
+                int gia = Integer.parseInt(edtgia_sp_up.getText().toString());
+                String avatasp = edtAnhsp_sp_up.getText().toString();
+                //int soluong = Integer.parseInt(edtSoLuong_sp_add.getText().toString());
+                int idd = sp.getMaSP();
+                suasanpham(idd,avatasp,tensp,gia,sluong,id,MaTH,MaLSP);
+                dialog.dismiss();
+            }
+        });
+    }
+
+    private void getDataKichThuoc(Spinner spnKichthuoc_up) {
+        KichThuocDAO DAO = new KichThuocDAO(context);
+        ArrayList<KichThuoc> list = DAO.selectAllKichThuoc();
+        ArrayList<HashMap<String,String>> listHM = new ArrayList<>();
+        for ( KichThuoc s : list) {
+            HashMap<String , String> hs = new HashMap<>();
+            hs.put("id" , String.valueOf(s.getId()));
+            hs.put("MaKT" , s.getMaKT());
+            hs.put("Size", String.valueOf("Size "+ s.getSize()));
+            hs.put("SoLuong", String.valueOf(s.getSoLuong()));
+            listHM.add(hs);
+        }
+        SimpleAdapter adapter = new SimpleAdapter(context,listHM,android.R.layout.simple_list_item_1,new String[]{"MaKT"}, new int[]{android.R.id.text1});
+        spnKichthuoc_up.setAdapter(adapter);
+    }
+    private void getDataLoai(Spinner spnloaisp_up) {
+        LoaiSanPhamDAO DAO = new LoaiSanPhamDAO(context);
+        ArrayList<LoaiSanPham> list = DAO.getDSLoaiSanPham();
+        ArrayList<HashMap<String,String>> listHM = new ArrayList<>();
+        for ( LoaiSanPham s : list) {
+            HashMap<String , String> hs = new HashMap<>();
+            hs.put("MaLSP" , String.valueOf(s.getMaLSP()));
+            hs.put("TenLSP", s.getTenLSP());
+            listHM.add(hs);
+        }
+        SimpleAdapter adapter = new SimpleAdapter(context,listHM,android.R.layout.simple_list_item_1,new String[]{"TenLSP"}, new int[]{android.R.id.text1});
+        spnloaisp_up.setAdapter(adapter);
+    }
+
+    private void getDataThuong(Spinner spnthuong_add) {
+        ThuongHieuDAO DAO = new ThuongHieuDAO(context);
+        ArrayList<ThuongHieu> list = DAO.getDSThuongHieu();
+        ArrayList<HashMap<String,String>> listHM = new ArrayList<>();
+        for (ThuongHieu tv : list) {
+            HashMap<String , String> hs = new HashMap<>();
+            hs.put("MaTH" , String.valueOf(tv.getMaTH()));
+            hs.put("TenTH", tv.getTenTH());
+            hs.put("SDT",String.valueOf(tv.getSDT()));
+            listHM.add(hs);
+        }
+        SimpleAdapter adapter = new SimpleAdapter(context,listHM,android.R.layout.simple_list_item_1,new String[]{"TenTH"}, new int[]{android.R.id.text1});
+        spnthuong_add.setAdapter(adapter);
+    }
+    private void suasanpham(int  masp ,String AvataSP, String tensp , int gia,int soluong ,int id ,int MaTH  ,int MaLSP ){
+        SanPham  sp = new SanPham(masp,AvataSP, tensp ,gia,soluong,id, MaTH,MaLSP);
+        boolean kiemtra =dao.update(sp);
+        if (kiemtra == true){
+            list.clear();
+            list.addAll(dao.selectAllSanPham());
+            notifyDataSetChanged();
+            Toast.makeText(context, "Thêm sản phẩm thành  thành công!", Toast.LENGTH_SHORT).show();
+        }else{
+            Toast.makeText(context, "Thêm Sản phẩm thất bại!", Toast.LENGTH_SHORT).show();
+        }
+
     }
 
 }

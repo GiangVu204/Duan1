@@ -138,6 +138,7 @@ public class Layout extends AppCompatActivity {
                 return false;
             }
         });
+            // phân quyền
         SharedPreferences sharedPreferences = getSharedPreferences("DANGNHAPTV",MODE_PRIVATE);
         String Loai = sharedPreferences.getString("Loai","");
         if(Loai.equalsIgnoreCase("admin")){

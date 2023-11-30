@@ -153,7 +153,7 @@ public class Fragment_san_pham extends Fragment {
                 int gia = Integer.parseInt(edtgia_sp_add.getText().toString());
                 String avatasp = edtAnhsp_sp_add.getText().toString();
                 //int soluong = Integer.parseInt(edtSoLuong_sp_add.getText().toString());
-                themPhieuMuon(avatasp,tensp,gia,sluong,id,MaTH,MaLSP);
+                themsanpham(avatasp,tensp,gia,sluong,id,MaTH,MaLSP);
                 dialog.dismiss();
             }
         });
@@ -202,7 +202,7 @@ public class Fragment_san_pham extends Fragment {
         SimpleAdapter adapter = new SimpleAdapter(getContext(),listHM,android.R.layout.simple_list_item_1,new String[]{"TenTH"}, new int[]{android.R.id.text1});
         spnthuong_add.setAdapter(adapter);
     }
-    private void themPhieuMuon(String AvataSP, String tensp , int gia,int soluong ,int id ,int MaTH  ,int MaLSP ){
+    private void themsanpham(String AvataSP, String tensp , int gia,int soluong ,int id ,int MaTH  ,int MaLSP ){
         SanPham  sp = new SanPham(AvataSP, tensp ,gia,soluong,id, MaTH,MaLSP);
         boolean kiemtra =spDAO.insert(sp);
         if (kiemtra == true){

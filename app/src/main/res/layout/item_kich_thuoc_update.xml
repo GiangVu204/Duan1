@@ -23,10 +23,27 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:drawablePadding="10dp"
-            android:hint="Nhập size giày"
+            android:hint="Nhập mã kích thước"
             android:textSize="22sp"
             android:textColor="@color/black"
             android:id="@+id/edtma_kt_up"/>
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="10dp"
+        android:layout_marginTop="10dp"
+        android:id="@+id/in_anh_up"
+        >
+        <com.google.android.material.textfield.TextInputEditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:drawablePadding="10dp"
+            android:hint="Nhập link ảnh kích thước"
+            android:textSize="22sp"
+            android:textColor="@color/black"
+            android:id="@+id/edtanh_kt_up"/>
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout

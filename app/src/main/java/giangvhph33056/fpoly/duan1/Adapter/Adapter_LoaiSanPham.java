@@ -54,7 +54,7 @@ public class Adapter_LoaiSanPham extends RecyclerView.Adapter<Adapter_LoaiSanPha
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         LoaiSanPham lsp = list.get(position);
         holder.MaLSP.setText(String.valueOf(list.get(position).getMaLSP()));
-        holder.TenTh.setText(list.get(position).getTenLSP());
+        holder.TenLSP.setText(list.get(position).getTenLSP());
         // Load ảnh từ đường dẫn và hiển thị trong ImageView
 //        Glide.with(context).load(list.get(position).getAvata()).into(holder.Avata);
         Picasso.get().load(lsp.getAvata()).into(holder.Avata);
@@ -113,14 +113,14 @@ public class Adapter_LoaiSanPham extends RecyclerView.Adapter<Adapter_LoaiSanPha
 
     public class ViewHolder extends RecyclerView.ViewHolder{
 
-        TextView MaLSP, TenTh;
+        TextView MaLSP, TenLSP;
         ImageView Avata, LSP_Delete;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
 
             MaLSP = itemView.findViewById(R.id.MaLSP);
-            TenTh = itemView.findViewById(R.id.TenLSP);
+            TenLSP = itemView.findViewById(R.id.TenLSP);
             Avata = itemView.findViewById(R.id.Avata);
             LSP_Delete = itemView.findViewById(R.id.LSP_Delete);
         }

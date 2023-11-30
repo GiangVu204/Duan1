@@ -20,6 +20,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 
@@ -31,7 +32,7 @@ import giangvhph33056.fpoly.duan1.R;
 public class Adapter_KichThuoc extends RecyclerView.Adapter<Adapter_KichThuoc.ViewHolder> {
     private Context context;
     private ArrayList<KichThuoc> list;
-    private KichThuocDAO dao;
+    KichThuocDAO dao;
 
     public Adapter_KichThuoc(Context context, ArrayList<KichThuoc> list) {
         this.context = context;
@@ -49,11 +50,13 @@ public class Adapter_KichThuoc extends RecyclerView.Adapter<Adapter_KichThuoc.Vi
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
+        KichThuoc kt = list.get(position);
         holder.txtMaKT_kt.setText(list.get(position).getMaKT());
+        Picasso.get().load(kt.getAvataKT()).into(holder.AvataKT);
         holder.txtSize_kt.setText("SIZE " + list.get(position).getSize());
         holder.txtSoLuong_kt.setText(String.valueOf(list.get(position).getSoLuong()));
 
-        KichThuoc kt = list.get(position);
+
         holder.imgDelete_kt.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -106,11 +109,12 @@ public class Adapter_KichThuoc extends RecyclerView.Adapter<Adapter_KichThuoc.Vi
 
     public class ViewHolder extends RecyclerView.ViewHolder {
         TextView txtMaKT_kt, txtSize_kt, txtSoLuong_kt;
-        ImageView imgDelete_kt;
+        ImageView AvataKT, imgDelete_kt;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             txtMaKT_kt = itemView.findViewById(R.id.txtMaKT_kt);
+            AvataKT = itemView.findViewById(R.id.AvataKT);
             txtSize_kt = itemView.findViewById(R.id.txtSize_kt);
             txtSoLuong_kt = itemView.findViewById(R.id.txtSoLuong_kt);
             imgDelete_kt = itemView.findViewById(R.id.imgDelete_kt);
@@ -127,15 +131,19 @@ public class Adapter_KichThuoc extends RecyclerView.Adapter<Adapter_KichThuoc.Vi
         TextInputEditText edtma_kt_up = view.findViewById(R.id.edtma_kt_up);
         TextInputEditText edtsize_kt = view.findViewById(R.id.edtsize_kt);
         TextInputEditText edtSoluong_kt = view.findViewById(R.id.edtSoluong_kt);
+        TextInputEditText edtanh_kt_up = view.findViewById(R.id.edtanh_kt_up);
         TextInputLayout in_ma_up = view.findViewById(R.id.in_size);
         TextInputLayout in_size = view.findViewById(R.id.in_size);
         TextInputLayout in_soluong = view.findViewById(R.id.in_soluong);
+        TextInputLayout in_anh_up = view.findViewById(R.id.in_anh_up);
         Button UpdateTH = view.findViewById(R.id.KT_update);
         Button CancelTH = view.findViewById(R.id.KT_Cancelupdate);
 
+        edtma_kt_up.setText(kt.getMaKT());
+        edtanh_kt_up.setText(kt.getAvataKT());
         edtsize_kt.setText(String.valueOf(kt.getSize()));
         edtSoluong_kt.setText(String.valueOf(kt.getSoLuong()));
-        edtma_kt_up.setText(kt.getMaKT());
+
 
         edtma_kt_up.addTextChangedListener(new TextWatcher() {
             @Override
@@ -199,15 +207,45 @@ public class Adapter_KichThuoc extends RecyclerView.Adapter<Adapter_KichThuoc.Vi
             }
         });
 
+        edtanh_kt_up.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                if (charSequence.length() == 0){
+                    in_anh_up.setError("Vui lòng không để trống link ảnh kích thước");
+                }else {
+                    in_anh_up.setError(null);
+                }
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+
+            }
+        });
+
         UpdateTH.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 String MaKT = edtma_kt_up.getText().toString();
+                String Anhkt = edtanh_kt_up.getText().toString();
                 String sizeText = edtsize_kt.getText().toString();
                 String soluongText = edtSoluong_kt.getText().toString();
 
-                if (sizeText.isEmpty() || soluongText.isEmpty()) {
-                    if (sizeText.isEmpty()) {
+                if (MaKT.isEmpty() || Anhkt.isEmpty() || sizeText.isEmpty() || soluongText.isEmpty()) {
+                    if (MaKT.isEmpty()){
+                        in_ma_up.setError("Vui lòng không để trống mã kích thước ");
+                    }else {
+                        in_ma_up.setError(null);
+                    }if (Anhkt.isEmpty()){
+                        in_anh_up.setError("Vui lòng không để trống link ảnh kích thước");
+                    }else {
+                        in_anh_up.setError(null);
+                    }if (sizeText.isEmpty()) {
                         in_size.setError("Vui lòng không để trống Size!");
                     } else {
                         in_size.setError(null);
@@ -238,6 +276,7 @@ public class Adapter_KichThuoc extends RecyclerView.Adapter<Adapter_KichThuoc.Vi
                         in_soluong.setError(null);
                     }
                     kt.setMaKT(MaKT);
+                    kt.setAvataKT(Anhkt);
                     kt.setSize(Integer.parseInt(sizeText));
                     kt.setSoLuong(Integer.parseInt(soluongText));
 

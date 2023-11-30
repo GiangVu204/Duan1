@@ -22,7 +22,7 @@ public class SanPhamDAO {
         ArrayList<SanPham> list = new ArrayList<>();
         SQLiteDatabase db = dbhelper.getReadableDatabase();
         try {
-            Cursor cursor = db.rawQuery("SELECT sp.MaSP ,sp.TenSP, sp.Gia,sp.SoLuong,sp.id,kt.MaKT,kt.Size,kt.SoLuong,sp.MaTH,th.SDT,th.TenTH,sp.MaLSP,lsp.TenLSP\n" +
+            Cursor cursor = db.rawQuery("SELECT sp.MaSP, sp.AvataSP ,sp.TenSP, sp.Gia,sp.SoLuong,sp.id,kt.MaKT,kt.Size,kt.SoLuong,sp.MaTH,th.SDT,th.TenTH,sp.MaLSP,lsp.TenLSP\n" +
                     "FROM SanPham sp, KichThuoc kt,ThuongHieu th, LoaiSanPham lsp\n" +
                     "Where sp.id = kt.id and sp.MaTH = th.MaTH and  sp.MaLSP = lsp.MaLSP",null);
             if(cursor.getCount() >0 ){
@@ -30,12 +30,13 @@ public class SanPhamDAO {
                 while (!cursor.isAfterLast()){
                     SanPham sp = new SanPham();
                     sp.setMaSP(cursor.getInt(0));
-                    sp.setTenSP(cursor.getString(1));
-                    sp.setGia(cursor.getInt(2));
-                    sp.setSoLuong(cursor.getInt(3));
-                    sp.setSize(cursor.getString(6));
-                    sp.setTenthuonghieu(cursor.getString(10));
-                    sp.setTenlsp(cursor.getString(12));
+                    sp.setAvataSP(cursor.getString(1));
+                    sp.setTenSP(cursor.getString(2));
+                    sp.setGia(cursor.getInt(3));
+                    sp.setSoLuong(cursor.getInt(4));
+                    sp.setSize(cursor.getString(7));
+                    sp.setTenthuonghieu(cursor.getString(11));
+                    sp.setTenlsp(cursor.getString(13));
                     list.add(sp);
                     cursor.moveToNext();
 
@@ -64,6 +65,7 @@ public class SanPhamDAO {
         SQLiteDatabase db = dbhelper.getWritableDatabase();
         ContentValues values = new ContentValues();
 //        values.put("MaSP", pm.getMaLSP());
+        values.put("AvataSP",pm.getAvataSP());
         values.put("TenSP", pm.getTenSP());
         values.put("Gia",pm.getGia());
         values.put("SoLuong", pm.getSoLuong());

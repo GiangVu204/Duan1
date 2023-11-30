@@ -21,6 +21,7 @@
             app:cardCornerRadius="10dp"
             android:layout_marginTop="10dp">
             <ImageView
+                android:id="@+id/AvataKT"
                 android:layout_width="100dp"
                 android:layout_height="100dp"
                 android:src="@drawable/size_giay"/>

@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -16,6 +17,8 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.squareup.picasso.Picasso;
+
 import java.util.ArrayList;
 
 import giangvhph33056.fpoly.duan1.DAO.SanPhamDAO;
@@ -23,6 +26,7 @@ import giangvhph33056.fpoly.duan1.DAO.ThanhVienDAO;
 import giangvhph33056.fpoly.duan1.Model.SanPham;
 import giangvhph33056.fpoly.duan1.Model.ThanhVien;
 import giangvhph33056.fpoly.duan1.R;
+import giangvhph33056.fpoly.duan1.sanphamchitiet;
 
 public class Adapter_SanPham extends RecyclerView.Adapter<Adapter_SanPham.ViewHolder>{
     private Context context;
@@ -51,9 +55,11 @@ public class Adapter_SanPham extends RecyclerView.Adapter<Adapter_SanPham.ViewHo
 
     @Override
     public void onBindViewHolder(@NonNull Adapter_SanPham.ViewHolder holder, int position) {
+        SanPham sp = list.get(position);
         holder.txttensamphan_sp.setText(list.get(position).getTenSP());
         holder.txtgiasp_sp.setText(String.valueOf(list.get(position).getGia()));
         holder.txtTenthuonghieu_sp.setText(list.get(position).getTenthuonghieu());
+        Picasso.get().load(sp.getAvataSP()).into(holder.ImgAnhsp);
         holder.imgDelete_sp.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -111,6 +117,11 @@ public class Adapter_SanPham extends RecyclerView.Adapter<Adapter_SanPham.ViewHo
             public void onClick(View view) {
                 if(click != null){
                     click.click(holder.getAdapterPosition());
+                    // Truyền đường dẫn ảnh qua Intent
+                    Intent intent = new Intent(context, sanphamchitiet.class);
+                    intent.putExtra("sanphamct", list.get(holder.getAdapterPosition()));
+                    intent.putExtra("anhsp", list.get(holder.getAdapterPosition()).getAvataSP());
+                    context.startActivity(intent);
                 }
             }
         });
@@ -123,9 +134,10 @@ public class Adapter_SanPham extends RecyclerView.Adapter<Adapter_SanPham.ViewHo
 
     public class ViewHolder extends RecyclerView.ViewHolder {
         TextView txttensamphan_sp,txtgiasp_sp,txtTenthuonghieu_sp;
-        ImageView imgDelete_sp,imgChinhSua_sp;
+        ImageView ImgAnhsp, imgDelete_sp,imgChinhSua_sp;
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
+            ImgAnhsp = itemView.findViewById(R.id.ImgAnhSP);
             imgChinhSua_sp= itemView.findViewById(R.id.imgChinhSua_sp);
             imgDelete_sp = itemView.findViewById(R.id.imgDelete_sp);
             txttensamphan_sp = itemView.findViewById(R.id.txttensamphan_sp);

@@ -3,17 +3,19 @@ package giangvhph33056.fpoly.duan1.Model;
 public class KichThuoc {
 
     private int id;
+    private String AvataKT;
     private String MaKT;
     private int Size;
     private int SoLuong;
 
-    public KichThuoc(String maKT, int size, int soLuong) {
+    public KichThuoc() {
+    }
+
+    public KichThuoc(String avataKT, String maKT, int size, int soLuong) {
+        AvataKT = avataKT;
         MaKT = maKT;
         Size = size;
         SoLuong = soLuong;
-    }
-
-    public KichThuoc() {
     }
 
     public int getId() {
@@ -30,6 +32,14 @@ public class KichThuoc {
 
     public void setMaKT(String maKT) {
         MaKT = maKT;
+    }
+
+    public String getAvataKT() {
+        return AvataKT;
+    }
+
+    public void setAvataKT(String avataKT) {
+        AvataKT = avataKT;
     }
 
     public int getSize() {

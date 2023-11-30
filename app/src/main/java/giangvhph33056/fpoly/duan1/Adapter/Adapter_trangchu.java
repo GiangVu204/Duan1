@@ -5,10 +5,13 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 
@@ -44,6 +47,8 @@ public class Adapter_trangchu extends RecyclerView.Adapter<Adapter_trangchu.View
     public void onBindViewHolder(@NonNull Adapter_trangchu.ViewHolder holder, int position) {
         holder.txttensp_tt.setText(list.get(position).getTenSP());
         holder.txtgiasp_tt.setText(String.valueOf(list.get(position).getGia()));
+        // Load ảnh vào ImageView
+        Picasso.get().load(list.get(position).getAvataSP()).into(holder.ImgAnhth);
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -62,8 +67,10 @@ public class Adapter_trangchu extends RecyclerView.Adapter<Adapter_trangchu.View
 
     public class ViewHolder extends RecyclerView.ViewHolder {
         TextView txtgiasp_tt,txttensp_tt;
+        ImageView ImgAnhth;
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
+            ImgAnhth = itemView.findViewById(R.id.ImgAnhth);
             txtgiasp_tt = itemView.findViewById(R.id.txtgiasp_tt);
             txttensp_tt = itemView.findViewById(R.id.txttensp_tt);
         }

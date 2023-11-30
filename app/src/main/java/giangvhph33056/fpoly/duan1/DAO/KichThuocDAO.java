@@ -33,9 +33,10 @@ public class KichThuocDAO {
                 while (!cursor.isAfterLast()){
                     KichThuoc kt = new KichThuoc();
                     kt.setId(cursor.getInt(0));
-                    kt.setMaKT(cursor.getString(1));
-                    kt.setSize(cursor.getInt(2));
-                    kt.setSoLuong(cursor.getInt(3));
+                    kt.setAvataKT(cursor.getString(1));
+                    kt.setMaKT(cursor.getString(2));
+                    kt.setSize(cursor.getInt(3));
+                    kt.setSoLuong(cursor.getInt(4));
                     list.add(kt);
                     cursor.moveToNext();
 
@@ -65,6 +66,7 @@ public class KichThuocDAO {
         SQLiteDatabase db = dbhelper.getWritableDatabase();
         ContentValues values = new ContentValues();
         values.put("MaKT",kt.getMaKT());
+        values.put("AvataKT",kt.getAvataKT());
         values.put("Size",kt.getSize());
         values.put("SoLuong",kt.getSoLuong());
         long check = db.update("KichThuoc", values, "id=?", new String[]{String.valueOf(kt.getId())});
@@ -75,10 +77,11 @@ public class KichThuocDAO {
         }
     }
 
-    public boolean insert (String MaKT,String Size, String SoLuong ){
+    public boolean insert (String MaKT, String AvataKT, String Size, String SoLuong ){
         SQLiteDatabase db = dbhelper.getWritableDatabase();
         ContentValues values = new ContentValues();
         values.put("MaKT", MaKT);
+        values.put("AvataKT", AvataKT);
         values.put("Size", Size);
         values.put("SoLuong", SoLuong);
         long check = db.insert("KichThuoc", null, values);

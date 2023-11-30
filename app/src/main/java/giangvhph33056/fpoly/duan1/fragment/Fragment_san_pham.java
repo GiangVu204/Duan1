@@ -16,12 +16,15 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.SimpleAdapter;
 import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.android.material.textfield.TextInputEditText;
+import com.google.android.material.textfield.TextInputLayout;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -52,7 +55,8 @@ public class Fragment_san_pham extends Fragment {
     private ArrayList<SanPham> list = new ArrayList<>();
     FloatingActionButton fltadd;
     Spinner spnloaisp_add,spnthuong_add,spnKichthuoc_add;
-    EditText edtTensp_sp_add,edtgia_sp_add,edtSoLuong_sp_add;
+    TextInputEditText edtTensp_sp_add,edtgia_sp_add, edtAnhsp_sp_add;
+    TextInputLayout in_Anh_sp_add, in_Ten_sp_add, in_gia_sp_add;
     public Fragment_san_pham() {
 
     }
@@ -111,20 +115,31 @@ public class Fragment_san_pham extends Fragment {
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         LayoutInflater inflater = getLayoutInflater();
         View view = inflater.inflate(R.layout.item_add_sanpham, null);
+
         builder.setView(view);
+        Dialog dialog = builder.create();
+        dialog.show();
+        in_Anh_sp_add = view.findViewById(R.id.in_Anh_sp_add);
+        in_Ten_sp_add = view.findViewById(R.id.in_Ten_sp_add);
+        in_gia_sp_add = view.findViewById(R.id.in_gia_sp_add);
+        edtAnhsp_sp_add = view.findViewById(R.id.edtAnhsp_sp_add);
+        edtTensp_sp_add = view.findViewById(R.id.edtTensp_sp_add);
+        edtgia_sp_add = view.findViewById(R.id.edtgia_sp_add);
+
         spnKichthuoc_add = view.findViewById(R.id.spnKichthuoc_add);
         spnthuong_add = view.findViewById(R.id.spnthuong_add);
         spnloaisp_add = view.findViewById(R.id.spnloaisp_add);
-        edtTensp_sp_add = view.findViewById(R.id.edtTensp_sp_add);
-        edtgia_sp_add = view.findViewById(R.id.edtgia_sp_add);
+        Button SP_add = view.findViewById(R.id.SP_Add);
+        Button SP_cancel = view.findViewById(R.id.SP_Cancel);
+
         getDataKichThuoc(spnKichthuoc_add);
         getDataLoai(spnloaisp_add);
         getDataThuong(spnthuong_add);
 
-        builder.setPositiveButton("Thêm", new DialogInterface.OnClickListener() {
+        SP_add.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(DialogInterface dialog, int which) {
-                 //lay ma Kich Thuoc
+            public void onClick(View view) {
+                //lay ma Kich Thuoc
                 HashMap<String , String> hsKT = (HashMap<String, String>) spnKichthuoc_add.getSelectedItem();
                 int id= Integer.parseInt(hsKT.get("id"));
                 int sluong = Integer.parseInt(hsKT.get("SoLuong"));
@@ -136,19 +151,12 @@ public class Fragment_san_pham extends Fragment {
                 int MaLSP= Integer.parseInt(hsLSP.get("MaLSP"));
                 String tensp = edtTensp_sp_add.getText().toString();
                 int gia = Integer.parseInt(edtgia_sp_add.getText().toString());
+                String avatasp = edtAnhsp_sp_add.getText().toString();
                 //int soluong = Integer.parseInt(edtSoLuong_sp_add.getText().toString());
-                themPhieuMuon(tensp,gia,sluong,id,MaTH,MaLSP);
-
+                themPhieuMuon(avatasp,tensp,gia,sluong,id,MaTH,MaLSP);
+                dialog.dismiss();
             }
         });
-        builder.setNegativeButton("Hủy", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-
-            }
-        });
-        Dialog dialog = builder.create();
-        dialog.show();
     }
 
     private void getDataKichThuoc(Spinner spnKichthuoc_add) {
@@ -194,8 +202,8 @@ public class Fragment_san_pham extends Fragment {
         SimpleAdapter adapter = new SimpleAdapter(getContext(),listHM,android.R.layout.simple_list_item_1,new String[]{"TenTH"}, new int[]{android.R.id.text1});
         spnthuong_add.setAdapter(adapter);
     }
-    private void themPhieuMuon(String tensp , int gia,int soluong ,int id ,int MaTH  ,int MaLSP ){
-        SanPham  sp = new SanPham( tensp ,gia,soluong,id, MaTH,MaLSP);
+    private void themPhieuMuon(String AvataSP, String tensp , int gia,int soluong ,int id ,int MaTH  ,int MaLSP ){
+        SanPham  sp = new SanPham(AvataSP, tensp ,gia,soluong,id, MaTH,MaLSP);
         boolean kiemtra =spDAO.insert(sp);
         if (kiemtra == true){
             Toast.makeText(getContext(), "Thêm sản phẩm thành  thành công!", Toast.LENGTH_SHORT).show();

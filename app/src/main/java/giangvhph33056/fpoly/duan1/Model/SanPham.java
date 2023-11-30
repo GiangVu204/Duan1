@@ -7,6 +7,7 @@ import androidx.annotation.NonNull;
 
 public class SanPham implements Parcelable {
     private int MaSP;
+    private String AvataSP;
     private String TenSP;
     private  int Gia;
     private  int SoLuong;
@@ -21,9 +22,9 @@ public class SanPham implements Parcelable {
     }
 // them
 
-
-    public SanPham(int maSP, String tenSP, int gia, int soLuong, int id, int maTH, int maLSP, String size, String tenthuonghieu, String tenlsp) {
+    public SanPham(int maSP, String avataSP, String tenSP, int gia, int soLuong, int id, int maTH, int maLSP, String size, String tenthuonghieu, String tenlsp) {
         MaSP = maSP;
+        AvataSP = avataSP;
         TenSP = tenSP;
         Gia = gia;
         SoLuong = soLuong;
@@ -35,7 +36,8 @@ public class SanPham implements Parcelable {
         this.tenlsp = tenlsp;
     }
 
-    public SanPham(String tenSP, int gia, int soLuong, int id, int maTH, int maLSP) {
+    public SanPham(String avataSP, String tenSP, int gia, int soLuong, int id, int maTH, int maLSP) {
+        AvataSP = avataSP;
         TenSP = tenSP;
         Gia = gia;
         SoLuong = soLuong;
@@ -60,6 +62,14 @@ public class SanPham implements Parcelable {
 
     public void setMaSP(int maSP) {
         MaSP = maSP;
+    }
+
+    public String getAvataSP() {
+        return AvataSP;
+    }
+
+    public void setAvataSP(String avataSP) {
+        AvataSP = avataSP;
     }
 
     public String getTenSP() {
@@ -158,6 +168,7 @@ public class SanPham implements Parcelable {
         this.size = in.readString();
         this.tenthuonghieu = in.readString();
         this.tenlsp = in.readString();
+
     }
     @Override
     public void writeToParcel(@NonNull Parcel parcel, int i) {
@@ -168,6 +179,7 @@ public class SanPham implements Parcelable {
         parcel.writeString( this.size);
         parcel.writeString(this.tenthuonghieu);
         parcel.writeString(this.tenlsp);
+//        parcel.writeString(AvataSP);
 
     }
 }

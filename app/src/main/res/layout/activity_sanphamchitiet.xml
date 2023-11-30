@@ -7,6 +7,8 @@
     android:orientation="vertical"
     tools:context=".sanphamchitiet"
     android:padding="10dp">
+
+
     <ScrollView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -17,6 +19,14 @@
     android:orientation="vertical">
 
     <ImageView
+        android:id="@+id/back"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/back_ios_34"
+        />
+
+    <ImageView
+        android:id="@+id/ImaSP"
         android:layout_width="match_parent"
         android:layout_height="300dp"
         android:src="@drawable/san_pham" />

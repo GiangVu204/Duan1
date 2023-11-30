@@ -1,6 +1,7 @@
 package giangvhph33056.fpoly.duan1.fragment;
 
 import android.app.AlertDialog;
+import android.app.Dialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
 
@@ -12,10 +13,13 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.android.material.textfield.TextInputEditText;
+import com.google.android.material.textfield.TextInputLayout;
 
 import java.util.ArrayList;
 
@@ -64,47 +68,68 @@ public class Fragment_kich_thuoc extends Fragment {
         // Tạo giao diện của Dialog từ layout XML
         LayoutInflater inflater = requireActivity().getLayoutInflater();
         View dialogView = inflater.inflate(R.layout.item_kich_thuoc_add, null);
-        EditText edtsize_kt = dialogView.findViewById(R.id.edtsize_kt);
-        EditText edtSoluong_kt = dialogView.findViewById(R.id.edtSoluong_kt);
-        EditText edtma_kt = dialogView.findViewById(R.id.edtma_kt);
-        // Thiết lập giao diện cho Dialog
-        builder.setView(dialogView)
-                .setTitle("Thêm kích thước")
-                // Cấu hình các nút hoặc hành động trong Dialog nếu cần
-                .setPositiveButton("Đồng ý", new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int id) {
-                        // Xử lý khi người dùng chọn "Đồng ý"
-                        String kt = edtma_kt.getText().toString();
-                        String size = edtsize_kt.getText().toString();
-                        String Soluong = edtSoluong_kt.getText().toString();
-                        if (size.isEmpty() || Soluong.isEmpty()||kt.isEmpty()){
-                            Toast.makeText(getActivity(), "Không được để trống", Toast.LENGTH_SHORT).show();
-                        }else{
-                            boolean check = ktDAO.insert(kt,size, Soluong);
-                            if(check){
-                                Toast.makeText(getActivity(), "Thêm thành công", Toast.LENGTH_SHORT).show();
-                                loadData();
-                            }
-                        }
-                    }
-                })
-                .setNegativeButton("Hủy", new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int id) {
-                        // Xử lý khi người dùng chọn "Hủy"
-                        dialog.cancel();
-                    }
-                });
-
-        // Hiển thị Dialog
-        AlertDialog dialog = builder.create();
+        builder.setView(dialogView);
+        Dialog dialog = builder.create();
         dialog.show();
+
+        TextInputLayout in_ma = dialogView.findViewById(R.id.in_ma);
+        TextInputLayout in_anh = dialogView.findViewById(R.id.in_anh);
+        TextInputLayout in_size = dialogView.findViewById(R.id.in_size);
+        TextInputLayout in_soluong = dialogView.findViewById(R.id.in_soluong);
+
+        TextInputEditText edtma_kt = dialogView.findViewById(R.id.edtma_kt);
+        TextInputEditText edtanh_kt = dialogView.findViewById(R.id.edtanh_kt);
+        TextInputEditText edtsize_kt = dialogView.findViewById(R.id.edtsize_kt);
+        TextInputEditText edtSoluong_kt = dialogView.findViewById(R.id.edtSoluong_kt);
+
+        Button KT_add = dialogView.findViewById(R.id.KT_Add);
+        Button KT_cancel = dialogView.findViewById(R.id.KT_Cancel);
+
+        KT_add.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                String makt = edtma_kt.getText().toString();
+                String Anhkt = edtanh_kt.getText().toString();
+                String size = edtsize_kt.getText().toString();
+                String Soluong = edtSoluong_kt.getText().toString();
+
+                if (makt.isEmpty() || Anhkt.isEmpty() || size.isEmpty() || Soluong.isEmpty()) {
+                    if (makt.isEmpty()) {
+                        in_ma.setError("Vui lòng không để trống mã kích thước");
+                    } else {
+                        in_ma.setError(null);
+                    }if (Anhkt.isEmpty()){
+                        in_anh.setError("Vui lòng không để trống link ảnh kích thước");
+                    }else {
+                        in_anh.setError(null);
+                    }if (size.isEmpty()){
+                        in_size.setError("Vui lòng không để trống size");
+                    }else {
+                        in_size.setError(null);
+                    }if (Soluong.isEmpty()){
+                        in_soluong.setError("Vui lòng không để trống số lượng");
+                    }else {
+                        in_soluong.setError(null);
+                    }
+                }else {
+                    if (ktDAO.insert(makt, Anhkt, size, Soluong)){
+                        loadData();
+                        Toast.makeText(getActivity(), "Thêm kích thước thành công!", Toast.LENGTH_SHORT).show();
+                        dialog.dismiss();
+                    }else {
+                        Toast.makeText(getActivity(), "Thêm kíck thước thất bại!!!", Toast.LENGTH_SHORT).show();
+                    }
+                }
+
+            }
+        });
     }
 
-    public void loadData(){
+    public void loadData() {
         LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
         rcv_kichthuoc.setLayoutManager(layoutManager);
         ArrayList<KichThuoc> list = ktDAO.selectAllKichThuoc();
-        Adapter_KichThuoc adapter = new Adapter_KichThuoc(getContext(),list);
+        Adapter_KichThuoc adapter = new Adapter_KichThuoc(getContext(), list);
         rcv_kichthuoc.setAdapter(adapter);
     }
 }

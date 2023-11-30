@@ -20,7 +20,7 @@
                 android:layout_height="100dp"
                 android:layout_marginTop="10dp"
                 android:layout_marginLeft="2dp"
-                android:id="@+id/ImgAnh"
+                android:id="@+id/ImgAnhSP"
                 android:src="@drawable/san_pham"/>
         </androidx.cardview.widget.CardView>
 

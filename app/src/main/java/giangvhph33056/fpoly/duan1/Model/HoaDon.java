@@ -15,6 +15,12 @@ public class HoaDon {
     public HoaDon() {
     }
 
+    public HoaDon(int soLuong, int id, int maSP) {
+        SoLuong = soLuong;
+        this.id = id;
+        MaSP = maSP;
+    }
+
     public HoaDon(int maHD, String ngayDH, int trangThai, int soLuong, int gia, String tentv, String tensp) {
         MaHD = maHD;
         NgayDH = ngayDH;

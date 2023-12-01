@@ -8,6 +8,7 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 
 import giangvhph33056.fpoly.duan1.DataBase.Dbhelper;
@@ -50,13 +51,17 @@ public class HoaDonDAO {
     public long thucHienMuaHang(int maSanPham, int soLuong, int maThanhVien) {
         SQLiteDatabase db = dbhelper.getWritableDatabase();
         long ketQua = -1; // Giá trị mặc định cho trường hợp thất bại
+        LocalDate currentDate = LocalDate.now();
+        int day = currentDate.getDayOfMonth();
+        int month = currentDate.getMonthValue();
+        int year = currentDate.getYear();
 
         try {
             // Tạo một đối tượng ContentValues để chứa dữ liệu muốn chèn vào bảng HoaDon
             ContentValues giaTri = new ContentValues();
 
             // Đặt giá trị cho cột NgayDH, ở đây bạn cần thay thế "Định_dạng_Ngay_cua_ban" bằng định dạng ngày thực tế
-            giaTri.put("NgayDH", "Định_dạng_Ngay_cua_ban");
+            giaTri.put("NgayDH",day + "/" + month +"/" +year);
 
             // Đặt giá trị cho cột TrangThai, giả sử 1 biểu thị một giao dịch mua hàng thành công
             giaTri.put("TrangThai", 1);

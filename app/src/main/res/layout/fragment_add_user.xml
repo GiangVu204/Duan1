@@ -7,11 +7,14 @@
     tools:context=".fragment.Fragment_add_user"
     android:background="#E3A2EF">
 
-
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
     <androidx.cardview.widget.CardView
         android:id="@+id/cardView"
         android:layout_width="match_parent"
-        android:layout_height="550dp"
+        android:layout_height="650dp"
         android:layout_marginLeft="30dp"
         android:layout_marginTop="30dp"
         android:layout_marginRight="30sp"
@@ -153,7 +156,9 @@
 
         </LinearLayout>
 
+
     </androidx.cardview.widget.CardView>
+        </LinearLayout>
 
 
 </FrameLayout>

@@ -20,7 +20,7 @@ public class Dbhelper extends SQLiteOpenHelper {
                 "    AvataTV    TEXT NOT NULL,\n" +
                 "    HoTen   TEXT NOT NULL,\n" +
                 "    MatKhau TEXT NOT NULL,\n" +
-                "    SDT     INTEGER NOT NULL,\n" +
+                "    SDT     TEXT NOT NULL,\n" +
                 "    Email TEXT NOT NULL,\n" +
                 "    DChi TEXT NOT NULL,\n" +
                 "    Loai TEXT NOT NULL\n" +

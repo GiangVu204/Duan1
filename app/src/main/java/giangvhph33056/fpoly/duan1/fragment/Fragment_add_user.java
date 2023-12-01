@@ -49,7 +49,7 @@ public class Fragment_add_user extends Fragment {
                     String pass = edtPass_tnd.getText().toString();
                     String hten = edthoten_tnd.getText().toString();
                     String email = edtEmail_tnd.getText().toString();
-                    int sdt = Integer.parseInt(edtsdt_tnd.getText().toString());
+                    String sdt = edtsdt_tnd.getText().toString();
                     String dc = "Hà Nội";
                     String loai ="Nhân Viên";
                     ThanhVien kt = new ThanhVien(ma,avatatnd,hten,pass,sdt,email,dc,loai);

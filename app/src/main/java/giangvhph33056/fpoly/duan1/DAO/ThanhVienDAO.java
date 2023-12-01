@@ -56,7 +56,7 @@ public class ThanhVienDAO {
                     tv.setAvataTV(cursor.getString(2));
                     tv.setHoTen(cursor.getString(3));
                     tv.setMatKhau(cursor.getString(4));
-                    tv.setSDT(cursor.getInt(5));
+                    tv.setSDT(cursor.getString(5));
                     tv.setEmail(cursor.getString(6));
                     tv.setDChi(cursor.getString(7));
                     tv.setLoai(cursor.getString(8));

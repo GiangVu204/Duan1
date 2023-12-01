@@ -46,7 +46,7 @@ public class DangKi extends AppCompatActivity {
                 String pass = edtPass_dk.getText().toString();
                 String hten = edthoten_dk.getText().toString();
                 String email = edtEmail_dk.getText().toString();
-                int sdt = Integer.parseInt(edtsdt_dk.getText().toString());
+                String sdt = edtsdt_dk.getText().toString();
                 String dc = "Hà Nội";
                 String loai ="Khách Hàng";
                 ThanhVien kt = new ThanhVien(ma,avatadk,hten,pass,sdt,email,dc,loai);

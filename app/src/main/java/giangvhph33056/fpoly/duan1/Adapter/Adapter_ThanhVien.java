@@ -53,7 +53,7 @@ public class Adapter_ThanhVien  extends RecyclerView.Adapter<Adapter_ThanhVien.V
         ThanhVien tv = list.get(position);
         holder.txtMaTV_tv.setText(list.get(position).getMaTV());
         holder.txtHoten_tv.setText(list.get(position).getHoTen());
-        holder.txtSDT_tv.setText(String.valueOf(list.get(position).getSDT()));
+        holder.txtSDT_tv.setText(list.get(position).getSDT());
         holder.txtEmail_tv.setText(list.get(position).getEmail());
         holder.txtDchi_tv.setText(list.get(position).getDChi());
         Picasso.get().load(tv.getAvataTV()).into(holder.ImgAnhTV);
@@ -336,7 +336,7 @@ public class Adapter_ThanhVien  extends RecyclerView.Adapter<Adapter_ThanhVien.V
                     tv.setAvataTV(avataTV);
                     tv.setHoTen(name);
                     tv.setMatKhau(matkhau);
-                    tv.setSDT(Integer.parseInt(sdt));
+                    tv.setSDT(sdt);
                     tv.setEmail(email);
                     tv.setDChi(dchi);
                     if (dao.update(tv)){

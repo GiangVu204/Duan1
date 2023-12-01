@@ -6,7 +6,7 @@ public class ThanhVien {
     private String AvataTV;
     private String HoTen;
     private String MatKhau;
-    private int SDT;
+    private String SDT;
     private String Email;
     private String DChi;
     private String loai;
@@ -15,7 +15,8 @@ public class ThanhVien {
     }
 /// add
     ///
-    public ThanhVien(String maTV, String avataTV, String hoTen, String matKhau, int SDT, String email, String DChi, String loai) {
+
+    public ThanhVien(String maTV, String avataTV, String hoTen, String matKhau, String SDT, String email, String DChi, String loai) {
         MaTV = maTV;
         AvataTV = avataTV;
         HoTen = hoTen;
@@ -26,10 +27,10 @@ public class ThanhVien {
         this.loai = loai;
     }
 
-
-    public ThanhVien(int id, String maTV,  String hoTen, String matKhau, int SDT, String email, String DChi, String loai) {
+    public ThanhVien(int id, String maTV, String avataTV, String hoTen, String matKhau, String SDT, String email, String DChi, String loai) {
         this.id = id;
         MaTV = maTV;
+        AvataTV = avataTV;
         HoTen = hoTen;
         MatKhau = matKhau;
         this.SDT = SDT;
@@ -39,12 +40,13 @@ public class ThanhVien {
     }
 
     // hien thi
-    public ThanhVien(String maTV, String hoTen, int SDT, String email, String DChi) {
+
+    public ThanhVien(String maTV, String avataTV, String hoTen, String SDT, String email) {
         MaTV = maTV;
+        AvataTV = avataTV;
         HoTen = hoTen;
         this.SDT = SDT;
         Email = email;
-        this.DChi = DChi;
     }
 
     public int getId() {
@@ -87,11 +89,11 @@ public class ThanhVien {
         MatKhau = matKhau;
     }
 
-    public int getSDT() {
+    public String getSDT() {
         return SDT;
     }
 
-    public void setSDT(int SDT) {
+    public void setSDT(String SDT) {
         this.SDT = SDT;
     }
 

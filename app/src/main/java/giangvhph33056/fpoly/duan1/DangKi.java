@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Patterns;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -49,6 +50,25 @@ public class DangKi extends AppCompatActivity {
                 String sdt = edtsdt_dk.getText().toString();
                 String dc = "Hà Nội";
                 String loai ="Khách Hàng";
+                // Kiểm tra các trường nhập liệu không được để trống
+                if (avatadk.isEmpty() || ma.isEmpty() || pass.isEmpty() || hten.isEmpty() || email.isEmpty() || sdt.isEmpty()) {
+                    Toast.makeText(DangKi.this, "Vui lòng điền đầy đủ thông tin", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+                // Kiểm tra số điện thoại có số 0 ở đầu, chỉ chứa chữ số và có từ 10 đến 12 ký tự
+                if (!sdt.matches("0\\d*") || !sdt.matches("\\d{10,12}")) {
+                    Toast.makeText(DangKi.this, "Số điện thoại không hợp lệ", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+
+                // Kiểm tra định dạng email hợp lệ
+                if (!Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
+                    Toast.makeText(DangKi.this, "Email không hợp lệ", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+
+                // Tiến hành đăng ký thành viên
+
                 ThanhVien kt = new ThanhVien(ma,avatadk,hten,pass,sdt,email,dc,loai);
                 if(tvDAO.insert(kt)){
                     Toast.makeText(DangKi.this, "DĂNG KÝ THÀNH CÔNG", Toast.LENGTH_SHORT).show();

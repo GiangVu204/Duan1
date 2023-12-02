@@ -15,15 +15,15 @@ public class Dbhelper extends SQLiteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase db) {
         db.execSQL("CREATE TABLE ThanhVien(\n" +
-                "    id    INTEGER PRIMARY KEY AUTOINCREMENT,\n" +
-                "    MaTV    TEXT NOT NULL,\n" +
-                "    AvataTV    TEXT NOT NULL,\n" +
-                "    HoTen   TEXT NOT NULL,\n" +
-                "    MatKhau TEXT NOT NULL,\n" +
-                "    SDT     TEXT NOT NULL,\n" +
-                "    Email TEXT NOT NULL,\n" +
-                "    DChi TEXT NOT NULL,\n" +
-                "    Loai TEXT NOT NULL\n" +
+                "    id       INTEGER PRIMARY KEY AUTOINCREMENT,\n" +
+                "    MaTV     TEXT NOT NULL,\n" +
+                "    AvataTV  TEXT NOT NULL,\n" +
+                "    HoTen    TEXT NOT NULL,\n" +
+                "    MatKhau  TEXT NOT NULL,\n" +
+                "    SDT      TEXT NOT NULL,\n" +
+                "    Email    TEXT NOT NULL,\n" +
+                "    DChi     TEXT NOT NULL,\n" +
+                "    Loai     TEXT NOT NULL\n" +
                 ");\n");
         db.execSQL("CREATE TABLE ThuongHieu(\n" +
                 "    MaTH    INTEGER PRIMARY KEY  AUTOINCREMENT,\n" +
@@ -33,34 +33,34 @@ public class Dbhelper extends SQLiteOpenHelper {
                 ");\n");
         db.execSQL("CREATE TABLE LoaiSanPham(\n" +
                 "    MaLSP    INTEGER PRIMARY KEY  AUTOINCREMENT,\n" +
-                "    Avata   TEXT NOT NULL,\n" +
+                "    Avata    TEXT NOT NULL,\n" +
                 "    TenLSP   TEXT NOT NULL\n" +
                 ");\n");
         db.execSQL("CREATE TABLE KichThuoc(\n" +
-                "    id    INTEGER PRIMARY KEY  AUTOINCREMENT,\n" +
-                "    AvataKT   TEXT NOT NULL,\n" +
-                "    MaKT   TEXT NOT NULL,\n" +
-                "    Size   INTEGER NOT NULL,\n" +
-                "    SoLuong INTEGER NOT NULL\n" +
+                "    id       INTEGER PRIMARY KEY  AUTOINCREMENT,\n" +
+                "    AvataKT  TEXT NOT NULL,\n" +
+                "    MaKT     TEXT NOT NULL,\n" +
+                "    Size     INTEGER NOT NULL,\n" +
+                "    SoLuong  INTEGER NOT NULL\n" +
                 ");\n");
         db.execSQL("CREATE TABLE SanPham(\n" +
-                "    MaSP    INTEGER PRIMARY KEY  AUTOINCREMENT,\n" +
-                "    AvataSP   TEXT NOT NULL,\n" +
-                "    TenSP   TEXT NOT NULL,\n" +
-                "    Gia     INTEGER NOT NULL,\n" +
-                "    SoLuong     INTEGER NOT NULL,\n" +
-                "    id    INTEGER REFERENCES KichThuoc (id), \n" +
-                "    MaTH    INTEGER REFERENCES ThuongHieu (MaTH), \n" +
+                "    MaSP     INTEGER PRIMARY KEY  AUTOINCREMENT,\n" +
+                "    AvataSP  TEXT NOT NULL,\n" +
+                "    TenSP    TEXT NOT NULL,\n" +
+                "    Gia      INTEGER NOT NULL,\n" +
+                "    SoLuong  INTEGER NOT NULL,\n" +
+                "    id       INTEGER REFERENCES KichThuoc (id), \n" +
+                "    MaTH     INTEGER REFERENCES ThuongHieu (MaTH), \n" +
                 "    MaLSP    INTEGER REFERENCES LoaiSanPham (MaLSP) \n" +
                 ");\n");
         db.execSQL("CREATE TABLE HoaDon(\n" +
-                "    MaHD    INTEGER PRIMARY KEY  AUTOINCREMENT,\n" +
-                "    NgayDH   TEXT NOT NULL,\n" +
-                "    TrangThai     INTEGER NOT NULL,\n" +
-                "    SoLuong     INTEGER NOT NULL,\n" +
-                "    Gia     INTEGER NOT NULL,\n" +
-                "    id    INTEGER REFERENCES ThanhVien (id), \n" +
-                "    MaSP    INTEGER REFERENCES SanPham (MaSP) \n" +
+                "    MaHD      INTEGER PRIMARY KEY  AUTOINCREMENT,\n" +
+                "    NgayDH    TEXT NOT NULL,\n" +
+                "    TrangThai INTEGER NOT NULL,\n" +
+                "    SoLuong   INTEGER NOT NULL,\n" +
+                "    Gia       INTEGER NOT NULL,\n" +
+                "    id        INTEGER REFERENCES ThanhVien (id), \n" +
+                "    MaSP      INTEGER REFERENCES SanPham (MaSP) \n" +
                 ");\n");
         //Thủ Thư
         db.execSQL("INSERT INTO  ThanhVien VALUES(1,'admin', 'Avata 1','Lê Hoàng Tú','admin',0982322079,'lehoangtu56@gmail.com','hà nội','ADMIN'),(2,'nhanvien', 'Avata 2','Nguyễn Văn A','nhanvien',0982322079,'Nhanvien56@gmail.com','hà nội','Nhân Viên'),(3,'khanghang', 'Avata 3','Sùng A Pháo','khachhang',0982322079,'Khachhang56@gmail.com','hà nội','Khách Hàng')");

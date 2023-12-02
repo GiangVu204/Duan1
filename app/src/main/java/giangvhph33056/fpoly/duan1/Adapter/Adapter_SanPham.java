@@ -33,6 +33,7 @@ import giangvhph33056.fpoly.duan1.DAO.LoaiSanPhamDAO;
 import giangvhph33056.fpoly.duan1.DAO.SanPhamDAO;
 import giangvhph33056.fpoly.duan1.DAO.ThanhVienDAO;
 import giangvhph33056.fpoly.duan1.DAO.ThuongHieuDAO;
+import giangvhph33056.fpoly.duan1.Model.GioHang;
 import giangvhph33056.fpoly.duan1.Model.KichThuoc;
 import giangvhph33056.fpoly.duan1.Model.LoaiSanPham;
 import giangvhph33056.fpoly.duan1.Model.SanPham;
@@ -60,6 +61,18 @@ public class Adapter_SanPham extends RecyclerView.Adapter<Adapter_SanPham.ViewHo
         this.list = list;
         dao = new SanPhamDAO(context);
     }
+
+    // Thêm phương thức để thêm sản phẩm vào giỏ hàng
+    public interface AddToCartListener {
+        void addToCart(SanPham sanPham);
+    }
+
+    private AddToCartListener addToCartListener;
+
+    public void setAddToCartListener(AddToCartListener listener) {
+        addToCartListener = listener;
+    }
+
 
     @NonNull
     @Override
@@ -138,6 +151,18 @@ public class Adapter_SanPham extends RecyclerView.Adapter<Adapter_SanPham.ViewHo
                     intent.putExtra("sanphamct", list.get(holder.getAdapterPosition()));
                     intent.putExtra("anhsp", list.get(holder.getAdapterPosition()).getAvataSP());
                     context.startActivity(intent);
+
+                    if (addToCartListener != null) {
+                        addToCartListener.addToCart(list.get(holder.getAdapterPosition()));
+                    }
+//                    // Giả sử cần tạo đối tượng 'Gio_Hang'
+//                    GioHang gioHangItem = new GioHang();
+//                    gioHangItem.setTenSanPham(list.get(holder.getAdapterPosition()).getTenSP());
+//                    gioHangItem.setGiaSanPham(list.get(holder.getAdapterPosition()).getGia());
+//                    gioHangItem.setSoLuong(1);  // Bạn có thể đặt số lượng phù hợp
+
+                    // Chuyển 'gioHangItem' sang màn hình tiếp theo hoặc thêm nó vào danh sách
+                    // và thông báo cho 'Adapter_GioHang'
                 }
             }
         });
@@ -276,7 +301,6 @@ public class Adapter_SanPham extends RecyclerView.Adapter<Adapter_SanPham.ViewHo
         }else{
             Toast.makeText(context, "Thêm Sản phẩm thất bại!", Toast.LENGTH_SHORT).show();
         }
-
     }
 
 }

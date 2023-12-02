@@ -76,6 +76,8 @@ public class sanphamchitiet extends AppCompatActivity{
         back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                Intent intent = new Intent(sanphamchitiet.this, Layout.class);
+                startActivity(intent);
                 finish();
             }
         });
@@ -89,7 +91,16 @@ public class sanphamchitiet extends AppCompatActivity{
             @Override
             public void onClick(View view) {
                     // Truyền đường dẫn ảnh qua Intent
+                SanPham sp = new SanPham();
+                // Lay thong tin san pham
+                String tenSP = txttensp_ct.getText().toString();
+                String avata = "";
+                int soLuong = Integer.parseInt(txtsoluongsp_ct.getText().toString());
+                double gia = Double.parseDouble(txtgiasp_ct.getText().toString());
+//                Picasso.get().load(sp.getAvataSP()).into(ImaSP);
 
+                // Thêm sản phẩm vào giỏ hàng
+                themSanPhamVaoGioHang(avata, tenSP, soLuong, gia);
                 }
 
 
@@ -183,17 +194,18 @@ public class sanphamchitiet extends AppCompatActivity{
 
 
     }
-//    @Override
-//    public void click(int pos, Adapter_SanPham adapter) {
-//        SanPham selectedSanPham = adapter.getSelectedItem(pos);
-//
-//        if (selectedSanPham != null) {
-//            String avataSPUrl = selectedSanPham.getAvataSP();
-//
-//            Intent intent = new Intent(sanphamchitiet.this, sanphamchitiet.class);
-//            intent.putExtra("sanphamct", selectedSanPham);
-//            intent.putExtra("avataSPUrl", avataSPUrl);
-//            startActivity(intent);
-//        }
-//    }
+
+    private void themSanPhamVaoGioHang(String AvataSP, String tenSP, int soLuong, double gia) {
+        Log.d("GioHang","AvataSP: " + AvataSP + "TenSP: " + tenSP + ", SoLuong: " + soLuong + ", Gia: " + gia);
+
+        SanPhamDAO gioHangDAO = new SanPhamDAO(this);
+        long kiemTra = gioHangDAO.themSanPhamVaoGioHang(tenSP, soLuong, gia, AvataSP);
+
+        if (kiemTra != -1) {
+            Toast.makeText(this, "Đã thêm vào giỏ hàng", Toast.LENGTH_SHORT).show();
+        } else {
+            Toast.makeText(this, "Thêm vào giỏ hàng thất bại", Toast.LENGTH_SHORT).show();
+        }
+    }
+
 }

@@ -97,6 +97,15 @@
                     />
 
             </LinearLayout>
+            <ImageView
+                android:id="@+id/ImgDeleteGH"
+                android:layout_width="35dp"
+                android:layout_height="35dp"
+                android:src="@drawable/img_delete"
+                android:layout_gravity="right"
+                android:layout_marginRight="10dp"
+                android:layout_marginTop="8dp"
+                />
         </LinearLayout>
     </LinearLayout>
 

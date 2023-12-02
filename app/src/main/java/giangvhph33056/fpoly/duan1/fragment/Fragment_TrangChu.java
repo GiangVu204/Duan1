@@ -15,6 +15,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import java.util.ArrayList;
@@ -22,6 +23,7 @@ import java.util.ArrayList;
 import giangvhph33056.fpoly.duan1.Adapter.Adapter_SanPham;
 import giangvhph33056.fpoly.duan1.Adapter.Adapter_trangchu;
 import giangvhph33056.fpoly.duan1.DAO.SanPhamDAO;
+import giangvhph33056.fpoly.duan1.Gio_Hang_Activity;
 import giangvhph33056.fpoly.duan1.Model.SanPham;
 import giangvhph33056.fpoly.duan1.R;
 import giangvhph33056.fpoly.duan1.TimKiem;
@@ -29,6 +31,7 @@ import giangvhph33056.fpoly.duan1.sanphamchitiet;
 
 public class Fragment_TrangChu extends Fragment {
     TextView txttennguoidung_tt;
+    ImageView ImgGiohang;
     RecyclerView rcvsanpham_tt;
     SanPhamDAO spDAO;
     Adapter_trangchu adaptersptt;
@@ -41,6 +44,7 @@ public class Fragment_TrangChu extends Fragment {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment__trang_chu, container, false);
         txttennguoidung_tt = view.findViewById(R.id.txttennguoidung_tt);
+        ImgGiohang = view.findViewById(R.id.ImgGiohang);
         EditText edttimkiem = view.findViewById(R.id.edttimkiem);
         SharedPreferences sharedPreferences = getActivity().getSharedPreferences("DANGNHAPTV", Context.MODE_PRIVATE);
         String loai = sharedPreferences.getString("HoTen","");
@@ -54,6 +58,14 @@ public class Fragment_TrangChu extends Fragment {
         rcvsanpham_tt.setLayoutManager(layoutManager);
         adaptersptt = new Adapter_trangchu(getContext(), list);
         rcvsanpham_tt.setAdapter(adaptersptt);
+
+        ImgGiohang.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getContext(), Gio_Hang_Activity.class);
+                startActivity(intent);
+            }
+        });
         adaptersptt.setClick(new Adapter_SanPham.click() {
             @Override
             public void click(int pos) {

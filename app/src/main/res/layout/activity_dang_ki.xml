@@ -49,6 +49,7 @@
                     android:drawableStart="@drawable/baseline_people_outline_24"
                     android:drawablePadding="10dp"
                     android:hint="Nhập link ảnh"
+                    android:inputType="textVisiblePassword"
                     android:id="@+id/edtAvata_dk"
                     android:textColor="@color/black"
                     android:textSize="22sp" />
@@ -66,13 +67,14 @@
                     android:drawableStart="@drawable/baseline_people_outline_24"
                     android:drawablePadding="10dp"
                     android:hint="Nhập họ tên"
+                    android:inputType="textVisiblePassword"
                     android:id="@+id/edthoten_dk"
                     android:textColor="@color/black"
                     android:textSize="22sp" />
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/in_User_dk"
+                android:id="@+id/in_User_dkk"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="10dp"
@@ -85,13 +87,13 @@
                     android:drawableStart="@drawable/baseline_people_outline_24"
                     android:drawablePadding="10dp"
                     android:hint="Nhập username"
-
+                    android:inputType="textVisiblePassword"
                     android:textColor="@color/black"
                     android:textSize="22sp" />
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/in_Pass"
+                android:id="@+id/in_Passs"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="10dp"
@@ -124,6 +126,7 @@
                     android:drawableStart="@drawable/baseline_people_outline_24"
                     android:drawablePadding="10dp"
                     android:hint="Nhập số điện thoại"
+                    android:inputType="textVisiblePassword"
                     android:id="@+id/edtsdt_dk"
                     android:textColor="@color/black"
                     android:textSize="22sp" />
@@ -142,6 +145,7 @@
                     android:drawableStart="@drawable/baseline_people_outline_24"
                     android:drawablePadding="10dp"
                     android:hint="Email"
+                    android:inputType="textVisiblePassword"
                     android:textColor="@color/black"
                     android:textSize="22sp"
                     android:id="@+id/edtEmail_dk"/>

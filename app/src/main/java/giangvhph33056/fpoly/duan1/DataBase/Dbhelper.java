@@ -6,7 +6,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 
 public class Dbhelper extends SQLiteOpenHelper {
     private static final String DB_NAME = "THOIDAISHOP";
-    private static final int DB_VERSION= 37;
+    private static final int DB_VERSION= 38;
 
     public Dbhelper(Context context) {
         super(context, DB_NAME,null , DB_VERSION);
@@ -43,6 +43,12 @@ public class Dbhelper extends SQLiteOpenHelper {
                 "    Size     INTEGER NOT NULL,\n" +
                 "    SoLuong  INTEGER NOT NULL\n" +
                 ");\n");
+        db.execSQL("CREATE TABLE GioHang(\n" +
+                "    MAGH       INTEGER PRIMARY KEY  AUTOINCREMENT,\n" +
+                "    id        INTEGER REFERENCES ThanhVien (id), \n" +
+                "    MaSP      INTEGER REFERENCES SanPham (MaSP), \n" +
+                "    SoLuong  INTEGER NOT NULL\n" +
+                ");\n");
         db.execSQL("CREATE TABLE SanPham(\n" +
                 "    MaSP     INTEGER PRIMARY KEY  AUTOINCREMENT,\n" +
                 "    AvataSP  TEXT NOT NULL,\n" +
@@ -63,7 +69,7 @@ public class Dbhelper extends SQLiteOpenHelper {
                 "    MaSP      INTEGER REFERENCES SanPham (MaSP) \n" +
                 ");\n");
         //Thủ Thư
-        db.execSQL("INSERT INTO  ThanhVien VALUES(1,'admin', 'Avata 1','Lê Hoàng Tú','admin',0982322079,'lehoangtu56@gmail.com','hà nội','ADMIN'),(2,'nhanvien', 'Avata 2','Nguyễn Văn A','nhanvien',0982322079,'Nhanvien56@gmail.com','hà nội','Nhân Viên'),(3,'khanghang', 'Avata 3','Sùng A Pháo','khachhang',0982322079,'Khachhang56@gmail.com','hà nội','Khách Hàng')");
+        db.execSQL("INSERT INTO  ThanhVien VALUES(1,'admin', 'https://tse4.mm.bing.net/th?id=OIP.K0haaJczxVOugK9Bk3ZCVwHaJQ&pid=Api&P=0&h=180','Lê Hoàng Tú','admin',0982322079,'lehoangtu56@gmail.com','hà nội','ADMIN'),(2,'nhanvien', 'Avata 2','Nguyễn Văn A','nhanvien',0982322079,'Nhanvien56@gmail.com','hà nội','Nhân Viên'),(3,'khanghang', 'Avata 3','Sùng A Pháo','khachhang',0982322079,'Khachhang56@gmail.com','hà nội','Khách Hàng')");
 //        db.execSQL("INSERT INTO  ThuongHieu VALUES(1, 'anh1', 0982322079, 'Nike'), (2, 'anh2', 0868761723, 'Adidas'), (3, 'anh3', 0734423235, 'Converse')");
 //        db.execSQL("INSERT INTO  LoaiSanPham VALUES(1, 'avata 1', 'Nike 1'), (2, 'avata 2', 'Adidas 1'), (3, 'avata 3', 'Nike 2')");
 //        db.execSQL("INSERT INTO  KichThuoc VALUES(1,'CS39', 39, 3), (2, 'AD40',40, 6), (3,'NK41', 41, 8)");

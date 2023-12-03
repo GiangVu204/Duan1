@@ -1,35 +1,67 @@
 package giangvhph33056.fpoly.duan1.Model;
 
 public class GioHang {
-    // Thêm các thuộc tính mới
-    private String AvataGH;
+    private int MAGH;
+    private int MaSP;
+    private int id;
+
+    private int soLuongMua;
     private String tenSanPham;
     private int giaSanPham;
-    private int soLuong;
+    private boolean isSelected;
+    private String AvataSP;
+    private int soLuongspcl;
+
 
     public GioHang() {
+
     }
 
-    public GioHang(String avataGH, String tenSanPham, int giaSanPham, int soLuong) {
-        AvataGH = avataGH;
+    public GioHang(int maSP, int id, int soLuongMua) {
+        MaSP = maSP;
+        this.id = id;
+        this.soLuongMua = soLuongMua;
+    }
+
+    public GioHang(int MAGH, int maSP, int id, int soLuongMua, String tenSanPham, int giaSanPham) {
+        this.MAGH = MAGH;
+        MaSP = maSP;
+        this.id = id;
+        this.soLuongMua = soLuongMua;
         this.tenSanPham = tenSanPham;
         this.giaSanPham = giaSanPham;
-        this.soLuong = soLuong;
     }
 
-    public GioHang(String tenSanPham, int giaSanPham, int soLuong) {
-        this.tenSanPham = tenSanPham;
-        this.giaSanPham = giaSanPham;
-        this.soLuong = soLuong;
+    public int getMAGH() {
+        return MAGH;
     }
 
-
-    public String getAvataGH() {
-        return AvataGH;
+    public void setMAGH(int MAGH) {
+        this.MAGH = MAGH;
     }
 
-    public void setAvataGH(String avataGH) {
-        AvataGH = avataGH;
+    public int getMaSP() {
+        return MaSP;
+    }
+
+    public void setMaSP(int maSP) {
+        MaSP = maSP;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public int getSoLuongMua() {
+        return soLuongMua;
+    }
+
+    public void setSoLuongMua(int soLuongMua) {
+        this.soLuongMua = soLuongMua;
     }
 
     public String getTenSanPham() {
@@ -48,11 +80,27 @@ public class GioHang {
         this.giaSanPham = giaSanPham;
     }
 
-    public int getSoLuong() {
-        return soLuong;
+    public boolean isSelected() {
+        return isSelected;
     }
 
-    public void setSoLuong(int soLuong) {
-        this.soLuong = soLuong;
+    public void setSelected(boolean selected) {
+        isSelected = selected;
+    }
+
+    public String getAvataSP() {
+        return AvataSP;
+    }
+
+    public void setAvataSP(String avataSP) {
+        AvataSP = avataSP;
+    }
+
+    public int getSoLuongspcl() {
+        return soLuongspcl;
+    }
+
+    public void setSoLuongspcl(int soLuongspcl) {
+        this.soLuongspcl = soLuongspcl;
     }
 }

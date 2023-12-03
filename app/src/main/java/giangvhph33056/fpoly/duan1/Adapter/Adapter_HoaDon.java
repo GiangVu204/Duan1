@@ -27,6 +27,15 @@ public class Adapter_HoaDon extends RecyclerView.Adapter<Adapter_HoaDon.ViewHold
     private Context context;
     private ArrayList<HoaDon> list;
     HoaDonDAO dao;
+    public interface OnItemClick {
+        void onItemClick(int position);
+    }
+
+    private OnItemClick mListener;
+
+    public void setOnItemClick(OnItemClick listener) {
+        mListener = listener;
+    }
     public Adapter_HoaDon(Context context, ArrayList<HoaDon> list) {
         this.context = context;
         this.list = list;
@@ -80,6 +89,15 @@ public class Adapter_HoaDon extends RecyclerView.Adapter<Adapter_HoaDon.ViewHold
                 }) ;
                 AlertDialog di = builder.create();
                 di.show();
+            }
+        });
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (mListener != null) {
+                    mListener.onItemClick(holder.getAdapterPosition());
+
+                }
             }
         });
     }

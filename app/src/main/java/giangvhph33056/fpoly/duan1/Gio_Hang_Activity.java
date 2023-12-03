@@ -1,56 +1,108 @@
 package giangvhph33056.fpoly.duan1;
 
-import static java.security.AccessController.getContext;
-
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
-import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.content.Context;
+import android.app.Activity;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
 import java.util.ArrayList;
 
 import giangvhph33056.fpoly.duan1.Adapter.Adapter_GioHang;
-import giangvhph33056.fpoly.duan1.Adapter.Adapter_KichThuoc;
-import giangvhph33056.fpoly.duan1.Adapter.Adapter_SanPham;
+import giangvhph33056.fpoly.duan1.Adapter.swipe;
+import giangvhph33056.fpoly.duan1.DAO.GioHangDAO;
 import giangvhph33056.fpoly.duan1.DAO.SanPhamDAO;
 import giangvhph33056.fpoly.duan1.Model.GioHang;
-import giangvhph33056.fpoly.duan1.Model.KichThuoc;
 import giangvhph33056.fpoly.duan1.Model.SanPham;
+import giangvhph33056.fpoly.duan1.databinding.ActivityGioHangBinding;
 
-public class Gio_Hang_Activity extends AppCompatActivity {
+public class Gio_Hang_Activity extends AppCompatActivity implements Adapter_GioHang.TotalPriceListener {
     TextView giohangtrong, tongtien;
+    private ActivityGioHangBinding binding;
+    View gView;
     Toolbar toolbar;
     RecyclerView recycleView;
     Button btnmuahang;
     //    Adapter_GioHang adapter;
-    SanPhamDAO spDAO;
+    GioHangDAO ghDAO;
     private Adapter_GioHang adapter;
+    SanPhamDAO dao;
+    /// new
+    private ArrayList<GioHang> list = new ArrayList<>();
+    private void displayCart(ArrayList<GioHang> cartList) {
+        recycleView = findViewById(R.id.recycleviewgiohang);
+        LinearLayoutManager layoutManager = new LinearLayoutManager(this);
+        recycleView.setLayoutManager(layoutManager);
+
+        if (adapter == null) {
+            adapter = new Adapter_GioHang(this, cartList);
+            recycleView.setAdapter(adapter);
+
+        } else {
+            adapter.updateCartList(cartList);
+            adapter.notifyDataSetChanged();
+        }
+    }
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        binding = ActivityGioHangBinding.inflate(getLayoutInflater());
         setContentView(R.layout.activity_gio_hang);
-        spDAO = new SanPhamDAO(this);
+        gView = binding.getRoot();
         recycleView = findViewById(R.id.recycleviewgiohang);
-//        giohangtrong = findViewById(R.id.txtgiohangtrong);
-        tongtien = findViewById(R.id.txttongtien);
         toolbar = findViewById(R.id.toolbar);
         btnmuahang = findViewById(R.id.btnmuahang);
+        adapter = new Adapter_GioHang(this, list);
+        recycleView.setAdapter(adapter);
+        ghDAO = new GioHangDAO(this);
+        ItemTouchHelper sw = new ItemTouchHelper(new swipe(adapter));
+        sw.attachToRecyclerView(recycleView);
+        adapter.setTotalPriceListener(this);
+        SharedPreferences sharedPreferences = getSharedPreferences("DANGNHAPTV", MODE_PRIVATE);
+        int mand = sharedPreferences.getInt("id", 0);
+//        chiTietDao = new DonHangChiTietDao(this);
+//        donHangDao = new DonHangDao(this);
+//
+        dao = new SanPhamDAO(this);
+//        sharedViewModel = new ViewModelProvider(this).get(SharedViewModel.class);
+//        sharedViewModel.getMasp().observe(getViewLifecycleOwner(), masp -> {
+//
+//            if (isAdded() && isVisible()) {
+//                if (sharedViewModel.getAddToCartClicked().getValue() != null && sharedViewModel.getAddToCartClicked().getValue()) {
+//                    updateGioHangByMaSp(masp);
+//                    sharedViewModel.setAddToCartClicked(true); // Đặt lại trạng thái
+//                }
+//            }
+//        });
+        list = ghDAO.getDanhSachGioHangByMaNguoiDung(mand);
+        displayCart(list);
 
-        loadData();
+//        binding.btnThanhToan.setOnClickListener(view -> {
+//            showDialogThanhToan();
+//
+//        });
+
     }
 
-    public void loadData() {
-        LinearLayoutManager layoutManager = new LinearLayoutManager(this);
-        recycleView.setLayoutManager(layoutManager);
-        ArrayList<SanPham> list = spDAO.selectAllGioHang();
-        Adapter_GioHang adapter = new Adapter_GioHang(this, list);
-        recycleView.setAdapter(adapter);
+    @Override
+    public void onPointerCaptureChanged(boolean hasCapture) {
+        super.onPointerCaptureChanged(hasCapture);
+    }
+
+    @Override
+    public void onTotalPriceUpdated(int totalAmount) {
+        if (binding != null && binding.txttongtien != null) {
+            binding.txttongtien.setText(String.valueOf(totalAmount));
+        }
+
     }
 }

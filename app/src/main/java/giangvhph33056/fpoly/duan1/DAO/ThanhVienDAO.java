@@ -30,6 +30,7 @@ public class ThanhVienDAO {
         if (cursor.getCount() != 0) {
             cursor.moveToFirst();
             SharedPreferences.Editor editor = sharedPreferences.edit();
+            editor.putInt("id", cursor.getInt(0));
             editor.putString("AvataTV", cursor.getString(2));
             editor.putString("HoTen", cursor.getString(3));
             editor.putString("Email", cursor.getString(6));

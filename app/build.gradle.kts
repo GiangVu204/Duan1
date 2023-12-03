@@ -7,6 +7,8 @@ android {
     namespace = "giangvhph33056.fpoly.duan1"
     compileSdk = 34
 
+
+
     defaultConfig {
         applicationId = "giangvhph33056.fpoly.duan1"
         minSdk = 26
@@ -29,6 +31,9 @@ android {
     }
     buildFeatures {
         viewBinding = true
+    }
+    dataBinding {
+        enable = true
     }
 }
 

@@ -7,7 +7,7 @@ import androidx.annotation.NonNull;
 
 public class SanPham implements Parcelable {
     private int MaSP;
-    private String AvataSP;
+    private String AvataSP = null;
     private String TenSP;
     private  int Gia;
     private  int SoLuong;

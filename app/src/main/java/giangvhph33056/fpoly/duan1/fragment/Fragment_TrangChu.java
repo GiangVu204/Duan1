@@ -5,12 +5,18 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.viewpager2.widget.CompositePageTransformer;
+import androidx.viewpager2.widget.MarginPageTransformer;
+import androidx.viewpager2.widget.ViewPager2;
 
+import android.os.Handler;
+import android.os.Looper;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,15 +25,19 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import giangvhph33056.fpoly.duan1.Adapter.Adapter_SanPham;
 import giangvhph33056.fpoly.duan1.Adapter.Adapter_trangchu;
+import giangvhph33056.fpoly.duan1.Adapter.adapter_slide;
 import giangvhph33056.fpoly.duan1.DAO.SanPhamDAO;
 import giangvhph33056.fpoly.duan1.Gio_Hang_Activity;
 import giangvhph33056.fpoly.duan1.Model.SanPham;
+import giangvhph33056.fpoly.duan1.Model.Slideiten;
 import giangvhph33056.fpoly.duan1.R;
 import giangvhph33056.fpoly.duan1.TimKiem;
 import giangvhph33056.fpoly.duan1.sanphamchitiet;
+import me.relex.circleindicator.CircleIndicator3;
 
 public class Fragment_TrangChu extends Fragment {
     TextView txttennguoidung_tt;
@@ -35,7 +45,13 @@ public class Fragment_TrangChu extends Fragment {
     RecyclerView rcvsanpham_tt;
     SanPhamDAO spDAO;
     Adapter_trangchu adaptersptt;
+    Adapter_trangchu adapter_slide;
     private ArrayList<SanPham> list = new ArrayList<>();
+    // lider
+    private List<Slideiten> slidelist;
+    private Handler slideHanlder = new Handler(Looper.getMainLooper());
+    ViewPager2 viewpage;
+    CircleIndicator3 chamduoi;
     public Fragment_TrangChu() {
     }
 
@@ -46,6 +62,8 @@ public class Fragment_TrangChu extends Fragment {
         txttennguoidung_tt = view.findViewById(R.id.txttennguoidung_tt);
         ImgGiohang = view.findViewById(R.id.ImgGiohang);
         EditText edttimkiem = view.findViewById(R.id.edttimkiem);
+         viewpage = view.findViewById(R.id.viewpage);
+         chamduoi = view.findViewById(R.id.chamduoi);
         SharedPreferences sharedPreferences = getActivity().getSharedPreferences("DANGNHAPTV", Context.MODE_PRIVATE);
         String loai = sharedPreferences.getString("HoTen","");
         txttennguoidung_tt.setText(loai);
@@ -82,6 +100,77 @@ public class Fragment_TrangChu extends Fragment {
                 startActivity(intent);
             }
         });
+        // slider
+        slidelist = new ArrayList<>(); // Khởi tạo slidelist trước khi sử dụng
+        slidelist.add(new Slideiten(R.drawable.bannertt));
+        slidelist.add(new Slideiten(R.drawable.slider1));
+        slidelist.add(new Slideiten(R.drawable.slider2));
+        slidelist.add(new Slideiten(R.drawable.slider3));
+        slidelist.add(new Slideiten(R.drawable.slider4));
+        slidelist.add(new Slideiten(R.drawable.slider5));
+        viewpage.setAdapter(new adapter_slide(slidelist, viewpage));
+        chamduoi.setViewPager(viewpage);
+        //cài đặt thuộc tính viewpager 2
+        viewpage.setClipToPadding(false);
+        viewpage.setClipChildren(false);
+        viewpage.setOffscreenPageLimit(3);///nhìn đc 3 ảnh :2 ảnh 2 bên và một ảnh ở giữa
+        viewpage.getChildAt(0).setOverScrollMode(RecyclerView.OVER_SCROLL_NEVER);
+        CompositePageTransformer compositePageTransformer = new CompositePageTransformer();
+        compositePageTransformer.addTransformer(new MarginPageTransformer(30));
+        compositePageTransformer.addTransformer(new ViewPager2.PageTransformer() {
+            @Override
+            public void transformPage(@NonNull View page, float position) {
+                float r = 1 - Math.abs(position);
+                page.setScaleY(0.85f + r * 0.15f);
+            }
+        });
+        viewpage.setPageTransformer(compositePageTransformer);
+        viewpage.registerOnPageChangeCallback(new ViewPager2.OnPageChangeCallback() {
+            @Override
+            public void onPageSelected(int position) {
+                super.onPageSelected(position);
+                slideHanlder.removeCallbacks(sildeRunnable);
+                slideHanlder.postDelayed(sildeRunnable, 3000);
+                // Kiểm tra nếu đang ở vị trí cuối cùng
+//                if (position == slidelist.size() - 1) {
+//                    // Post runnable để tự động cuộn về vị trí đầu tiên
+//                    slideHanlder.postDelayed(sildeRunnable, 3000);
+//                } else {
+//                    // Nếu không phải vị trí cuối cùng, hủy runnable
+//                    slideHanlder.removeCallbacks(sildeRunnable);
+//                }
+            }
+        });
+
+
+
+
         return view;
+    }
+    // s
+    private Runnable sildeRunnable = new Runnable() {
+        @Override
+        public void run() {
+//            binding.viewpage.setCurrentItem(binding.viewpage.getCurrentItem() + 1);
+            int vitri = viewpage.getCurrentItem();
+            if (vitri == slidelist.size() - 1) {
+                viewpage.setCurrentItem(0);
+            } else {
+                viewpage.setCurrentItem(vitri + 1);
+            }
+        }
+    };
+    @Override
+    public void onPause() {
+        //khi thoat ra ngoai man home
+        super.onPause();
+        slideHanlder.removeCallbacks(sildeRunnable);
+    }
+
+    @Override
+    public void onResume() {
+        //khi quay tro lai man home
+        super.onResume();
+        slideHanlder.postDelayed(sildeRunnable, 3000);
     }
 }

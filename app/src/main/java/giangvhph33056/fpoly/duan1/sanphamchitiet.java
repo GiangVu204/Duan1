@@ -50,6 +50,7 @@ public class sanphamchitiet extends AppCompatActivity{
     Spinner spn_sanpham_hd,spn_thanhVien_hd;
     Button SP_hd,SP_Cancel_hd;
     HoaDonDAO hddao;
+    SanPhamDAO spdao;
 
     private ArrayList<SanPham> list;
     ImageView back, ImaSP;
@@ -72,6 +73,7 @@ public class sanphamchitiet extends AppCompatActivity{
         btnthemgh_ct = findViewById(R.id.btnthemgh_ct);
         btnMuangay_ct = findViewById(R.id.btnMuangay_ct);
         hddao = new HoaDonDAO(this);
+        spdao = new SanPhamDAO(this);
 
         back.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -90,14 +92,15 @@ public class sanphamchitiet extends AppCompatActivity{
         btnthemgh_ct.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                Intent intent = getIntent();
                     // Truyền đường dẫn ảnh qua Intent
+                String anhSP = intent.getStringExtra("anhsp");
                 SanPham sp = new SanPham();
                 // Lay thong tin san pham
                 String tenSP = txttensp_ct.getText().toString();
                 String avata = "";
                 int soLuong = Integer.parseInt(txtsoluongsp_ct.getText().toString());
                 double gia = Double.parseDouble(txtgiasp_ct.getText().toString());
-//                Picasso.get().load(sp.getAvataSP()).into(ImaSP);
 
                 // Thêm sản phẩm vào giỏ hàng
                 themSanPhamVaoGioHang(avata, tenSP, soLuong, gia);
@@ -200,6 +203,7 @@ public class sanphamchitiet extends AppCompatActivity{
 
         SanPhamDAO gioHangDAO = new SanPhamDAO(this);
         long kiemTra = gioHangDAO.themSanPhamVaoGioHang(tenSP, soLuong, gia, AvataSP);
+
 
         if (kiemTra != -1) {
             Toast.makeText(this, "Đã thêm vào giỏ hàng", Toast.LENGTH_SHORT).show();

@@ -2,6 +2,7 @@ package giangvhph33056.fpoly.duan1.DAO;
 
 import static androidx.constraintlayout.helper.widget.MotionEffect.TAG;
 
+import android.annotation.SuppressLint;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
@@ -73,6 +74,7 @@ public class HoaDonDAO {
             int giaSanPham = layGiaSanPham(maSanPham, db);
             int tongGia = giaSanPham * soLuong;
 
+
             // Đặt giá trị cho cột Gia trong ContentValues
             giaTri.put("Gia", tongGia);
 
@@ -124,4 +126,7 @@ public class HoaDonDAO {
         long row = db.delete("HoaDon", "MaHD=?", new String[]{String.valueOf(mapm)});
         return (row > 0);
     }
+
+
+
 }

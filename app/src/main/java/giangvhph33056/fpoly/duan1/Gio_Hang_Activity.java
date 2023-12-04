@@ -61,6 +61,7 @@ public class Gio_Hang_Activity extends AppCompatActivity implements Adapter_GioH
         recycleView = findViewById(R.id.recycleviewgiohang);
         toolbar = findViewById(R.id.toolbar);
         btnmuahang = findViewById(R.id.btnmuahang);
+        tongtien = findViewById(R.id.txttongtien);
         adapter = new Adapter_GioHang(this, list);
         recycleView.setAdapter(adapter);
         ghDAO = new GioHangDAO(this);
@@ -102,6 +103,7 @@ public class Gio_Hang_Activity extends AppCompatActivity implements Adapter_GioH
     public void onTotalPriceUpdated(int totalAmount) {
         if (binding != null && binding.txttongtien != null) {
             binding.txttongtien.setText(String.valueOf(totalAmount));
+            tongtien.setText(String.valueOf(totalAmount));
         }
 
     }

@@ -60,7 +60,6 @@ public class Fragment_TrangChu extends Fragment {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment__trang_chu, container, false);
         txttennguoidung_tt = view.findViewById(R.id.txttennguoidung_tt);
-        ImgGiohang = view.findViewById(R.id.ImgGiohang);
         EditText edttimkiem = view.findViewById(R.id.edttimkiem);
          viewpage = view.findViewById(R.id.viewpage);
          chamduoi = view.findViewById(R.id.chamduoi);

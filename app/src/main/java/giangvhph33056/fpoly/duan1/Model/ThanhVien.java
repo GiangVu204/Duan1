@@ -8,6 +8,7 @@ public class ThanhVien {
     private String MatKhau;
     private String SDT;
     private String Email;
+    private int sotien;
     private String DChi;
     private String loai;
 
@@ -41,12 +42,30 @@ public class ThanhVien {
 
     // hien thi
 
-    public ThanhVien(String maTV, String avataTV, String hoTen, String SDT, String email) {
+//    public ThanhVien(String maTV, String avataTV, String hoTen, String SDT, String email) {
+//        MaTV = maTV;
+//        AvataTV = avataTV;
+//        HoTen = hoTen;
+//        this.SDT = SDT;
+//        Email = email;
+//    }
+
+    public ThanhVien(String maTV, String avataTV, String hoTen, String SDT, String email, int sotien, String DChi) {
         MaTV = maTV;
         AvataTV = avataTV;
         HoTen = hoTen;
         this.SDT = SDT;
         Email = email;
+        this.sotien = sotien;
+        this.DChi = DChi;
+    }
+
+    public int getSotien() {
+        return sotien;
+    }
+
+    public void setSotien(int sotien) {
+        this.sotien = sotien;
     }
 
     public int getId() {

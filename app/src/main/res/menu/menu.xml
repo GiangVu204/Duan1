@@ -66,6 +66,10 @@
             <item android:id="@+id/menuDX"
                 android:title="Đăng xuất"
                 android:icon="@drawable/log_out"/>
+
+            <item
+                android:title=""
+                />
         </menu>
     </item>
 </menu>

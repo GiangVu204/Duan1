@@ -34,7 +34,8 @@ public class ThanhVienDAO {
             editor.putString("AvataTV", cursor.getString(2));
             editor.putString("HoTen", cursor.getString(3));
             editor.putString("Email", cursor.getString(6));
-            editor.putString("Loai", cursor.getString(8));
+            editor.putInt("SoTien", cursor.getInt(8));
+            editor.putString("Loai", cursor.getString(9));
             // Lưu mật khẩu vào SharedPreferences
            // editor.putString("Loai", cursor.getString(3));
             editor.commit();
@@ -60,7 +61,8 @@ public class ThanhVienDAO {
                     tv.setSDT(cursor.getString(5));
                     tv.setEmail(cursor.getString(6));
                     tv.setDChi(cursor.getString(7));
-                    tv.setLoai(cursor.getString(8));
+                    tv.setSotien(cursor.getInt(8));
+                    tv.setLoai(cursor.getString(9));
                     list.add(tv);
                     cursor.moveToNext();
 
@@ -95,9 +97,19 @@ public class ThanhVienDAO {
         values.put("MatKhau",tv.getMatKhau());
         values.put("SDT",tv.getSDT());
         values.put("Email",tv.getEmail());
+        values.put("SoTien",tv.getSotien());
         values.put("DChi",tv.getDChi());
         long row = db.update("ThanhVien", values, "id=?", new String[]{String.valueOf(tv.getId())});
         return (row > 0);
+    }
+    public boolean updateSoTien(int maTaiKhoan, int soTienMoi) {
+        SQLiteDatabase db = dbhelper.getWritableDatabase();
+        ContentValues values = new ContentValues();
+        values.put("SoTien", soTienMoi);
+
+        long result = db.update("ThanhVien", values, "id = ?", new String[]{String.valueOf(maTaiKhoan)});
+
+        return result != -1;
     }
     public  boolean insert(ThanhVien tv) {
         SQLiteDatabase db = dbhelper.getWritableDatabase();
@@ -108,6 +120,7 @@ public class ThanhVienDAO {
         values.put("MatKhau", tv.getMatKhau());
         values.put("SDT",tv.getSDT());
         values.put("Email",tv.getEmail());
+        values.put("SoTien",tv.getSotien());
         values.put("DChi",tv.getDChi());
         values.put("Loai",tv.getLoai());
         long row = db.insert("ThanhVien", null, values);

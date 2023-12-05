@@ -124,6 +124,26 @@
                     android:textStyle="bold"
                     android:id="@+id/txtDchi_tv"/>
             </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textStyle="bold"
+                    android:padding="10dp"
+                    android:text="Coins :"/>
+
+                <TextView
+                    android:id="@+id/txt_Coins"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10sp"
+                    android:text="Coins: "
+                    android:textSize="16sp" />/>
+            </LinearLayout>
+
         </LinearLayout>
         <LinearLayout
             android:layout_width="wrap_content"

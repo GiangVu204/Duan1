@@ -56,6 +56,7 @@ public class Adapter_ThanhVien  extends RecyclerView.Adapter<Adapter_ThanhVien.V
         holder.txtSDT_tv.setText(list.get(position).getSDT());
         holder.txtEmail_tv.setText(list.get(position).getEmail());
         holder.txtDchi_tv.setText(list.get(position).getDChi());
+        holder.txt_Coins.setText(list.get(position).getDChi());
         Picasso.get().load(tv.getAvataTV()).into(holder.ImgAnhTV);
         holder.imgDelete_tv.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -131,7 +132,7 @@ public class Adapter_ThanhVien  extends RecyclerView.Adapter<Adapter_ThanhVien.V
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
-        TextView txtMaTV_tv, txtHoten_tv, txtSDT_tv,txtEmail_tv,txtDchi_tv;
+        TextView txtMaTV_tv, txtHoten_tv, txtSDT_tv,txtEmail_tv,txtDchi_tv,txt_Coins;
         ImageView ImgAnhTV, imgDelete_tv,imgChinhSua_tv;
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -140,6 +141,8 @@ public class Adapter_ThanhVien  extends RecyclerView.Adapter<Adapter_ThanhVien.V
             txtSDT_tv = itemView.findViewById(R.id.txtSDT_tv);
             txtEmail_tv = itemView.findViewById(R.id.txtEmail_tv);
             txtDchi_tv = itemView.findViewById(R.id.txtDchi_tv);
+            txtDchi_tv = itemView.findViewById(R.id.txt_Coins);
+
             ImgAnhTV = itemView.findViewById(R.id.ImgAnhTV);
             imgDelete_tv = itemView.findViewById(R.id.imgDelete_tv);
             imgChinhSua_tv = itemView.findViewById(R.id.imgChinhSua_tv);

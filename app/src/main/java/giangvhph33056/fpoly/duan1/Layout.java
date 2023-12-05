@@ -21,17 +21,19 @@ import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationView;
 import com.squareup.picasso.Picasso;
 
 import giangvhph33056.fpoly.duan1.DAO.ThanhVienDAO;
 
 
+import giangvhph33056.fpoly.duan1.fragment.Fragment_DonHang;
 import giangvhph33056.fpoly.duan1.fragment.Fragment_TrangChu;
 import giangvhph33056.fpoly.duan1.fragment.Fragment_add_user;
 import giangvhph33056.fpoly.duan1.fragment.Fragment_doanh_thu;
 import giangvhph33056.fpoly.duan1.fragment.Fragment_doi_mk;
-import giangvhph33056.fpoly.duan1.fragment.Fragment_hoa_don;
+import giangvhph33056.fpoly.duan1.fragment.Fragment_gioHang;
 import giangvhph33056.fpoly.duan1.fragment.Fragment_kich_thuoc;
 import giangvhph33056.fpoly.duan1.fragment.Fragment_loai_san_pham;
 import giangvhph33056.fpoly.duan1.fragment.Fragment_san_pham;
@@ -44,6 +46,7 @@ public class Layout extends AppCompatActivity {
     Toolbar toolbar;
     FrameLayout frameLayout;
     NavigationView navigationView;
+    BottomNavigationView navigationView2;
     Context context = this;
     ThanhVienDAO dao;
 
@@ -56,6 +59,7 @@ public class Layout extends AppCompatActivity {
         toolbar = findViewById(R.id.toolbar);
         frameLayout = findViewById(R.id.frameLayout);
         navigationView = findViewById(R.id.navigationView);
+        navigationView2 = findViewById(R.id.nav_bottom);
         View view = navigationView.getHeaderView(0);
         TextView txtloaitv = view.findViewById(R.id.txtloaitv_hd);
         TextView txtemailtv = view.findViewById(R.id.txtemailtv_hd);
@@ -64,27 +68,28 @@ public class Layout extends AppCompatActivity {
         dao = new ThanhVienDAO(this);
 
         setSupportActionBar(toolbar);
-        ActionBarDrawerToggle toggle =new ActionBarDrawerToggle(this, drawerLayout, toolbar, R.string.open, R.string.close);
+        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawerLayout, toolbar, R.string.open, R.string.close);
         toggle.syncState();
         // set drawer toggle
-
+        handleBottomNavigationItemSelected();
         // Thêm mã để hiển thị Fragment_san_pham khi ứng dụng được khởi chạy
         Fragment_san_pham frgSP = new Fragment_san_pham();
         relaceFrg(frgSP);
         toolbar.setTitle("Quản lý sản phẩm");
-            if (savedInstanceState == null){
-                relaceFrg(new Fragment_TrangChu());
-                setTitle("Trang chủ");
-            }
+        if (savedInstanceState == null) {
+            relaceFrg(new Fragment_TrangChu());
+            setTitle("Trang chủ");
+        }
+
         navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
 
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-                if (item.getItemId() == R.id.SanPham){
+                if (item.getItemId() == R.id.SanPham) {
                     Fragment_san_pham frgPM = new Fragment_san_pham();
                     relaceFrg(frgPM);
                     toolbar.setTitle("Quản lý sản phẩm");
-                }else if (item.getItemId() == R.id.trangchu) {
+                } else if (item.getItemId() == R.id.trangchu) {
                     Fragment_TrangChu ftc = new Fragment_TrangChu();
                     relaceFrg(ftc);
                     toolbar.setTitle("Trang chủ");
@@ -96,19 +101,19 @@ public class Layout extends AppCompatActivity {
                     Fragment_kich_thuoc frgTV = new Fragment_kich_thuoc();
                     relaceFrg(frgTV);
                     toolbar.setTitle("Quản lý kích thước");
-                }else if (item.getItemId() == R.id.ThuongHieu){
+                } else if (item.getItemId() == R.id.ThuongHieu) {
                     Fragment_thuong_hieu frgT = new Fragment_thuong_hieu();
                     relaceFrg(frgT);
                     toolbar.setTitle("Quản lý thương hiệu");
-                }else if (item.getItemId() == R.id.ThanhVien){
+                } else if (item.getItemId() == R.id.ThanhVien) {
                     Fragment_thanh_vien frgT = new Fragment_thanh_vien();
                     relaceFrg(frgT);
                     toolbar.setTitle("Quản lý thành viên");
                 }else if (item.getItemId() == R.id.HoaDon){
-                    Fragment_hoa_don frgT = new Fragment_hoa_don();
+                    Fragment_DonHang frgT = new Fragment_DonHang();
                     relaceFrg(frgT);
                     toolbar.setTitle("Quản lý hóa đơn");
-                }else if (item.getItemId() == R.id.menuDT){
+                } else if (item.getItemId() == R.id.menuDT) {
                     Fragment_doanh_thu frgDT = new Fragment_doanh_thu();
                     relaceFrg(frgDT);
                     toolbar.setTitle("Quản lý doanh thu");
@@ -138,23 +143,23 @@ public class Layout extends AppCompatActivity {
                 return false;
             }
         });
-            // phân quyền
-        SharedPreferences sharedPreferences = getSharedPreferences("DANGNHAPTV",MODE_PRIVATE);
-        String Loai = sharedPreferences.getString("Loai","");
-        if(Loai.equalsIgnoreCase("admin")){
+        // phân quyền
+        SharedPreferences sharedPreferences = getSharedPreferences("DANGNHAPTV", MODE_PRIVATE);
+        String Loai = sharedPreferences.getString("Loai", "");
+        if (Loai.equalsIgnoreCase("admin")) {
             Menu menu = navigationView.getMenu();
             menu.findItem(R.id.menuTND).setVisible(true);
             menu.findItem(R.id.thongtin).setVisible(false);
             menu.findItem(R.id.lienhe).setVisible(false);
         }
-        if(Loai.equalsIgnoreCase("Nhân Viên")){
+        if (Loai.equalsIgnoreCase("Nhân Viên")) {
             Menu menu = navigationView.getMenu();
             menu.findItem(R.id.menuTND).setVisible(false);
             menu.findItem(R.id.thongtin).setVisible(false);
             menu.findItem(R.id.lienhe).setVisible(false);
 
         }
-        if(Loai.equalsIgnoreCase("Khách Hàng")){
+        if (Loai.equalsIgnoreCase("Khách Hàng")) {
             Menu menu = navigationView.getMenu();
             menu.findItem(R.id.LoaiSanPham).setVisible(false);
             menu.findItem(R.id.KichThuoc).setVisible(false);
@@ -165,18 +170,40 @@ public class Layout extends AppCompatActivity {
             menu.findItem(R.id.menuTND).setVisible(false);
 
         }
-        String loai = sharedPreferences.getString("Loai","");
+        String loai = sharedPreferences.getString("Loai", "");
         txtloaitv.setText(loai);
-        String email = sharedPreferences.getString("Email","");
+        String email = sharedPreferences.getString("Email", "");
         txtemailtv.setText(email);
-        String Hoten = sharedPreferences.getString("HoTen","");
+        String Hoten = sharedPreferences.getString("HoTen", "");
         txthotentv_hd.setText(Hoten);
-        String avt = sharedPreferences.getString("AvataTV","");
+        String avt = sharedPreferences.getString("AvataTV", "");
         Picasso.get().load(avt).into(logo_user);
 
     }
-    public void relaceFrg(Fragment frg){
+
+    public void relaceFrg(Fragment frg) {
         FragmentManager fg = getSupportFragmentManager();
-        fg.beginTransaction().replace(R.id.frameLayout,frg).commit();
+        fg.beginTransaction().replace(R.id.frameLayout, frg).commit();
+    }
+
+    private void handleBottomNavigationItemSelected() {
+
+        navigationView2.setOnItemSelectedListener(item -> {
+            if (item.getItemId() == R.id.nav_bot_giohang) {
+                Fragment_gioHang frgPM = new Fragment_gioHang();
+                relaceFrg(frgPM);
+            } else if (item.getItemId() == R.id.nav_bot_home) {
+                Fragment_TrangChu frgPM = new Fragment_TrangChu();
+                relaceFrg(frgPM);
+//
+//            } else if (item.getItemId() == R.id.nav_bot_giohang) {
+//                replaceFragment(new frgGioHang());
+//
+//            } else if (item.getItemId() == R.id.nav_bot_naptien) {
+//                replaceFragment(new frgNapTien());
+            }
+            getSupportActionBar().setTitle(item.getTitle());
+            return true;
+        });
     }
 }

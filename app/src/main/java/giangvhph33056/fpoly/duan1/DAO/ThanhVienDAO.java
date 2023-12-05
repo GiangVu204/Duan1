@@ -122,6 +122,7 @@ public class ThanhVienDAO {
         values.put("Email",tv.getEmail());
         values.put("SoTien",tv.getSotien());
         values.put("DChi",tv.getDChi());
+        values.put("SoTien",tv.getSotien());
         values.put("Loai",tv.getLoai());
         long row = db.insert("ThanhVien", null, values);
         return (row > 0);

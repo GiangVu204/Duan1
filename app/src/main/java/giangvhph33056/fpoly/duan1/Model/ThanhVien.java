@@ -17,6 +17,18 @@ public class ThanhVien {
 /// add
     ///
 
+    public ThanhVien(String maTV, String avataTV, String hoTen, String matKhau, String SDT, String email, int sotien, String DChi, String loai) {
+        MaTV = maTV;
+        AvataTV = avataTV;
+        HoTen = hoTen;
+        MatKhau = matKhau;
+        this.SDT = SDT;
+        Email = email;
+        this.sotien = sotien;
+        this.DChi = DChi;
+        this.loai = loai;
+    }
+
     public ThanhVien(String maTV, String avataTV, String hoTen, String matKhau, String SDT, String email, String DChi, String loai) {
         MaTV = maTV;
         AvataTV = avataTV;

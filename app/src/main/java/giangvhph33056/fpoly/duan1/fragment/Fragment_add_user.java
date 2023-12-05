@@ -52,7 +52,8 @@ public class Fragment_add_user extends Fragment {
                     String sdt = edtsdt_tnd.getText().toString();
                     String dc = "Hà Nội";
                     String loai ="Nhân Viên";
-                    ThanhVien kt = new ThanhVien(ma,avatatnd,hten,pass,sdt,email,dc,loai);
+                    int scoins =0;
+                    ThanhVien kt = new ThanhVien(ma,avatatnd,hten,pass,sdt,email,scoins,dc,loai);
                     if(tvDAO.insert(kt)){
                         Toast.makeText(getContext(), "ĐĂNG KÝ THÀNH CÔNG", Toast.LENGTH_SHORT).show();
 

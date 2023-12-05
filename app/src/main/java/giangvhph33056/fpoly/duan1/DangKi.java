@@ -50,6 +50,7 @@ public class DangKi extends AppCompatActivity {
                 String sdt = edtsdt_dk.getText().toString();
                 String dc = "Hà Nội";
                 String loai ="Khách Hàng";
+                int scoins = 0;
                 // Kiểm tra các trường nhập liệu không được để trống
                 if (ma.isEmpty() || pass.isEmpty() || hten.isEmpty() || email.isEmpty() || sdt.isEmpty()) {
                     Toast.makeText(DangKi.this, "Vui lòng điền đầy đủ thông tin", Toast.LENGTH_SHORT).show();
@@ -69,7 +70,7 @@ public class DangKi extends AppCompatActivity {
 
                 // Tiến hành đăng ký thành viên
 
-                ThanhVien kt = new ThanhVien(ma,avatadk,hten,pass,sdt,email,dc,loai);
+                ThanhVien kt = new ThanhVien(ma,avatadk,hten,pass,sdt,email,scoins,dc,loai);
                 if(tvDAO.insert(kt)){
                     Toast.makeText(DangKi.this, "ĐĂNG KÝ THÀNH CÔNG", Toast.LENGTH_SHORT).show();
                     Intent intent = new Intent(DangKi.this,  Login.class);

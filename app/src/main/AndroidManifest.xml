@@ -22,9 +22,6 @@
             android:name=".profile"
             android:exported="false" />
         <activity
-            android:name=".SuaThuongHieu"
-            android:exported="false" />
-        <activity
             android:name=".Gio_Hang_Activity"
             android:exported="false" />
         <activity

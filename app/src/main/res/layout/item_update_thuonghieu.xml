@@ -11,15 +11,19 @@
         android:text="Update Thương Hiệu"
         android:textSize="30dp"
         android:textStyle="bold"/>
-    <ImageView
-        android:id="@+id/ImgAnhhh"
-        android:layout_width="100dp"
-        android:layout_height="100dp"
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
-        android:layout_marginLeft="10dp"
-        android:scaleType="centerCrop"
-        android:background="#ACABAB"
-        android:layout_gravity="left"/>
+        android:layout_marginHorizontal="10dp"
+        android:id="@+id/in_updateAvataTH">
+        <com.google.android.material.textfield.TextInputEditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Nhập Link ảnh thương hiệu"
+            android:id="@+id/ed_updateAvataTH"/>
+    </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
         android:layout_width="match_parent"

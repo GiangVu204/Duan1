@@ -51,7 +51,7 @@ public class Adapter_ThanhVien  extends RecyclerView.Adapter<Adapter_ThanhVien.V
     @Override
     public void onBindViewHolder(@NonNull Adapter_ThanhVien.ViewHolder holder, int position) {
         ThanhVien tv = list.get(position);
-        holder.txtMaTV_tv.setText(String.valueOf(list.get(position).getMaTV()));
+        holder.txtMaTV_tv.setText(list.get(position).getMaTV());
         holder.txtHoten_tv.setText(list.get(position).getHoTen());
         holder.txtSDT_tv.setText(list.get(position).getSDT());
         holder.txtEmail_tv.setText(list.get(position).getEmail());
@@ -184,7 +184,7 @@ public class Adapter_ThanhVien  extends RecyclerView.Adapter<Adapter_ThanhVien.V
         ed_updateMaTV.setText(tv.getMaTV());
         ed_updateName.setText(tv.getHoTen());
         ed_updateMk.setText(tv.getMatKhau());
-        ed_updateSDT.setText(String.valueOf(tv.getSDT()));
+        ed_updateSDT.setText(tv.getSDT());
         ed_updateEmail.setText(tv.getEmail());
         ed_updateDiachi.setText(tv.getDChi());
 

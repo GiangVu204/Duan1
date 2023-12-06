@@ -43,6 +43,7 @@ public class Fragment_thuong_hieu extends Fragment {
     ImageView ImgAnhh;
     private Uri selectedImageUri;
     Adapter_ThuongHieu adapter;
+
     public Fragment_thuong_hieu() {
     }
 
@@ -68,10 +69,10 @@ public class Fragment_thuong_hieu extends Fragment {
         return view;
     }
 
-    public void DiaLogAddTH(){
+    public void DiaLogAddTH() {
         AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
         LayoutInflater inflater = getLayoutInflater();
-        View view = inflater.inflate(R.layout.add_thuonghieu,null);
+        View view = inflater.inflate(R.layout.add_thuonghieu, null);
         builder.setView(view);
         Dialog dialog = builder.create();
         dialog.show();
@@ -80,17 +81,18 @@ public class Fragment_thuong_hieu extends Fragment {
         TextInputEditText ed_SDT = view.findViewById(R.id.ed_addSDT);
         TextInputLayout in_TenTH = view.findViewById(R.id.in_addTenTH);
         TextInputEditText ed_TenTH = view.findViewById(R.id.ed_addTenTH);
-        ImgAnhh = view.findViewById(R.id.ImgAnhh);
+        TextInputLayout in_addAvataTH = view.findViewById(R.id.in_addAvataTH);
+        TextInputEditText ed_addAvataTH = view.findViewById(R.id.ed_addAvataTH);
         Button AddTH = view.findViewById(R.id.TH_Add);
         Button CancelTH = view.findViewById(R.id.TH_Canceladd);
 
-        ImgAnhh.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                // Gọi phương thức để chọn ảnh từ thiết bị
-                pickImage();
-            }
-        });
+//        ImgAnhh.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                // Gọi phương thức để chọn ảnh từ thiết bị
+//                pickImage();
+//            }
+//        });
 
         ed_SDT.addTextChangedListener(new TextWatcher() {
             @Override
@@ -100,9 +102,9 @@ public class Fragment_thuong_hieu extends Fragment {
 
             @Override
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-                if (charSequence.length() == 0){
+                if (charSequence.length() == 0) {
                     in_SDT.setError("Vui lòng không để trống Số điện thoại");
-                }else {
+                } else {
                     in_SDT.setError(null);
                 }
             }
@@ -121,12 +123,13 @@ public class Fragment_thuong_hieu extends Fragment {
 
             @Override
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-                if (charSequence.length() == 0){
+                if (charSequence.length() == 0) {
                     in_TenTH.setError("Vui lòng không để trống Tên thương hiệu");
-                }else {
+                } else {
                     in_TenTH.setError(null);
                 }
             }
+
             @Override
             public void afterTextChanged(Editable editable) {
 
@@ -136,38 +139,31 @@ public class Fragment_thuong_hieu extends Fragment {
         AddTH.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                String urlAvatath = ed_addAvataTH.getText().toString();
                 String SDT = ed_SDT.getText().toString();
                 String TenTH = ed_TenTH.getText().toString();
 
-                // Check if an image is selected
-                if (selectedImageUri != null) {
-                    String Anhh = selectedImageUri.toString();
-
-                    if (SDT.isEmpty() || TenTH.isEmpty()) {
-                        // Display error messages if necessary fields are empty
-                        if (SDT.isEmpty()) {
-                            in_SDT.setError("Vui lòng không để trống Số điện thoại!");
-                        } else {
-                            in_SDT.setError(null);
-                        }
-                        if (TenTH.isEmpty()) {
-                            in_TenTH.setError("Vui lòng không để trống tên thương hiệu!");
-                        } else {
-                            in_TenTH.setError(null);
-                        }
+                if (SDT.isEmpty() || TenTH.isEmpty()) {
+                    // Display error messages if necessary fields are empty
+                    if (SDT.isEmpty()) {
+                        in_SDT.setError("Vui lòng không để trống Số điện thoại!");
                     } else {
-                        // Insert the data into the database
-                        if (THdao.insert(SDT, Anhh, TenTH)) {
-                            loadData();
-                            Toast.makeText(getContext(), "Thêm thương hiệu thành công!", Toast.LENGTH_SHORT).show();
-                            dialog.dismiss();
-                        } else {
-                            Toast.makeText(getContext(), "Thêm thương hiệu thất bại!!!", Toast.LENGTH_SHORT).show();
-                        }
+                        in_SDT.setError(null);
+                    }
+                    if (TenTH.isEmpty()) {
+                        in_TenTH.setError("Vui lòng không để trống tên thương hiệu!");
+                    } else {
+                        in_TenTH.setError(null);
                     }
                 } else {
-                    // Handle the case when no image is selected
-                    Toast.makeText(getContext(), "Vui lòng chọn ảnh thương hiệu!", Toast.LENGTH_SHORT).show();
+                    // Insert the data into the database
+                    if (THdao.insert(SDT, urlAvatath, TenTH)) {
+                        loadData();
+                        Toast.makeText(getContext(), "Thêm thương hiệu thành công!", Toast.LENGTH_SHORT).show();
+                        dialog.dismiss();
+                    } else {
+                        Toast.makeText(getContext(), "Thêm thương hiệu thất bại!!!", Toast.LENGTH_SHORT).show();
+                    }
                 }
             }
         });
@@ -175,6 +171,7 @@ public class Fragment_thuong_hieu extends Fragment {
         CancelTH.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                ed_addAvataTH.setText("");
                 ed_SDT.setText("");
                 ed_TenTH.setText("");
             }
@@ -189,25 +186,25 @@ public class Fragment_thuong_hieu extends Fragment {
         adapter = new Adapter_ThuongHieu(getContext(), list);
         rcvTH.setAdapter(adapter);
     }
-
-    // Phương thức chọn ảnh từ thiết bị
-    private void pickImage() {
-        // Mở Intent để chọn ảnh từ bộ nhớ thiết bị
-        Intent galleryIntent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-        startActivityForResult(galleryIntent, 1);
-    }
-
-    @Override
-    public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-
-        if (requestCode == 1 && resultCode == RESULT_OK && data != null) {
-            // Lấy đường dẫn của ảnh được chọn
-            selectedImageUri = data.getData();
-            // Hiển thị ảnh trong ImageView (hoặc thực hiện các xử lý khác tùy ý)
-            ImgAnhh.setImageURI(selectedImageUri);
-            // Gọi phương thức để cập nhật ảnh trong Adapter_ThuongHieu
-            adapter.setCurrentImageUri(selectedImageUri);
-        }
-    }
+//
+//    // Phương thức chọn ảnh từ thiết bị
+//    private void pickImage() {
+//        // Mở Intent để chọn ảnh từ bộ nhớ thiết bị
+//        Intent galleryIntent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+//        startActivityForResult(galleryIntent, 1);
+//    }
+//
+//    @Override
+//    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+//        super.onActivityResult(requestCode, resultCode, data);
+//
+//        if (requestCode == 1 && resultCode == RESULT_OK && data != null) {
+//            // Lấy đường dẫn của ảnh được chọn
+//            selectedImageUri = data.getData();
+//            // Hiển thị ảnh trong ImageView (hoặc thực hiện các xử lý khác tùy ý)
+//            ImgAnhh.setImageURI(selectedImageUri);
+//            // Gọi phương thức để cập nhật ảnh trong Adapter_ThuongHieu
+//            adapter.setCurrentImageUri(selectedImageUri);
+//        }
+//    }
 }

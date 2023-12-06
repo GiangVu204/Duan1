@@ -58,6 +58,20 @@ public class ThuongHieuDAO {
         return list;
     }
 
+    public ThuongHieu selectThuongHieu(int MaTH){
+        SQLiteDatabase db = dbhelper.getReadableDatabase();
+        Cursor cursor = db.rawQuery("select * from ThuongHieu where MaTh = ?",new String[]{String.valueOf(MaTH)});
+
+        ThuongHieu thuongHieu = null;
+        if (cursor.getCount() != 0){
+            cursor.moveToFirst();
+            thuongHieu = new ThuongHieu(cursor.getInt(0), cursor.getString(1), cursor.getString(2), cursor.getString(3));
+        }
+        cursor.close();
+        return thuongHieu;
+    }
+
+
     public boolean insert (String SDT, String Anh, String TenTH){
         SQLiteDatabase db = dbhelper.getWritableDatabase();
         ContentValues values = new ContentValues();

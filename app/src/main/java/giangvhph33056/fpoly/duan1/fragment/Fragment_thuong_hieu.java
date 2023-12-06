@@ -210,24 +210,4 @@ public class Fragment_thuong_hieu extends Fragment {
             adapter.setCurrentImageUri(selectedImageUri);
         }
     }
-//    // Trong Activity hoặc Fragment chứa RecyclerView
-//    public class YourActivityOrFragment extends AppCompatActivity {
-//
-//        // ...
-//
-//        // Gọi khi bạn chọn ảnh mới từ thư viện
-//        private void onImageSelected(Uri selectedImageUri) {
-//            adapter.setCurrentImageUri(selectedImageUri);
-//        }
-//
-//        // Gọi khi kết quả trả về từ Intent.ACTION_PICK
-//        @Override
-//        protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-//            super.onActivityResult(requestCode, resultCode, data);
-//            if (requestCode == 1 && resultCode == RESULT_OK && data != null) {
-//                Uri selectedImageUri = data.getData();
-//                onImageSelected(selectedImageUri);
-//            }
-//        }
-//    }
 }

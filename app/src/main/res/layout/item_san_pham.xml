@@ -14,12 +14,12 @@
         <androidx.cardview.widget.CardView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:cardCornerRadius="10dp">
+            app:cardCornerRadius="10dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginLeft="5dp">
             <ImageView
                 android:layout_width="100dp"
                 android:layout_height="100dp"
-                android:layout_marginTop="10dp"
-                android:layout_marginLeft="2dp"
                 android:id="@+id/ImgAnhSP"
                 android:src="@drawable/san_pham"/>
         </androidx.cardview.widget.CardView>

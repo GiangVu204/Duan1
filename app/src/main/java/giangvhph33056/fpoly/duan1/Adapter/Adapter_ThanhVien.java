@@ -51,12 +51,12 @@ public class Adapter_ThanhVien  extends RecyclerView.Adapter<Adapter_ThanhVien.V
     @Override
     public void onBindViewHolder(@NonNull Adapter_ThanhVien.ViewHolder holder, int position) {
         ThanhVien tv = list.get(position);
-        holder.txtMaTV_tv.setText(list.get(position).getMaTV());
+        holder.txtMaTV_tv.setText(String.valueOf(list.get(position).getMaTV()));
         holder.txtHoten_tv.setText(list.get(position).getHoTen());
         holder.txtSDT_tv.setText(list.get(position).getSDT());
         holder.txtEmail_tv.setText(list.get(position).getEmail());
         holder.txtDchi_tv.setText(list.get(position).getDChi());
-        holder.txt_Coins.setText(list.get(position).getDChi());
+        holder.txt_Coins.setText(String.valueOf(list.get(position).getSotien()));
         Picasso.get().load(tv.getAvataTV()).into(holder.ImgAnhTV);
         holder.imgDelete_tv.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -141,7 +141,7 @@ public class Adapter_ThanhVien  extends RecyclerView.Adapter<Adapter_ThanhVien.V
             txtSDT_tv = itemView.findViewById(R.id.txtSDT_tv);
             txtEmail_tv = itemView.findViewById(R.id.txtEmail_tv);
             txtDchi_tv = itemView.findViewById(R.id.txtDchi_tv);
-            txtDchi_tv = itemView.findViewById(R.id.txt_Coins);
+            txt_Coins = itemView.findViewById(R.id.txt_Coins);
 
             ImgAnhTV = itemView.findViewById(R.id.ImgAnhTV);
             imgDelete_tv = itemView.findViewById(R.id.imgDelete_tv);
@@ -304,37 +304,72 @@ public class Adapter_ThanhVien  extends RecyclerView.Adapter<Adapter_ThanhVien.V
                 String email = ed_updateEmail.getText().toString();
                 String dchi = ed_updateDiachi.getText().toString();
 
-                if (maTV.isEmpty() || avataTV.isEmpty() || name.isEmpty() || matkhau.isEmpty() || sdt.isEmpty() || email.isEmpty() || dchi.isEmpty()){
-                    if (maTV.isEmpty()){
-                        in_updateMaTV.setError("Vui lòng không để trống mã Thành viên");
-                    }else {
-                        in_updateMaTV.setError(null);
-                    }if (avataTV.isEmpty()){
-                        in_updateAvata.setError("Vui lòng không để trống Link ảnh");
-                    }else {
-                        in_updateAvata.setError(null);
-                    }if (matkhau.isEmpty()){
-                        in_updateMk.setError("Vui lòng không để trống Mật khẩu");
-                    }else {
-                        in_updateMk.setError(null);
-                    }if (name.isEmpty()){
-                        in_updateName.setError("Vui lòng không để trống Họ và tên");
-                    }else {
-                        in_updateName.setError(null);
-                    }if (sdt.isEmpty()){
-                        in_updateSDT.setError("Vui lòng không để trống Số điện thoại");
-                    }else {
-                        in_updateSDT.setError(null);
-                    }if (email.isEmpty()){
-                        in_updateEmail.setError("Vui lòng không để trống Email");
-                    }else {
-                        in_updateEmail.setError(null);
-                    }if (dchi.isEmpty()){
-                        in_updateDiachi.setError("Vui lòng không để trống Địa chỉ");
-                    }else {
-                        in_updateDiachi.setError(null);
-                    }
+                //MaTV
+                if (maTV.isEmpty()){
+                    in_updateMaTV.setError("Vui lòng không để trống mã thành viên");
+                    return;
                 }else {
+                    in_updateMaTV.setError(null);
+                }
+                if (maTV.trim().length() < 2) {
+                    Toast.makeText(context, "Mã Thành viên phải có tối thiểu 2 ký tự", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+                //Name
+                if (name.isEmpty()){
+                    in_updateName.setError("Vui lòng không để trống họ và tên");
+                    return;
+                }else {
+                    in_updateName.setError(null);
+                }
+                if (name.trim().length() < 2) {
+                    Toast.makeText(context, "Họ và tên phải có tối thiểu 2 ký tự", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+                //Mật khẩu
+                if (matkhau.isEmpty()){
+                    in_updateMk.setError("Vui lòng không để trống mật khẩu");
+                    return;
+                }else {
+                    in_updateMk.setError(null);
+                }
+                if (matkhau.trim().length() < 4) {
+                    Toast.makeText(context, "Mật khẩu phải có tối thiểu 4 ký tự", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+                //Số điện thoại
+                if (sdt.isEmpty()){
+                    in_updateSDT.setError("Vui lòng không để trống số điện thoại");
+                    return;
+                }else {
+                    in_updateSDT.setError(null);
+                }
+                if (!isValidPhoneNumber(sdt)) {
+                    Toast.makeText(context, "Số điện thoại phải có từ 10 số hoặc 12 số", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+                //Email
+                if (email.isEmpty()){
+                    in_updateEmail.setError("Vui lòng không để trống E-mail");
+                    return;
+                }else {
+                    in_updateEmail.setError(null);
+                }
+                if (!isValidEmail(email)) {
+                    Toast.makeText(context, "E-mail sai định dạng", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+                // Địa chỉ
+                if (dchi.isEmpty()){
+                    in_updateDiachi.setError("Vui lòng không để trống địa chỉ");
+                    return;
+                }else {
+                    in_updateDiachi.setError(null);
+                }
+                if (dchi.trim().length() < 2) {
+                    Toast.makeText(context, "Địa chỉ phải có tối thiểu 2 ký tự", Toast.LENGTH_SHORT).show();
+                }
+                else {
                     tv.setMaTV(maTV);
                     tv.setAvataTV(avataTV);
                     tv.setHoTen(name);
@@ -366,5 +401,14 @@ public class Adapter_ThanhVien  extends RecyclerView.Adapter<Adapter_ThanhVien.V
                 ed_updateDiachi.setText("");
             }
         });
+    }
+    public boolean isValidPhoneNumber(String phoneNumber) {
+        // Kiểm tra số điện thoại có bắt đầu bằng số 0 và có từ 10 đến 12 chữ số
+        return phoneNumber.matches("^0\\d{9,11}$");
+    }
+    public boolean isValidEmail(String email) {
+        // Kiểm tra email có đúng định dạng
+        String emailPattern = "^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$";
+        return email.matches(emailPattern);
     }
 }

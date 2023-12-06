@@ -76,13 +76,13 @@ public class Fragment_TrangChu extends Fragment {
         adaptersptt = new Adapter_trangchu(getContext(), list);
         rcvsanpham_tt.setAdapter(adaptersptt);
 
-        ImgGiohang.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(getContext(), Gio_Hang_Activity.class);
-                startActivity(intent);
-            }
-        });
+//        ImgGiohang.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                Intent intent = new Intent(getContext(), Gio_Hang_Activity.class);
+//                startActivity(intent);
+//            }
+//        });
         adaptersptt.setClick(new Adapter_SanPham.click() {
             @Override
             public void click(int pos) {

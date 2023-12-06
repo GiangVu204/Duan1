@@ -126,7 +126,7 @@ public class SanPhamDAO {
     public boolean update(SanPham pm){
         SQLiteDatabase db = dbhelper.getWritableDatabase();
         ContentValues values = new ContentValues();
-        values.put("MaSP", pm.getMaLSP());
+//        values.put("MaSP", pm.getMaLSP());
         values.put("AvataSP",pm.getAvataSP());
         values.put("TenSP", pm.getTenSP());
         values.put("Gia",pm.getGia());
@@ -134,7 +134,7 @@ public class SanPhamDAO {
         values.put("id", pm.getId());
         values.put("MaTH", pm.getMaTH());
         values.put("MaLSP", pm.getMaLSP());
-        long row = db.update("SanPham", values, "id=?", new String[]{String.valueOf(pm.getId())});
+        long row = db.update("SanPham", values, "MaSP=?", new String[]{String.valueOf(pm.getMaSP())});
         return (row > 0);
     }
 

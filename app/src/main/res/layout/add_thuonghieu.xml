@@ -18,7 +18,8 @@
         android:layout_height="100dp"
         android:layout_marginTop="10dp"
         android:layout_marginLeft="10dp"
-        android:layout_gravity="left"/>
+        android:layout_gravity="left"
+        android:background="#AFAFAF"/>
 
     <com.google.android.material.textfield.TextInputLayout
         android:layout_width="match_parent"

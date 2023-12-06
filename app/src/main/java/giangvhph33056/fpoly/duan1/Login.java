@@ -132,7 +132,7 @@ public class Login extends AppCompatActivity {
                 if (matkhau.equals("")){
                     Toast.makeText(Login.this, "Không tìm thấy tài khoản", Toast.LENGTH_SHORT).show();
                 }else {
-                    sendMail.Send(Login.this, email, "Lấy lại mật khẩu", "Mật khẩu của bạn là: " + matkhau);
+                    sendMail.Send(Login.this, email, "Muốn lấy lại mật khẩu không", "Mật khẩu của bạn không phải của tôi là: " + matkhau);
                     alertDialog.dismiss();
                 }
             }

@@ -5,7 +5,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     tools:context=".fragment.Fragment_doanh_thu"
-    android:background="#8F334318">
+    android:background="#8F8AD68E">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -19,7 +19,7 @@
             android:text="Từ ngày"
             android:textSize="17dp"
             android:textStyle="bold"
-            android:backgroundTint="#90DA7F"
+            android:backgroundTint="#6BCD54"
             android:id="@+id/dayStart"
             />
         <EditText
@@ -42,7 +42,7 @@
             android:text="Đến ngày"
             android:textSize="17dp"
             android:textStyle="bold"
-            android:backgroundTint="#90DA7F"
+            android:backgroundTint="#5EC547"
             android:id="@+id/dayEnd"
             />
         <EditText
@@ -57,7 +57,7 @@
     <Button
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="20dp"
         android:text="Doanh thu"
         android:textSize="17dp"
         android:textStyle="bold"

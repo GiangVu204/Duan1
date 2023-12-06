@@ -6,7 +6,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 
 public class Dbhelper extends SQLiteOpenHelper {
     private static final String DB_NAME = "THOIDAISHOP";
-    private static final int DB_VERSION= 42;
+    private static final int DB_VERSION= 49;
 
     public Dbhelper(Context context) {
         super(context, DB_NAME,null , DB_VERSION);
@@ -77,22 +77,23 @@ public class Dbhelper extends SQLiteOpenHelper {
                 ");\n");
 
         //INSERT
-        db.execSQL("INSERT INTO  ThanhVien VALUES(1,'admin', 'https://tse4.mm.bing.net/th?id=OIP.K0haaJczxVOugK9Bk3ZCVwHaJQ&pid=Api&P=0&h=180','Lê Hoàng Tú','admin',0982322079,'lehoangtu56@gmail.com','hà nội',100000,'ADMIN')," +
-                "(2,'nhanvien', 'Avata 2','Nguyễn Văn A','nhanvien',0982322079,'Nhanvien56@gmail.com','hà nội',100000,'Nhân Viên')," +
-                "(3,'khanghang', 'Avata 3','Sùng A Pháo','khachhang',0982322079,'Khachhang56@gmail.com','hà nội',1000000,'Khách Hàng')");
+        db.execSQL("INSERT INTO  ThanhVien VALUES(1,'admin', 'https://i.pinimg.com/736x/26/80/b2/2680b245cf06bcd901518a53a02e6c9a.jpg','Lê Hoàng Tú','admin',0982322079,'Lehoangtu56@gmail.com','hà nội',100000,'ADMIN')," +
+                "(2,'Giangvu', 'https://i.pinimg.com/736x/66/d1/4a/66d14aec6cd11d59264dd58525fdb449.jpg','Vũ Hoàng Giang','2042044',0763754415,'Vuhoanggiang2042k4@gmail.com','Thái bình',10000000,'ADMIN')," +
+                "(3,'nhanvien', 'https://alolimo.com/wp-content/uploads/2021/05/ga-da-lat-7.jpg','Nguyễn Văn A','nhanvien',0982322079,'Nhanvien56@gmail.com','hà nội',100000,'Nhân Viên')," +
+                "(4,'khachhang', 'https://baoduyenbabyhouse.com/wp-content/uploads/2022/01/cach-tao-dang-khi-chup-anh-25.jpg','Sùng A Pháo','khachhang',0982322079,'Khachhang56@gmail.com','hà nội',1000000,'Khách Hàng')");
        db.execSQL("INSERT INTO  ThuongHieu VALUES(1, 'https://tse4.mm.bing.net/th?id=OIP.K0haaJczxVOugK9Bk3ZCVwHaJQ&pid=Api&P=0&h=180', 0982322079, 'Nike')" +
                ", (2, 'https://tse4.mm.bing.net/th?id=OIP.K0haaJczxVOugK9Bk3ZCVwHaJQ&pid=Api&P=0&h=180', 0868761723, 'Adidas'), " +
                "(3, 'https://tse4.mm.bing.net/th?id=OIP.K0haaJczxVOugK9Bk3ZCVwHaJQ&pid=Api&P=0&h=180', 0734423235, 'Converse')");
-       db.execSQL("INSERT INTO  LoaiSanPham VALUES(1, 'https://tse4.mm.bing.net/th?id=OIP.K0haaJczxVOugK9Bk3ZCVwHaJQ&pid=Api&P=0&h=180', 'Nike 1')," +
-               " (2, 'https://tse4.mm.bing.net/th?id=OIP.K0haaJczxVOugK9Bk3ZCVwHaJQ&pid=Api&P=0&h=180', 'Adidas 1'), " +
-               "(3, 'https://tse4.mm.bing.net/th?id=OIP.K0haaJczxVOugK9Bk3ZCVwHaJQ&pid=Api&P=0&h=180', 'Nike 2')");
-      db.execSQL("INSERT INTO  KichThuoc VALUES(1,'https://tse4.mm.bing.net/th?id=OIP.K0haaJczxVOugK9Bk3ZCVwHaJQ&pid=Api&P=0&h=180','CS39', 39, 3)," +
-              " (2,'https://tse4.mm.bing.net/th?id=OIP.K0haaJczxVOugK9Bk3ZCVwHaJQ&pid=Api&P=0&h=180', 'AD40',40, 6), " +
-              "(3,'https://tse4.mm.bing.net/th?id=OIP.K0haaJczxVOugK9Bk3ZCVwHaJQ&pid=Api&P=0&h=180','NK41', 41, 8)");
-      db.execSQL("INSERT INTO  SanPham VALUES(0,'https://tse4.mm.bing.net/th?id=OIP.K0haaJczxVOugK9Bk3ZCVwHaJQ&pid=Api&P=0&h=180','Giày Thể Thao', 3000,3,1,1,1)," +
-              "(1,'https://tse4.mm.bing.net/th?id=OIP.K0haaJczxVOugK9Bk3ZCVwHaJQ&pid=Api&P=0&h=180','Giày A', 3000,3,1,2,1)," +
-              "(2,'https://tse4.mm.bing.net/th?id=OIP.K0haaJczxVOugK9Bk3ZCVwHaJQ&pid=Api&P=0&h=180','Giay b', 3000,3,1,3,1)," +
-              "(3,'https://tse4.mm.bing.net/th?id=OIP.K0haaJczxVOugK9Bk3ZCVwHaJQ&pid=Api&P=0&h=180','Giay c', 3000,3,1,2,1)");
+       db.execSQL("INSERT INTO  LoaiSanPham VALUES(1, 'https://salt.tikicdn.com/ts/tmp/3e/00/2d/84c50775b583026c21edd0c4aad35dbc.jpg', 'Giày thể thao')," +
+               " (2, 'https://zocker.vn/pic/Product/Zocker-inspire-pro-xanh-chuoi_8274_HasThumb.webp', 'Giày đá bóng'), " +
+               "(3, 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTWF-eud_KXyMaPwB9dEbokTPmza7QBeVClRQ&usqp=CAU', 'Giày leo núi')");
+      db.execSQL("INSERT INTO  KichThuoc VALUES(1,'https://laforce.vn/wp-content/uploads/2022/04/bang-size-giay.jpg','CS39', 39, 3)," +
+              " (2,'https://file.hstatic.net/200000382351/file/bang_size_giay-01_e688b8db320547e99a8aefd54da4aa41_grande.jpg', 'AD40',40, 6), " +
+              "(3,'https://4men.com.vn/images/thumbs/2017/08/cach-do-size-giay-nam-chuan-100-news-234.jpg','NK41', 41, 8)");
+      db.execSQL("INSERT INTO  SanPham VALUES(0,'https://shopvnb.com//uploads/san_pham/giay-cau-long-kumpoo-kh-e55-trang-chinh-hang-1.webp','Giày Kumpoo', 150000,3,2,1,3)," +
+              "(1,'https://cdn.shopify.com/s/files/1/0456/5070/6581/files/cach-phan-biet-giay-sneaker-chinh-hang_600x600.jpg?v=1663556399','Giày Sneaker', 200000,3,3,2,1)," +
+              "(2,'https://i.pinimg.com/736x/97/1c/34/971c349ce0121fd47b3b1bfaa6f6d4fc.jpg','Giày Superstar', 356000,3,1,3,1)," +
+              "(3,'https://i.pinimg.com/736x/5c/d1/77/5cd1778d4e4fc2a4a945f33c601f1f53.jpg','Giày Balance 574', 278000,3,1,2,2)");
 
     }
 

@@ -225,18 +225,25 @@ public class Adapter_ThuongHieu extends RecyclerView.Adapter<Adapter_ThuongHieu.
                     ImgAnhh.setImageURI(selectedImageUri);
                 }
 
-                if (SDT.isEmpty() || TenTH.isEmpty()) {
                     if (SDT.isEmpty()) {
                         in_SDT.setError("Vui lòng không để trống Số điện thoại!");
+                        return;
                     } else {
                         in_SDT.setError(null);
                     }
+                    if (isValidPhoneNumber(SDT)){
+                        Toast.makeText(context, "Số điện thoại phải có 10 hoặc 12 số", Toast.LENGTH_SHORT).show();
+                        return;
+                    }
                     if (TenTH.isEmpty()) {
                         in_TenTH.setError("Vui lòng không để trống tên thương hiệu!");
+                        return;
                     } else {
                         in_TenTH.setError(null);
                     }
-                } else {
+                    if (TenTH.trim().length() <2){
+                        Toast.makeText(context, "Tên thương hiệu phải có ít nhất 2 ký tự", Toast.LENGTH_SHORT).show();
+                    }else {
                     if (dao.update(th)) {
                         list.clear();
                         list.addAll(dao.getDSThuongHieu());
@@ -268,4 +275,9 @@ public class Adapter_ThuongHieu extends RecyclerView.Adapter<Adapter_ThuongHieu.
         selectedImageUri = uri;
         notifyDataSetChanged();
     }
+    public boolean isValidPhoneNumber(String phoneNumber) {
+        // Kiểm tra số điện thoại có bắt đầu bằng số 0 và có từ 10 đến 12 chữ số
+        return phoneNumber.matches("^0\\d{9,11}$");
+    }
+
 }

@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,6 +17,7 @@ import java.util.ArrayList;
 
 import giangvhph33056.fpoly.duan1.DAO.DonHangDao;
 import giangvhph33056.fpoly.duan1.Model.DonHang;
+import giangvhph33056.fpoly.duan1.Model.SanPham;
 import giangvhph33056.fpoly.duan1.databinding.DialogUpdateTrangThaiDonhangBinding;
 import giangvhph33056.fpoly.duan1.databinding.DialogXoaDonHangBinding;
 import giangvhph33056.fpoly.duan1.databinding.ItemQlDonHangBinding;
@@ -23,6 +25,7 @@ import giangvhph33056.fpoly.duan1.R;
 
 public class adapter_don_hang extends RecyclerView.Adapter<adapter_don_hang.Viewholder> {
     protected ArrayList<DonHang> list;
+    protected ArrayList<SanPham> listsp;
     protected DonHangDao dao;
     private Context context;
 
@@ -53,12 +56,41 @@ public class adapter_don_hang extends RecyclerView.Adapter<adapter_don_hang.View
     @Override
     public void onBindViewHolder(@NonNull Viewholder holder, int position) {
         DonHang donHang = list.get(position);
-        holder.binding.txtMdonhang.setText("Mã đơn hàng: " + String.valueOf(donHang.getMaDonHang()));
-        holder.binding.txtMnguoidung.setText("Mã người dung: " + String.valueOf(donHang.getMaTaiKhoan()));
-        holder.binding.txtDHTennguoidung.setText("Tên người dùng: " + donHang.getTenTaiKhoan());
-        holder.binding.txtNgayDat.setText("Ngày đặt hàng: " + donHang.getNgayDatHang());
-        holder.binding.txtTrangThai.setText("Trạng thái: " + donHang.getTrangthai());
-        holder.binding.txtTongTien.setText("Tổng tiền: " + String.valueOf(donHang.getTongTien()));
+
+        SharedPreferences sharedPreferences = context.getSharedPreferences("DANGNHAPTV", Context.MODE_PRIVATE);
+        int id = sharedPreferences.getInt("id",0);
+        String loai =sharedPreferences.getString("Loai","");
+        if (loai.equalsIgnoreCase("admin")){
+            holder.binding.txtMdonhang.setText("Mã đơn hàng: " + String.valueOf(donHang.getMaDonHang()));
+            holder.binding.txtMnguoidung.setText("Mã người dung: " + String.valueOf(donHang.getMaTaiKhoan()));
+            holder.binding.txtDHTennguoidung.setText("Tên người dùng: " + donHang.getTenTaiKhoan());
+            holder.binding.txtNgayDat.setText("Ngày đặt hàng: " + donHang.getNgayDatHang());
+            holder.binding.txtTrangThai.setText("Trạng thái: " + donHang.getTrangthai());
+            holder.binding.txtTongTien.setText("Tổng tiền: " + String.valueOf(donHang.getTongTien()));
+        }
+        if (loai.equalsIgnoreCase("Nhân Viên")){
+            holder.binding.txtMdonhang.setText("Mã đơn hàng: " + String.valueOf(donHang.getMaDonHang()));
+            holder.binding.txtMnguoidung.setText("Mã người dung: " + String.valueOf(donHang.getMaTaiKhoan()));
+            holder.binding.txtDHTennguoidung.setText("Tên người dùng: " + donHang.getTenTaiKhoan());
+            holder.binding.txtNgayDat.setText("Ngày đặt hàng: " + donHang.getNgayDatHang());
+            holder.binding.txtTrangThai.setText("Trạng thái: " + donHang.getTrangthai());
+            holder.binding.txtTongTien.setText("Tổng tiền: " + String.valueOf(donHang.getTongTien()));
+        }
+        if (loai.equalsIgnoreCase("Khách Hàng")){
+            if(id==donHang.getMaTaiKhoan()){
+                holder.binding.txtMdonhang.setText("Mã đơn hàng: " + String.valueOf(donHang.getMaDonHang()));
+                holder.binding.txtMnguoidung.setText("Mã người dung: " + String.valueOf(donHang.getMaTaiKhoan()));
+                holder.binding.txtDHTennguoidung.setText("Tên người dùng: " + donHang.getTenTaiKhoan());
+                holder.binding.txtNgayDat.setText("Ngày đặt hàng: " + donHang.getNgayDatHang());
+                holder.binding.txtTrangThai.setText("Trạng thái: " + donHang.getTrangthai());
+                holder.binding.txtTongTien.setText("Tổng tiền: " + String.valueOf(donHang.getTongTien()));
+
+            }else{
+                holder.itemView.setVisibility(View.GONE);
+            }
+        }
+
+
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

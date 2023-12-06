@@ -19,11 +19,7 @@ import giangvhph33056.fpoly.duan1.Model.DonHangChiTiet;
 import giangvhph33056.fpoly.duan1.R;
 import giangvhph33056.fpoly.duan1.databinding.FragmentConfilmThanhtoanBinding;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link Fragment_confilm_thanhtoan#newInstance} factory method to
- * create an instance of this fragment.
- */
+
 public class Fragment_confilm_thanhtoan extends Fragment {
 
     private FragmentConfilmThanhtoanBinding binding;

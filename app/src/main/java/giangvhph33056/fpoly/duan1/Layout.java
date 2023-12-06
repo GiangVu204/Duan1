@@ -17,6 +17,7 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -28,6 +29,8 @@ import com.squareup.picasso.Picasso;
 import giangvhph33056.fpoly.duan1.DAO.ThanhVienDAO;
 
 
+import giangvhph33056.fpoly.duan1.databinding.ActivityLayoutBinding;
+import giangvhph33056.fpoly.duan1.databinding.ActivityMainBinding;
 import giangvhph33056.fpoly.duan1.fragment.Fragment_DonHang;
 import giangvhph33056.fpoly.duan1.fragment.Fragment_TrangChu;
 import giangvhph33056.fpoly.duan1.fragment.Fragment_add_user;
@@ -49,11 +52,15 @@ public class Layout extends AppCompatActivity {
     BottomNavigationView navigationView2;
     Context context = this;
     ThanhVienDAO dao;
+    private ActivityLayoutBinding binding;
+    //    Menu mMenu;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_layout);
+        binding = ActivityLayoutBinding.inflate(getLayoutInflater());
+        setContentView(binding.getRoot());
 
         drawerLayout = findViewById(R.id.drawerLayout);
         toolbar = findViewById(R.id.toolbar);
@@ -80,6 +87,15 @@ public class Layout extends AppCompatActivity {
             relaceFrg(new Fragment_TrangChu());
             setTitle("Trang chủ");
         }
+        binding.btnProFile.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(Layout.this, profile.class);
+                startActivity(intent);
+
+            }
+        });
+
 
         navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
 
@@ -170,6 +186,10 @@ public class Layout extends AppCompatActivity {
             menu.findItem(R.id.menuTND).setVisible(false);
 
         }
+        int sotien = sharedPreferences.getInt("SoTien", 0);
+        String urlAnh = sharedPreferences.getString("AvataTV", "");
+        Picasso.get().load(urlAnh).into(binding.btnProFile);
+        binding.txtSoTien.setText(String.valueOf(sotien));
         String loai = sharedPreferences.getString("Loai", "");
         txtloaitv.setText(loai);
         String email = sharedPreferences.getString("Email", "");

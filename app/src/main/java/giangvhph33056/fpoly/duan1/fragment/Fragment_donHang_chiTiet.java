@@ -3,64 +3,65 @@ package giangvhph33056.fpoly.duan1.fragment;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
+import androidx.recyclerview.widget.LinearLayoutManager;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import giangvhph33056.fpoly.duan1.R;
+import java.util.ArrayList;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link Fragment_donHang_chiTiet#newInstance} factory method to
- * create an instance of this fragment.
- */
+import giangvhph33056.fpoly.duan1.Adapter.adapter_don_hang_chi_tiet;
+import giangvhph33056.fpoly.duan1.DAO.DonHangChiTietDao;
+import giangvhph33056.fpoly.duan1.Model.DonHangChiTiet;
+import giangvhph33056.fpoly.duan1.R;
+import giangvhph33056.fpoly.duan1.databinding.FragmentDonHangChiTietBinding;
+
 public class Fragment_donHang_chiTiet extends Fragment {
 
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
 
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
 
     public Fragment_donHang_chiTiet() {
         // Required empty public constructor
     }
+    FragmentDonHangChiTietBinding binding;
+    private ArrayList<DonHangChiTiet> list = new ArrayList<>();
 
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment Fragment_donHang_chiTiet.
-     */
-    // TODO: Rename and change types and number of parameters
-    public static Fragment_donHang_chiTiet newInstance(String param1, String param2) {
-        Fragment_donHang_chiTiet fragment = new Fragment_donHang_chiTiet();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
-        return fragment;
-    }
-
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
-    }
-
+    private adapter_don_hang_chi_tiet adapterDonHangChiTiet;
+    DonHangChiTietDao chiTietDao;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_don_hang_chi_tiet, container, false);
+        binding = FragmentDonHangChiTietBinding.inflate(inflater, container, false);
+        LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
+        binding.rcvDonHangChiTiet.setLayoutManager(layoutManager);
+        chiTietDao = new DonHangChiTietDao(getContext());
+        Bundle bundle = getArguments();
+        if (bundle != null) {
+            int maDonHang = bundle.getInt("maDonHang", 0);
+            Log.d("Mã đơn hàng", String.valueOf(maDonHang));
+            if (maDonHang != 0) {
+                list = chiTietDao.getChiTietDonHangByMaDonHang(maDonHang);
+                adapterDonHangChiTiet = new adapter_don_hang_chi_tiet(list, getContext());
+                binding.rcvDonHangChiTiet.setAdapter(adapterDonHangChiTiet);
+
+            }
+        }
+
+        binding.btnback.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Fragment_DonHang frgQuanLyDonHang=new Fragment_DonHang();//fragment được chuyển đến sau khi ấn
+                FragmentManager fragmentManager=getParentFragmentManager();
+                FragmentTransaction fragmentTransaction=fragmentManager.beginTransaction();
+                fragmentTransaction.replace(R.id.frameLayout,frgQuanLyDonHang);
+                fragmentTransaction.addToBackStack(null);
+                fragmentTransaction.commit();
+            }
+        });
+        return binding.getRoot();
     }
 }

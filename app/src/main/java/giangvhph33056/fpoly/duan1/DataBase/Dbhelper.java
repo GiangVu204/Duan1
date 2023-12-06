@@ -77,7 +77,7 @@ public class Dbhelper extends SQLiteOpenHelper {
                 ");\n");
 
         //INSERT
-        db.execSQL("INSERT INTO  ThanhVien VALUES(1,'admin', 'https://i.pinimg.com/736x/26/80/b2/2680b245cf06bcd901518a53a02e6c9a.jpg','Lê Hoàng Tú','admin',0982322079,'Lehoangtu56@gmail.com','hà nội',100000,'ADMIN')," +
+        db.execSQL("INSERT INTO  ThanhVien VALUES(1,'admin', 'https://i.pinimg.com/736x/26/80/b2/2680b245cf06bcd901518a53a02e6c9a.jpg','Lê Hoàng Tú','admin',0982322079,'Lehoangtu56@gmail.com','hà nội',10000000,'ADMIN')," +
                 "(2,'Giangvu', 'https://i.pinimg.com/736x/66/d1/4a/66d14aec6cd11d59264dd58525fdb449.jpg','Vũ Hoàng Giang','2042044',0763754415,'Vuhoanggiang2042k4@gmail.com','Thái bình',10000000,'ADMIN')," +
                 "(3,'nhanvien', 'https://alolimo.com/wp-content/uploads/2021/05/ga-da-lat-7.jpg','Nguyễn Văn A','nhanvien',0982322079,'Nhanvien56@gmail.com','hà nội',100000,'Nhân Viên')," +
                 "(4,'khachhang', 'https://baoduyenbabyhouse.com/wp-content/uploads/2022/01/cach-tao-dang-khi-chup-anh-25.jpg','Sùng A Pháo','khachhang',0982322079,'Khachhang56@gmail.com','hà nội',1000000,'Khách Hàng')");

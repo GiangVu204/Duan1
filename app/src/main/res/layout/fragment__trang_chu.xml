@@ -74,11 +74,12 @@
 
             <me.relex.circleindicator.CircleIndicator3
                 android:id="@+id/chamduoi"
-                android:layout_width="wrap_content"
-                android:layout_height="40sp"
+                android:layout_width="80dp"
+                android:layout_height="40dp"
                 android:layout_below="@+id/viewpage"
                 android:layout_centerInParent="true"
-                app:ci_drawable="@drawable/bacham" />
+                android:layout_gravity="center"
+                app:ci_drawable="@drawable/baseline_lens_24" />
 
             <TextView
                 android:layout_width="wrap_content"

@@ -12,6 +12,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import java.util.ArrayList;
+import java.util.Collections;
 
 import giangvhph33056.fpoly.duan1.Adapter.adapter_don_hang;
 import giangvhph33056.fpoly.duan1.DAO.DonHangChiTietDao;
@@ -42,6 +43,8 @@ public class Fragment_DonHang extends Fragment {
         LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
         binding.rcvDonHang.setLayoutManager(layoutManager);
         list = dao.getDsDonHang();
+        // Đảo ngược danh sách đơn hàng
+        Collections.reverse(list);
         adapterDonHang = new adapter_don_hang(list, getContext());
         binding.rcvDonHang.setAdapter(adapterDonHang);
         chiTietDao = new DonHangChiTietDao(getContext());

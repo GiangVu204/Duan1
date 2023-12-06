@@ -5,7 +5,7 @@
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".fragment.Fragment_add_user"
-    android:background="#E3A2EF">
+   >
 
         <LinearLayout
             android:layout_width="match_parent"

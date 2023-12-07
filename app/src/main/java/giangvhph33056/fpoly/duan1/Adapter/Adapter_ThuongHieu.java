@@ -26,6 +26,7 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 
@@ -37,8 +38,8 @@ public class Adapter_ThuongHieu extends RecyclerView.Adapter<Adapter_ThuongHieu.
     private Context context;
     private ArrayList<ThuongHieu> list;
     private ThuongHieuDAO dao;
-    private int selectedPosition = -1;
-    private Uri selectedImageUri;
+//    private int selectedPosition = -1;
+//    private Uri selectedImageUri;
 
     public Adapter_ThuongHieu(Context context, ArrayList<ThuongHieu> list) {
         this.context = context;
@@ -56,21 +57,21 @@ public class Adapter_ThuongHieu extends RecyclerView.Adapter<Adapter_ThuongHieu.
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
+        ThuongHieu th = list.get(position);
         holder.MaTH.setText(String.valueOf(list.get(position).getMaTH()));
         holder.SDT.setText(String.valueOf(list.get(position).getSDT()));
         holder.TenTH.setText(list.get(position).getTenTH());
-        String imageUrl = list.get(position).getAnh();
-        Glide.with(context).load(Uri.parse(imageUrl)).into(holder.ImgAnh);
+//        String imageUrl = list.get(position).getAnh();
+//        Glide.with(context).load(Uri.parse(imageUrl)).into(holder.ImgAnh);
+        Picasso.get().load(th.getAnh()).into(holder.ImgAnh);
 
-        ThuongHieu th = list.get(position);
-
-        holder.ImgAnh.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                selectedPosition = holder.getAdapterPosition();
-                dialogUpdateTH(list.get(selectedPosition));
-            }
-        });
+//        holder.ImgAnh.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                selectedPosition = holder.getAdapterPosition();
+//                dialogUpdateTH(list.get(selectedPosition));
+//            }
+//        });
 
         holder.TH_Delete.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -147,21 +148,23 @@ public class Adapter_ThuongHieu extends RecyclerView.Adapter<Adapter_ThuongHieu.
         TextInputEditText ed_SDT = view.findViewById(R.id.ed_updateSDT);
         TextInputLayout in_TenTH = view.findViewById(R.id.in_updateTenTH);
         TextInputEditText ed_TenTH = view.findViewById(R.id.ed_updateTenTH);
-        ImageView ImgAnhh = view.findViewById(R.id.ImgAnhhh);
+        TextInputLayout in_updateAvataTH = view.findViewById(R.id.in_updateAvataTH);
+        TextInputEditText ed_updateAvataTH = view.findViewById(R.id.ed_updateAvataTH);
         Button UpdateTH = view.findViewById(R.id.TH_update);
         Button CancelTH = view.findViewById(R.id.TH_Cancelupdtae);
 
         // Load ảnh hiện tại vào ImageView trong dialog
-        Glide.with(context).load(Uri.parse(th.getAnh())).into(ImgAnhh);
+//        Glide.with(context).load(Uri.parse(th.getAnh())).into(ImgAnhh);
+        ed_updateAvataTH.setText(th.getAnh());
         ed_SDT.setText(th.getSDT());
         ed_TenTH.setText(th.getTenTH());
 
-        ImgAnhh.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                openGallery();
-            }
-        });
+//        ImgAnhh.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                openGallery();
+//            }
+//        });
 
         ed_SDT.addTextChangedListener(new TextWatcher() {
             @Override
@@ -204,10 +207,10 @@ public class Adapter_ThuongHieu extends RecyclerView.Adapter<Adapter_ThuongHieu.
             }
         });
 
-        if (selectedImageUri != null) {
-            // Hiển thị ảnh đã chọn trong ImageView
-            Glide.with(context).load(selectedImageUri).into(ImgAnhh);
-        }
+//        if (selectedImageUri != null) {
+//            // Hiển thị ảnh đã chọn trong ImageView
+//            Glide.with(context).load(selectedImageUri).into(ImgAnhh);
+//        }
         UpdateTH.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -215,15 +218,17 @@ public class Adapter_ThuongHieu extends RecyclerView.Adapter<Adapter_ThuongHieu.
                 String SDT = ed_SDT.getText().toString();
                 th.setTenTH(ed_TenTH.getText().toString());
                 String TenTH = ed_TenTH.getText().toString();
-
-                if (selectedImageUri != null) {
-                    th.setAnh(selectedImageUri.toString());
-                    // Log để kiểm tra giá trị của selectedImageUri
-                    Log.d("SelectedImageUri", "Value: " + selectedImageUri);
-
-                    // Sử dụng setImageURI thay vì Glide
-                    ImgAnhh.setImageURI(selectedImageUri);
-                }
+                th.setAnh(ed_updateAvataTH.getText().toString());
+                String avatath = ed_updateAvataTH.getText().toString();
+//
+//                if (selectedImageUri != null) {
+//                    th.setAnh(selectedImageUri.toString());
+//                    // Log để kiểm tra giá trị của selectedImageUri
+//                    Log.d("SelectedImageUri", "Value: " + selectedImageUri);
+//
+//                    // Sử dụng setImageURI thay vì Glide
+//                    ImgAnhh.setImageURI(selectedImageUri);
+//                }
 
                     if (SDT.isEmpty()) {
                         in_SDT.setError("Vui lòng không để trống Số điện thoại!");
@@ -231,7 +236,7 @@ public class Adapter_ThuongHieu extends RecyclerView.Adapter<Adapter_ThuongHieu.
                     } else {
                         in_SDT.setError(null);
                     }
-                    if (isValidPhoneNumber(SDT)){
+                    if (!isValidPhoneNumber(SDT)){
                         Toast.makeText(context, "Số điện thoại phải có 10 hoặc 12 số", Toast.LENGTH_SHORT).show();
                         return;
                     }
@@ -271,10 +276,10 @@ public class Adapter_ThuongHieu extends RecyclerView.Adapter<Adapter_ThuongHieu.
     }
 
     // Thêm phương thức để cập nhật ảnh trong Adapter
-    public void setCurrentImageUri(Uri uri) {
-        selectedImageUri = uri;
-        notifyDataSetChanged();
-    }
+//    public void setCurrentImageUri(Uri uri) {
+//        selectedImageUri = uri;
+//        notifyDataSetChanged();
+//    }
     public boolean isValidPhoneNumber(String phoneNumber) {
         // Kiểm tra số điện thoại có bắt đầu bằng số 0 và có từ 10 đến 12 chữ số
         return phoneNumber.matches("^0\\d{9,11}$");

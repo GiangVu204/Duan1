@@ -2,12 +2,21 @@ package giangvhph33056.fpoly.duan1;
 
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.recyclerview.widget.ItemTouchHelper;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 
+import android.app.AlertDialog;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -19,15 +28,29 @@ import android.widget.Toast;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.google.android.material.snackbar.Snackbar;
 import com.squareup.picasso.Picasso;
+
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.HashMap;
+
+import giangvhph33056.fpoly.duan1.Adapter.Adapter_GioHang;
+import giangvhph33056.fpoly.duan1.Adapter.swipe;
+import giangvhph33056.fpoly.duan1.DAO.DonHangChiTietDao;
+import giangvhph33056.fpoly.duan1.DAO.DonHangDao;
 import giangvhph33056.fpoly.duan1.DAO.GioHangDAO;
 import giangvhph33056.fpoly.duan1.DAO.SanPhamDAO;
 import giangvhph33056.fpoly.duan1.DAO.ThanhVienDAO;
+import giangvhph33056.fpoly.duan1.Model.DonHang;
+import giangvhph33056.fpoly.duan1.Model.DonHangChiTiet;
 import giangvhph33056.fpoly.duan1.Model.GioHang;
 import giangvhph33056.fpoly.duan1.Model.SanPham;
 import giangvhph33056.fpoly.duan1.Model.ThanhVien;
 import giangvhph33056.fpoly.duan1.Viewmd.SharedViewModel;
+import giangvhph33056.fpoly.duan1.databinding.DialogConfilmThanhToanBinding;
+import giangvhph33056.fpoly.duan1.databinding.FragmentGioHangBinding;
+import giangvhph33056.fpoly.duan1.fragment.Fragment_confilm_thanhtoan;
+import giangvhph33056.fpoly.duan1.fragment.Fragment_donHang_chiTiet;
 
 public class sanphamchitiet extends AppCompatActivity{
     TextView txttensp_ct,txtmasp_ct,txtgiasp_ct,txtsoluongsp_ct,txtsize_ct,txttenth_ct,txttenlsp_ct;
@@ -40,6 +63,19 @@ public class sanphamchitiet extends AppCompatActivity{
     private SharedViewModel sharedViewModel;
 
     private ArrayList<SanPham> listSanPham = new ArrayList<>();
+    private ArrayList<GioHang> list = new ArrayList<>();
+
+    View gView;
+    Toolbar toolbar;
+    RecyclerView recycleView;
+    Button btnmuahang;
+    //    Adapter_GioHang adapter;
+    GioHangDAO ghDAO;
+    DonHangDao donHangDao;
+    DonHangChiTietDao chiTietDao;
+    private Adapter_GioHang adapter;
+    private ArrayList<DonHang> listDonHang = new ArrayList<>();
+    SanPhamDAO dao;
     ImageView back, ImaSP;
      // Biến thành viên để lưu đường dẫn ảnh
     @Override
@@ -64,6 +100,13 @@ public class sanphamchitiet extends AppCompatActivity{
         ghdao = new GioHangDAO(this);
         listSanPham = spdao.selectAllSanPham();
         sharedViewModel = new ViewModelProvider(this).get(SharedViewModel.class);
+        adapter = new Adapter_GioHang(this, list);
+        ghDAO = new GioHangDAO(this);
+        ItemTouchHelper sw = new ItemTouchHelper(new swipe(adapter));
+
+        chiTietDao = new DonHangChiTietDao(this);
+        donHangDao = new DonHangDao(this);
+
         Intent intent = getIntent();
         if (intent != null) {
             SanPham sanPham = intent.getParcelableExtra("sanphamct");
@@ -91,12 +134,12 @@ public class sanphamchitiet extends AppCompatActivity{
                 finish();
             }
         });
-//z        btnMuangay_ct.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                dialogadd();
-//            }
-//        });
+    btnMuangay_ct.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                showDialogThanhToan();
+            }
+        });
 
 
         btnthemgh_ct.setOnClickListener(new View.OnClickListener() {
@@ -156,86 +199,88 @@ public class sanphamchitiet extends AppCompatActivity{
         }
         return 0;
     }
-//    private void dialogadd (){
-//        BottomSheetDialog dialog = new BottomSheetDialog(this);
-//        View view = getLayoutInflater().inflate(R.layout.item_mua_ngay, null);
-//        dialog.setContentView(view);
-//        dialog.show();
-//        edt_soLuong_hd = view.findViewById(R.id.edt_soLuong_hd);
-//
-//        spn_thanhVien_hd = view.findViewById(R.id.spn_thanhVien_hd);
-//        spn_sanpham_hd = view.findViewById(R.id.spn_sanpham_hd);
-//        Button SP_add = view.findViewById(R.id.SP_hd);
-//        Button SP_cancel = view.findViewById(R.id.SP_Cancel_hd);
-//
-//        getDatathanhVien(spn_thanhVien_hd);
-//        getDatasanpham(spn_sanpham_hd);
-//
-//        SP_add.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                //lay ma Kich Thuoc
-//                HashMap<String , String> hsKT = (HashMap<String, String>) spn_sanpham_hd.getSelectedItem();
-//                int MaSP= Integer.parseInt(hsKT.get("MaSP"));
-//                HashMap<String , String> hsLSP = (HashMap<String, String>) spn_thanhVien_hd.getSelectedItem();
-//                int MaTV= Integer.parseInt(hsLSP.get("id"));
-//                int soluong = Integer.parseInt(edt_soLuong_hd.getText().toString());
-//                themsanpham(MaSP,soluong,MaTV);
-//                dialog.dismiss();
-//            }
-//        });
-//    }
-//
-//    private void getDatathanhVien(Spinner spn_thanhVien_hd) {
-//        ThanhVienDAO DAO = new ThanhVienDAO(this);
-//        ArrayList<ThanhVien> list = DAO.selectAllthanhVien();
-//        ArrayList<HashMap<String,String>> listHM = new ArrayList<>();
-//        for ( ThanhVien s : list) {
-//            HashMap<String , String> hs = new HashMap<>();
-//            hs.put("id" , String.valueOf(s.getId()));
-//            hs.put("MaTV" , s.getMaTV());
-//            hs.put("HoTen" , s.getHoTen());
-//            listHM.add(hs);
-//        }
-//        SimpleAdapter adapter = new SimpleAdapter(this,listHM,android.R.layout.simple_list_item_1,new String[]{"HoTen"}, new int[]{android.R.id.text1});
-//        spn_thanhVien_hd.setAdapter(adapter);
-//    }
-//    private void getDatasanpham(Spinner spn_sanpham_hd) {
-//        SanPhamDAO DAO = new SanPhamDAO(this);
-//        ArrayList<SanPham> list = DAO.selectAllSanPham();
-//        ArrayList<HashMap<String,String>> listHM = new ArrayList<>();
-//        for ( SanPham s : list) {
-//            HashMap<String , String> hs = new HashMap<>();
-//            hs.put("MaSP" , String.valueOf(s.getMaSP()));
-//            hs.put("TenSP", s.getTenSP());
-//            listHM.add(hs);
-//        }
-//        SimpleAdapter adapter = new SimpleAdapter(this,listHM,android.R.layout.simple_list_item_1,new String[]{"TenSP"}, new int[]{android.R.id.text1});
-//        spn_sanpham_hd.setAdapter(adapter);
-//    }
-//
-//    private void themsanpham( int  MaSP, int soluong, int MaTV){
-//        long kiemtra = hddao.thucHienMuaHang(MaSP, soluong, MaTV);
-//        if (kiemtra == 1){
-//            Toast.makeText(this, "mua thành  thành công!", Toast.LENGTH_SHORT).show();
-//        }else if (kiemtra == -1){
-//            Toast.makeText(this, "mua thất bại", Toast.LENGTH_SHORT).show();}
-//
-//
-//    }
-//
-//    private void themSanPhamVaoGioHang(String AvataSP, String tenSP, int soLuong, double gia) {
-//        Log.d("GioHang","AvataSP: " + AvataSP + "TenSP: " + tenSP + ", SoLuong: " + soLuong + ", Gia: " + gia);
-//
-//        SanPhamDAO gioHangDAO = new SanPhamDAO(this);
-//        long kiemTra = gioHangDAO.themSanPhamVaoGioHang(tenSP, soLuong, gia, AvataSP);
-//
-//
-//        if (kiemTra != -1) {
-//            Toast.makeText(this, "Đã thêm vào giỏ hàng", Toast.LENGTH_SHORT).show();
-//        } else {
-//            Toast.makeText(this, "Thêm vào giỏ hàng thất bại", Toast.LENGTH_SHORT).show();
-//        }
-//    }
+    private void showDialogThanhToan() {
+        LayoutInflater layoutInflater = getLayoutInflater();
+        DialogConfilmThanhToanBinding thanhToanBinding = DialogConfilmThanhToanBinding.inflate(layoutInflater);
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setView(thanhToanBinding.getRoot());
+        AlertDialog dialog = builder.create();
+        dialog.show();
+        thanhToanBinding.btnThanhToan.setOnClickListener(view -> {
+            for (GioHang gioHang : list) {
+                if (gioHang.getSoLuongMua() == 0) {
+                    Toast.makeText(this, "Sản phẩm " + gioHang.getTenSanPham() + " đã hết hàng", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+            }
+            int totalAmount = Integer.parseInt(txtgiasp_ct.getText().toString());
+            SharedPreferences sharedPreferences = getSharedPreferences("DANGNHAPTV", MODE_PRIVATE);
+            int mand = sharedPreferences.getInt("id", 0);
+            int tienHienCo = sharedPreferences.getInt("SoTien", 0);
+
+            LocalDate currentDate = LocalDate.now();
+
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+            String ngayHienTai = currentDate.format(formatter);
+
+            if (tienHienCo >= totalAmount) {
+                int soTienConLai = tienHienCo - totalAmount;
+                ThanhVienDAO nguoiDungDao = new ThanhVienDAO(this);
+                if (nguoiDungDao.updateSoTien(mand, soTienConLai)) {
+                    SharedPreferences.Editor editor = sharedPreferences.edit();
+                    editor.putInt("SoTien", soTienConLai);
+                    editor.apply();
+                    DonHang donHang = new DonHang(mand, ngayHienTai, totalAmount, "Chờ phê duyệt");
+                    int orderId = donHangDao.insertDonHang(donHang);
+                    if (orderId != 0) {
+                        listDonHang.clear();
+                        listDonHang.addAll(donHangDao.getDsDonHang());
+                        if (totalAmount > 0) {
+                                    Intent intent = getIntent();
+                                    SanPham sanPhamtt = intent.getParcelableExtra("sanphamct");
+                                    if (sanPhamtt != null) {
+                                        DonHangChiTiet chiTietDonHan = new DonHangChiTiet(orderId, sanPhamtt.getMaSP(), sanPhamtt.getSoLuong(), sanPhamtt.getGia(), sanPhamtt.getGia());
+                                        chiTietDao.insertDonHangChiTiet(chiTietDonHan);
+                                    } else {
+                                        Toast.makeText(this, "Sản phẩm không tìm thấy trong cơ sở dữ liệu", Toast.LENGTH_SHORT).show();
+                                    }
+
+
+                        } else {
+                            Toast.makeText(this, "Vui lòng chọn sản phẩm để thanh toán", Toast.LENGTH_SHORT).show();
+                            return;
+                        }
+
+
+                        // Cập nhật số lượng sản phẩm sau khi thanh toán thành công
+                        for (SanPham sanPham : listSanPham) {
+                            int spm = 1;
+                            int newQuantity = sanPham.getSoLuong() - spm;
+                            if (newQuantity < 0) {
+                                Toast.makeText(this, "Sản phẩm " + sanPham.getTenSP() + "không đủ số lượng trong kho", Toast.LENGTH_SHORT).show();
+                                return;
+                            }
+                            spdao.updateSlSanPham(sanPham.getMaSP(), newQuantity);
+                        }
+
+                        Bundle bundle = new Bundle();
+                        bundle.putInt("maDonHang", orderId);
+
+                        Fragment_donHang_chiTiet frgConfilmThanhToan = new Fragment_donHang_chiTiet();
+                        frgConfilmThanhToan.setArguments(bundle);
+                        dialog.dismiss();
+                    } else {
+                        Toast.makeText(this, "Thất bại khi thêm đơn hàng!", Toast.LENGTH_SHORT).show();
+                    }
+                } else {
+                    Toast.makeText(this, "Thất bại khi cập nhật tài khoản!", Toast.LENGTH_SHORT).show();
+                }
+            } else {
+                Toast.makeText(this, "Số tiền trong tài khoản không đủ!", Toast.LENGTH_SHORT).show();
+            }
+        });
+        thanhToanBinding.btnThoat.setOnClickListener(view -> dialog.dismiss());
+
+    }
 
 }

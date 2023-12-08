@@ -168,6 +168,13 @@ public class Adapter_SanPham extends RecyclerView.Adapter<Adapter_SanPham.ViewHo
                 dialogadd(sp);
             }
         });
+        holder.itemView.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View view) {
+                dialogadd(sp);
+                return true;
+            }
+        });
 
     }
 
@@ -233,10 +240,42 @@ public class Adapter_SanPham extends RecyclerView.Adapter<Adapter_SanPham.ViewHo
                 HashMap<String , String> hsLSP = (HashMap<String, String>) spnloaisp_up.getSelectedItem();
                 int MaLSP= Integer.parseInt(hsLSP.get("MaLSP"));
                 String tensp = edtTensp_sp_up.getText().toString();
-                int gia = Integer.parseInt(edtgia_sp_up.getText().toString());
+//                int gia = Integer.parseInt(edtgia_sp_up.getText().toString());
                 String avatasp = edtAnhsp_sp_up.getText().toString();
                 //int soluong = Integer.parseInt(edtSoLuong_sp_add.getText().toString());
                 int idd = sp.getMaSP();
+
+                // Link ảnh Sản phẩm
+                if (avatasp.isEmpty()){
+                    in_Anh_sp_up.setError("Vui lòng không để trống Link ảnh Sản phẩm");
+                    return;
+                }else {
+                    in_Anh_sp_up.setError(null);
+                }
+                // Tên sản phẩm
+                if (tensp.isEmpty()){
+                    in_Ten_sp_up.setError("Vui lòng không để trống Tên Sản phẩm");
+                    return;
+                }else {
+                    in_Ten_sp_up.setError(null);
+                }
+                // Giá sản phẩm
+                String giaStr = edtgia_sp_up.getText().toString();
+                if (giaStr.trim().isEmpty()) {
+                    in_gia_sp_up.setError("Vui lòng nhập giá sản phẩm");
+                    return;
+                }
+
+                int gia = Integer.parseInt(giaStr);
+
+
+                if (gia <= 0) { // Kiểm tra giá có lớn hơn 0 không
+                    in_gia_sp_up.setError("Giá sản phẩm phải lớn hơn 0");
+                    return;
+                } else {
+                    in_gia_sp_up.setError(null);
+                }
+                // Gọi hàm sửa sản phẩm khi tất cả các điều kiện đều hợp lệ
                 suasanpham(idd,avatasp,tensp,gia,sluong,id,MaTH,MaLSP);
                 dialog.dismiss();
             }

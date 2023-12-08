@@ -53,6 +53,24 @@ public class Fragment_add_user extends Fragment {
                     String dc = "Hà Nội";
                     String loai ="Nhân Viên";
                     int scoins =0;
+                    // Kiểm tra các trường dữ liệu có trống hay không
+                    if (avatatnd.trim().length() < 2){
+                        Toast.makeText(getContext(), "Nếu chưa có link ảnh vui lòng nhập ít nhất 2 ký tự", Toast.LENGTH_SHORT).show();
+                        return;
+                    }
+                    if (ma.isEmpty() || pass.isEmpty() || hten.isEmpty() || email.isEmpty() || sdt.isEmpty()) {
+                        Toast.makeText(getContext(), "Vui lòng điền đầy đủ thông tin", Toast.LENGTH_SHORT).show();
+                        return;
+                    }
+                    //Số điện thoại
+                    if (!isValidPhoneNumber(sdt)){
+                        Toast.makeText(getContext(), "Số điện thoại phải có từ 10 số hoặc 12 số", Toast.LENGTH_SHORT).show();
+                        return;
+                    }
+                    if (!isValidEmail(email)){
+                        Toast.makeText(getContext(), "E-mail sai định dạng", Toast.LENGTH_SHORT).show();
+                        return;
+                    }
                     ThanhVien kt = new ThanhVien(ma,avatatnd,hten,pass,sdt,email,scoins,dc,loai);
                     if(tvDAO.insert(kt)){
                         Toast.makeText(getContext(), "ĐĂNG KÝ THÀNH CÔNG", Toast.LENGTH_SHORT).show();
@@ -65,5 +83,15 @@ public class Fragment_add_user extends Fragment {
             });
 
         return view;
+    }
+
+    public boolean isValidPhoneNumber(String phoneNumber) {
+        // Kiểm tra số điện thoại có bắt đầu bằng số 0 và có từ 10 đến 12 chữ số
+        return phoneNumber.matches("^0\\d{9,11}$");
+    }
+    public boolean isValidEmail(String email) {
+        // Kiểm tra email có đúng định dạng
+        String emailPattern = "^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$";
+        return email.matches(emailPattern);
     }
 }

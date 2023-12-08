@@ -75,14 +75,8 @@ public class Fragment_loai_san_pham extends Fragment {
                 String urlAvata = avataSp.getText().toString();
                 String tlsp = tenlsp.getText().toString();
 
-                if (tlsp.isEmpty() || urlAvata.isEmpty()){
-                    if (tlsp.equals("")){
-                        Toast.makeText(getActivity(), "Vui lòng không để trống Tên loại sản phẩm", Toast.LENGTH_SHORT).show();
-                    } else if (urlAvata.equals("")) {
-                        Toast.makeText(getActivity(), "Vui lòng không để trống link ảnh", Toast.LENGTH_SHORT).show();
-                    }else {
-
-                    }
+                if (urlAvata.isEmpty() || tlsp.isEmpty()){
+                    Toast.makeText(getActivity(), "Vui lòng điền đầy đủ thông tin.", Toast.LENGTH_SHORT).show();
                 }else {
                     if (dao.insert(urlAvata, tlsp)){
                         loadData();

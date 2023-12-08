@@ -13,6 +13,8 @@ import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import java.text.DecimalFormat;
+import java.text.NumberFormat;
 import java.util.Calendar;
 
 import giangvhph33056.fpoly.duan1.DAO.ThongKeDAO;
@@ -103,11 +105,22 @@ public class Fragment_doanh_thu extends Fragment {
         DoanhThu.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+//                ThongKeDAO dao = new ThongKeDAO(getContext());
+//                String ngaybatdau = txtdayStart.getText().toString();
+//                String ngayketthuc = txtdayEnd.getText().toString();
+//                int doanhthu1 = dao.getDoanhThu(ngaybatdau, ngayketthuc);
+//                txtDoanhThu.setText(doanhthu1 + " VND");
                 ThongKeDAO dao = new ThongKeDAO(getContext());
                 String ngaybatdau = txtdayStart.getText().toString();
                 String ngayketthuc = txtdayEnd.getText().toString();
                 int doanhthu1 = dao.getDoanhThu(ngaybatdau, ngayketthuc);
-                txtDoanhThu.setText(doanhthu1 + " $");
+
+                // Định dạng số tiền với dấu chấm
+                DecimalFormat decimalFormat = (DecimalFormat) NumberFormat.getNumberInstance();
+                decimalFormat.applyPattern("#,###,###,###");
+                String formattedDoanhThu = decimalFormat.format(doanhthu1);
+
+                txtDoanhThu.setText(formattedDoanhThu + " VND");
             }
         });
         return view;

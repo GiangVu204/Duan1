@@ -132,7 +132,7 @@ public class Adapter_KichThuoc extends RecyclerView.Adapter<Adapter_KichThuoc.Vi
         TextInputEditText edtsize_kt = view.findViewById(R.id.edtsize_kt);
         TextInputEditText edtSoluong_kt = view.findViewById(R.id.edtSoluong_kt);
         TextInputEditText edtanh_kt_up = view.findViewById(R.id.edtanh_kt_up);
-        TextInputLayout in_ma_up = view.findViewById(R.id.in_size);
+        TextInputLayout in_ma_up = view.findViewById(R.id.in_ma_up);
         TextInputLayout in_size = view.findViewById(R.id.in_size);
         TextInputLayout in_soluong = view.findViewById(R.id.in_soluong);
         TextInputLayout in_anh_up = view.findViewById(R.id.in_anh_up);
@@ -210,9 +210,9 @@ public class Adapter_KichThuoc extends RecyclerView.Adapter<Adapter_KichThuoc.Vi
         edtanh_kt_up.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-                if (charSequence.length() == 0){
+                if (charSequence.length() == 0) {
                     in_anh_up.setError("Vui lòng không để trống link ảnh kích thước");
-                }else {
+                } else {
                     in_anh_up.setError(null);
                 }
             }
@@ -236,33 +236,47 @@ public class Adapter_KichThuoc extends RecyclerView.Adapter<Adapter_KichThuoc.Vi
                 String sizeText = edtsize_kt.getText().toString();
                 String soluongText = edtSoluong_kt.getText().toString();
 
-                if (MaKT.isEmpty() || Anhkt.isEmpty() || sizeText.isEmpty() || soluongText.isEmpty()) {
-                    if (MaKT.isEmpty()){
-                        in_ma_up.setError("Vui lòng không để trống mã kích thước ");
-                    }else {
-                        in_ma_up.setError(null);
-                    }if (Anhkt.isEmpty()){
-                        in_anh_up.setError("Vui lòng không để trống link ảnh kích thước");
-                    }else {
-                        in_anh_up.setError(null);
-                    }if (sizeText.isEmpty()) {
-                        in_size.setError("Vui lòng không để trống Size!");
-                    } else {
-                        in_size.setError(null);
-                    }if (soluongText.isEmpty()) {
-                        in_soluong.setError("Vui lòng không để trống Số lượng!");
-                    } else {
-                        in_soluong.setError(null);
-                    }if (MaKT.isEmpty()) {
-                        in_ma_up.setError("Vui lòng không để trống mã!");
-                    }else{
-                        in_ma_up.setError(null);
-                    }
+                // MaKT
+                if (MaKT.isEmpty()) {
+                    in_ma_up.setError("Vui lòng không để trống mã kích thước ");
+                    return;
+                } else {
+                    in_ma_up.setError(null);
+                }
+                if (MaKT.trim().length() < 4) {
+                    in_ma_up.setError("Mã Kích thước phải có ít nhất 4 ký tự");
+                    return;
+                } else {
+                    in_ma_up.setError(null);
+                }
+                // Link ảnh
+                if (Anhkt.isEmpty()) {
+                    in_anh_up.setError("Vui lòng không để trống link ảnh kích thước");
+                    return;
+                } else {
+                    in_anh_up.setError(null);
+                }
+                // Size
+                if (sizeText.isEmpty()) {
+                    in_size.setError("Vui lòng không để trống Size!");
+                    return;
+                } else {
+                    in_size.setError(null);
+                }
+                // Số lượng
+                if (soluongText.isEmpty()) {
+                    in_soluong.setError("Vui lòng không để trống Số lượng!");
+                    return;
+                } else {
+                    in_soluong.setError(null);
+                }
+                if (soluongText.equals("")) {
+                    Toast.makeText(context, "Vui lòng không để trống Số lượng!", Toast.LENGTH_SHORT).show();
                 } else {
 
                     // Kiểm tra size có phải là số dương không
                     if (!isValidNumber(sizeText)) {
-                        in_size.setError("Size phải là số dương!");
+                        in_size.setError("Size phải là số dương và lớn hơn 0!");
                         return;
                     } else {
                         in_size.setError(null);
@@ -300,6 +314,7 @@ public class Adapter_KichThuoc extends RecyclerView.Adapter<Adapter_KichThuoc.Vi
             }
         });
     }
+
     // Hàm kiểm tra xem chuỗi có phải là số dương không
     private boolean isValidNumber(String number) {
         try {

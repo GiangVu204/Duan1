@@ -41,7 +41,7 @@
         <Button
             android:layout_width="190dp"
             android:layout_height="wrap_content"
-            android:text="Add"
+            android:text="Update"
             android:textStyle="bold"
             android:layout_marginRight="10dp"
             android:backgroundTint="#2A66FF"

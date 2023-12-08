@@ -93,30 +93,48 @@ public class Fragment_kich_thuoc extends Fragment {
                 String size = edtsize_kt.getText().toString();
                 String Soluong = edtSoluong_kt.getText().toString();
 
-                if (makt.isEmpty() || Anhkt.isEmpty() || size.isEmpty() || Soluong.isEmpty()) {
-                    if (makt.isEmpty()) {
-                        in_ma.setError("Vui lòng không để trống mã kích thước");
-                    } else {
-                        in_ma.setError(null);
-                    }if (Anhkt.isEmpty()){
-                        in_anh.setError("Vui lòng không để trống link ảnh kích thước");
-                    }else {
-                        in_anh.setError(null);
-                    }if (size.isEmpty()){
-                        in_size.setError("Vui lòng không để trống size");
-                    }else {
-                        in_size.setError(null);
-                    }if (Soluong.isEmpty()){
-                        in_soluong.setError("Vui lòng không để trống số lượng");
-                    }else {
-                        in_soluong.setError(null);
-                    }
-                }else {
-                    if (ktDAO.insert(makt, Anhkt, size, Soluong)){
+                // MaKT
+                if (makt.isEmpty()) {
+                    in_ma.setError("Vui lòng không để trống mã kích thước ");
+                    return;
+                } else {
+                    in_ma.setError(null);
+                }
+                if (makt.trim().length() < 4) {
+                    in_ma.setError("Mã Kích thước phải có ít nhất 4 ký tự");
+                    return;
+                } else {
+                    in_ma.setError(null);
+                }
+                // Link ảnh
+                if (Anhkt.isEmpty()) {
+                    in_anh.setError("Vui lòng không để trống link ảnh kích thước");
+                    return;
+                } else {
+                    in_anh.setError(null);
+                }
+                // Size
+                if (size.isEmpty()) {
+                    in_size.setError("Vui lòng không để trống Size!");
+                    return;
+                } else {
+                    in_size.setError(null);
+                }
+                // Số lượng
+                if (Soluong.isEmpty()) {
+                    in_soluong.setError("Vui lòng không để trống Số lượng!");
+                    return;
+                } else {
+                    in_soluong.setError(null);
+                }
+                if (Soluong.equals("")) {
+                    Toast.makeText(getContext(), "Vui lòng không để trống Số lượng!", Toast.LENGTH_SHORT).show();
+                } else {
+                    if (ktDAO.insert(makt, Anhkt, size, Soluong)) {
                         loadData();
                         Toast.makeText(getActivity(), "Thêm kích thước thành công!", Toast.LENGTH_SHORT).show();
                         dialog.dismiss();
-                    }else {
+                    } else {
                         Toast.makeText(getActivity(), "Thêm kíck thước thất bại!!!", Toast.LENGTH_SHORT).show();
                     }
                 }

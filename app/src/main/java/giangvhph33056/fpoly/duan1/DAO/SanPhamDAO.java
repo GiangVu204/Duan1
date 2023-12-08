@@ -90,13 +90,13 @@ public class SanPhamDAO {
 
 
 
-    public int delete(int MaLSP){
+    public int delete(int MaSP){
         SQLiteDatabase db = dbhelper.getWritableDatabase();
-        Cursor cursor = db.rawQuery("SELECT * FROM HoaDon WHERE MaSP = ?", new String[]{String.valueOf(MaLSP)});
+        Cursor cursor = db.rawQuery("SELECT * FROM DONHANG WHERE madonhang = ?", new String[]{String.valueOf(MaSP)});
         if (cursor.getCount() != 0){
             return -1;
         }
-        long check = db.delete("SanPham", "MaSP = ?", new String[]{String.valueOf(MaLSP)});
+        long check = db.delete("SanPham", "MaSP = ?", new String[]{String.valueOf(MaSP)});
         if (check == -1){
             return 0;
         }else {

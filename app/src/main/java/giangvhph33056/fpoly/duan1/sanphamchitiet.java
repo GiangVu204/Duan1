@@ -118,7 +118,7 @@ public class sanphamchitiet extends AppCompatActivity{
                 txtmasp_ct.setText(String.valueOf(sanPham.getMaSP()));
                 txtgiasp_ct.setText(String.valueOf(sanPham.getGia()));
                 txtsoluongsp_ct.setText(String.valueOf(sanPham.getSoLuong()));
-                txtsize_ct.setText("Size" + sanPham.getSize());
+                txtsize_ct.setText("Size " + sanPham.getSize());
                 txttenth_ct.setText(sanPham.getTenthuonghieu());
                 txttenlsp_ct.setText(sanPham.getTenlsp());
 

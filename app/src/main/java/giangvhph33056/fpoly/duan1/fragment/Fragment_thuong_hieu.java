@@ -1,19 +1,14 @@
 package giangvhph33056.fpoly.duan1.fragment;
 
-import static android.app.Activity.RESULT_OK;
-
 import android.app.Dialog;
-import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 
 import androidx.appcompat.app.AlertDialog;
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.provider.MediaStore;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.LayoutInflater;
@@ -72,7 +67,7 @@ public class Fragment_thuong_hieu extends Fragment {
     public void DiaLogAddTH() {
         AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
         LayoutInflater inflater = getLayoutInflater();
-        View view = inflater.inflate(R.layout.add_thuonghieu, null);
+        View view = inflater.inflate(R.layout.item_add_thuonghieu, null);
         builder.setView(view);
         Dialog dialog = builder.create();
         dialog.show();
@@ -143,20 +138,31 @@ public class Fragment_thuong_hieu extends Fragment {
                 String SDT = ed_SDT.getText().toString();
                 String TenTH = ed_TenTH.getText().toString();
 
-                if (SDT.isEmpty() || TenTH.isEmpty()) {
-                    // Display error messages if necessary fields are empty
-                    if (SDT.isEmpty()) {
-                        in_SDT.setError("Vui lòng không để trống Số điện thoại!");
-                    } else {
-                        in_SDT.setError(null);
-                    }
-                    if (TenTH.isEmpty()) {
-                        in_TenTH.setError("Vui lòng không để trống tên thương hiệu!");
-                    } else {
-                        in_TenTH.setError(null);
-                    }
+                if (urlAvatath.isEmpty()) {
+                    in_addAvataTH.setError("Vui lòng không để trống Link ảnh thương hiệu!");
+                    return;
                 } else {
-                    // Insert the data into the database
+                    in_addAvataTH.setError(null);
+                }
+                if (SDT.isEmpty()) {
+                    in_SDT.setError("Vui lòng không để trống Số điện thoại!");
+                    return;
+                } else {
+                    in_SDT.setError(null);
+                }
+                if (!isValidPhoneNumber(SDT)) {
+                    Toast.makeText(getContext(), "Số điện thoại phải có 10 hoặc 12 số", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+                if (TenTH.isEmpty()) {
+                    in_TenTH.setError("Vui lòng không để trống tên thương hiệu!");
+                    return;
+                } else {
+                    in_TenTH.setError(null);
+                }
+                if (TenTH.trim().length() <3) {
+                    Toast.makeText(getContext(), "Tên thương hiệu phải có ít nhất 3 ký tự", Toast.LENGTH_SHORT).show();
+                } else {
                     if (THdao.insert(SDT, urlAvatath, TenTH)) {
                         loadData();
                         Toast.makeText(getContext(), "Thêm thương hiệu thành công!", Toast.LENGTH_SHORT).show();
@@ -185,6 +191,11 @@ public class Fragment_thuong_hieu extends Fragment {
         ArrayList<ThuongHieu> list = THdao.getDSThuongHieu();
         adapter = new Adapter_ThuongHieu(getContext(), list);
         rcvTH.setAdapter(adapter);
+    }
+
+    public boolean isValidPhoneNumber(String phoneNumber) {
+        // Kiểm tra số điện thoại có bắt đầu bằng số 0 và có từ 10 đến 12 chữ số
+        return phoneNumber.matches("^0\\d{9,11}$");
     }
 //
 //    // Phương thức chọn ảnh từ thiết bị

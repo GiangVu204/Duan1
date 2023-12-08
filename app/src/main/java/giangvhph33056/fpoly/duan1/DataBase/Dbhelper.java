@@ -81,9 +81,9 @@ public class Dbhelper extends SQLiteOpenHelper {
                 "(2,'Giangvu', 'https://i.pinimg.com/736x/66/d1/4a/66d14aec6cd11d59264dd58525fdb449.jpg','Vũ Hoàng Giang','2042044',0763754415,'Vuhoanggiang2042k4@gmail.com','Thái bình',10000000,'ADMIN')," +
                 "(3,'nhanvien', 'https://alolimo.com/wp-content/uploads/2021/05/ga-da-lat-7.jpg','Nguyễn Văn A','nhanvien',0982322079,'Nhanvien56@gmail.com','hà nội',100000,'Nhân Viên')," +
                 "(4,'khachhang', 'https://baoduyenbabyhouse.com/wp-content/uploads/2022/01/cach-tao-dang-khi-chup-anh-25.jpg','Sùng A Pháo','khachhang',0982322079,'Khachhang56@gmail.com','hà nội',1000000,'Khách Hàng')");
-       db.execSQL("INSERT INTO  ThuongHieu VALUES(1, 'https://i.pinimg.com/736x/62/b0/13/62b0137789418bf9a4c66b31dd23cdd7.jpg', 0982322079, 'Nike')" +
-               ", (2, 'https://i.pinimg.com/736x/37/ff/8b/37ff8bd1f97eb08224129ef9ab5ae2d6.jpg', 0868761723, 'Adidas'), " +
-               "(3, 'https://i.pinimg.com/736x/81/db/6c/81db6c6aa703368c07733e03584b8309.jpg', 0734423235, 'Converse')");
+        db.execSQL("INSERT INTO  ThuongHieu VALUES(1, 'https://i.pinimg.com/736x/62/b0/13/62b0137789418bf9a4c66b31dd23cdd7.jpg',0982322079, 'Nike')" +
+                ", (2, 'https://i.pinimg.com/736x/37/ff/8b/37ff8bd1f97eb08224129ef9ab5ae2d6.jpg',0868761723, 'Adidas'), " +
+                "(3, 'https://i.pinimg.com/736x/81/db/6c/81db6c6aa703368c07733e03584b8309.jpg',0734423235, 'Converse')");
        db.execSQL("INSERT INTO  LoaiSanPham VALUES(1, 'https://salt.tikicdn.com/ts/tmp/3e/00/2d/84c50775b583026c21edd0c4aad35dbc.jpg', 'Giày thể thao')," +
                " (2, 'https://zocker.vn/pic/Product/Zocker-inspire-pro-xanh-chuoi_8274_HasThumb.webp', 'Giày đá bóng'), " +
                "(3, 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTWF-eud_KXyMaPwB9dEbokTPmza7QBeVClRQ&usqp=CAU', 'Giày leo núi')");

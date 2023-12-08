@@ -171,6 +171,7 @@ public class Adapter_ThuongHieu extends RecyclerView.Adapter<Adapter_ThuongHieu.
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
 
             }
+
             @Override
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
                 if (charSequence.length() == 0) {
@@ -229,26 +230,31 @@ public class Adapter_ThuongHieu extends RecyclerView.Adapter<Adapter_ThuongHieu.
 //                    // Sử dụng setImageURI thay vì Glide
 //                    ImgAnhh.setImageURI(selectedImageUri);
 //                }
-
-                    if (SDT.isEmpty()) {
-                        in_SDT.setError("Vui lòng không để trống Số điện thoại!");
-                        return;
-                    } else {
-                        in_SDT.setError(null);
-                    }
-                    if (!isValidPhoneNumber(SDT)){
-                        Toast.makeText(context, "Số điện thoại phải có 10 hoặc 12 số", Toast.LENGTH_SHORT).show();
-                        return;
-                    }
-                    if (TenTH.isEmpty()) {
-                        in_TenTH.setError("Vui lòng không để trống tên thương hiệu!");
-                        return;
-                    } else {
-                        in_TenTH.setError(null);
-                    }
-                    if (TenTH.trim().length() <2){
-                        Toast.makeText(context, "Tên thương hiệu phải có ít nhất 2 ký tự", Toast.LENGTH_SHORT).show();
-                    }else {
+                if (SDT.isEmpty()) {
+                    in_updateAvataTH.setError("Vui lòng không để trống Link ảnh thương hiệu!");
+                    return;
+                } else {
+                    in_updateAvataTH.setError(null);
+                }
+                if (SDT.isEmpty()) {
+                    in_SDT.setError("Vui lòng không để trống Số điện thoại!");
+                    return;
+                } else {
+                    in_SDT.setError(null);
+                }
+                if (!isValidPhoneNumber(SDT)) {
+                    Toast.makeText(context, "Số điện thoại phải có 10 hoặc 12 số", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+                if (TenTH.isEmpty()) {
+                    in_TenTH.setError("Vui lòng không để trống tên thương hiệu!");
+                    return;
+                } else {
+                    in_TenTH.setError(null);
+                }
+                if (TenTH.trim().length() < 3) {
+                    Toast.makeText(context, "Tên thương hiệu phải có ít nhất 3 ký tự", Toast.LENGTH_SHORT).show();
+                } else {
                     if (dao.update(th)) {
                         list.clear();
                         list.addAll(dao.getDSThuongHieu());

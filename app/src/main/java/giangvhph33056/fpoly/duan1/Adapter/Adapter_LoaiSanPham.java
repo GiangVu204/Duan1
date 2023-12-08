@@ -29,7 +29,7 @@ import giangvhph33056.fpoly.duan1.Model.KichThuoc;
 import giangvhph33056.fpoly.duan1.Model.LoaiSanPham;
 import giangvhph33056.fpoly.duan1.R;
 
-public class Adapter_LoaiSanPham extends RecyclerView.Adapter<Adapter_LoaiSanPham.ViewHolder>{
+public class Adapter_LoaiSanPham extends RecyclerView.Adapter<Adapter_LoaiSanPham.ViewHolder> {
     private Context context;
     private ArrayList<LoaiSanPham> list;
     LoaiSanPhamDAO dao;
@@ -45,7 +45,7 @@ public class Adapter_LoaiSanPham extends RecyclerView.Adapter<Adapter_LoaiSanPha
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        LayoutInflater inflater = ((Activity)context).getLayoutInflater();
+        LayoutInflater inflater = ((Activity) context).getLayoutInflater();
         View view = inflater.inflate(R.layout.item_loai_san_pham, parent, false);
         return new ViewHolder(view);
     }
@@ -73,7 +73,7 @@ public class Adapter_LoaiSanPham extends RecyclerView.Adapter<Adapter_LoaiSanPha
                     public void onClick(DialogInterface dialogInterface, int i) {
                         LoaiSanPhamDAO dao = new LoaiSanPhamDAO(context);
                         int check = dao.delete(list.get(holder.getAdapterPosition()).getMaLSP());
-                        switch (check){
+                        switch (check) {
                             case 1:
                                 list.clear();
                                 list = dao.getDSLoaiSanPham();
@@ -91,7 +91,7 @@ public class Adapter_LoaiSanPham extends RecyclerView.Adapter<Adapter_LoaiSanPha
                         }
                     }
                 });
-                builder.setNegativeButton("Cancel",null);
+                builder.setNegativeButton("Cancel", null);
                 builder.create().show();
             }
         });
@@ -111,7 +111,7 @@ public class Adapter_LoaiSanPham extends RecyclerView.Adapter<Adapter_LoaiSanPha
         return list.size();
     }
 
-    public class ViewHolder extends RecyclerView.ViewHolder{
+    public class ViewHolder extends RecyclerView.ViewHolder {
 
         TextView MaLSP, TenLSP;
         ImageView Avata, LSP_Delete;
@@ -125,10 +125,11 @@ public class Adapter_LoaiSanPham extends RecyclerView.Adapter<Adapter_LoaiSanPha
             LSP_Delete = itemView.findViewById(R.id.LSP_Delete);
         }
     }
-    public void opendialogsua(LoaiSanPham lsp){
+
+    public void opendialogsua(LoaiSanPham lsp) {
         AlertDialog.Builder builder = new AlertDialog.Builder(context);
-        LayoutInflater inflater = ((Activity)context).getLayoutInflater();
-        View view = inflater.inflate(R.layout.item_update_loai_san_pham,null);
+        LayoutInflater inflater = ((Activity) context).getLayoutInflater();
+        View view = inflater.inflate(R.layout.item_update_loai_san_pham, null);
         builder.setView(view);
         Dialog dialog = builder.create();
         dialog.show();
@@ -148,25 +149,23 @@ public class Adapter_LoaiSanPham extends RecyclerView.Adapter<Adapter_LoaiSanPha
                 String avata = avataLsp.getText().toString();
                 String tenlsp = edt_updateTenLoaisp.getText().toString();
 
-                if (avata.isEmpty() || tenlsp.isEmpty()){
-                    if (avata.equals("")){
-                        Toast.makeText(context, "Vui lòng không để trống Tên loại sản phẩm", Toast.LENGTH_SHORT).show();
-                    } else if (tenlsp.equals("")) {
-                        Toast.makeText(context, "Vui lòng không để trống link ảnh", Toast.LENGTH_SHORT).show();
-                    }else {
-
-                    }
-                }else {
+                if (avata.equals("")) {
+                    Toast.makeText(context, "Vui lòng không để trống Link ảnh loại sản phẩm", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+                if (tenlsp.equals("")) {
+                    Toast.makeText(context, "Vui lòng không để trống Tên loại sản phẩm", Toast.LENGTH_SHORT).show();
+                } else {
                     lsp.setAvata(avata);
                     lsp.setTenLSP(tenlsp);
-                    if (dao.update(lsp)){
+                    if (dao.update(lsp)) {
                         list.clear();
                         list.addAll(dao.getDSLoaiSanPham());
                         notifyDataSetChanged();
                         dialog.dismiss();
                         Toast.makeText(context, "Thêm loại sản phẩm thành công!", Toast.LENGTH_SHORT).show();
 //                        dialog.dismiss();
-                    }else {
+                    } else {
                         Toast.makeText(context, "Thêm loại sản phẩm thất bại!!!", Toast.LENGTH_SHORT).show();
                     }
                 }

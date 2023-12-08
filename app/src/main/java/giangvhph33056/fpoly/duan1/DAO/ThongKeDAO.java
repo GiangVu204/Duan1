@@ -13,16 +13,29 @@ public class ThongKeDAO {
     }
 
 
+//    public int getDoanhThu(String start, String end) {
+//        start = start.replace("/", "");
+//        end = end.replace("/", "");
+//        SQLiteDatabase db = dbhelper.getWritableDatabase();
+//        Cursor cursor = db.rawQuery("SELECT SUM(Gia) FROM HoaDon WHERE substr(NgayDH, 7) || substr(NgayDH, 4,2) || substr(NgayDH,1,2) BETWEEN ? AND ?", new String[]{start, end});
+//        if (cursor.getCount() != 0) {
+//            cursor.moveToFirst();
+//            return cursor.getInt(0);
+//        }
+//        return 0;
+//    }
+
     public int getDoanhThu(String start, String end) {
         start = start.replace("/", "");
         end = end.replace("/", "");
         SQLiteDatabase db = dbhelper.getWritableDatabase();
-        Cursor cursor = db.rawQuery("SELECT SUM(Gia) FROM HoaDon WHERE substr(NgayDH, 7) || substr(NgayDH, 4,2) || substr(NgayDH,1,2) BETWEEN ? AND ?", new String[]{start, end});
+        Cursor cursor = db.rawQuery("SELECT SUM(tongtien) FROM DONHANG WHERE substr(ngaydathang, 7) || substr(ngaydathang, 4,2) || substr(ngaydathang,1,2) BETWEEN ? AND ?", new String[]{start, end});
         if (cursor.getCount() != 0) {
             cursor.moveToFirst();
             return cursor.getInt(0);
         }
         return 0;
     }
+
 
 }

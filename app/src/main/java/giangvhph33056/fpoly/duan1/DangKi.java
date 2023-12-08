@@ -52,12 +52,17 @@ public class DangKi extends AppCompatActivity {
                 String loai ="Khách Hàng";
                 int scoins = 0;
                 // Kiểm tra các trường nhập liệu không được để trống
-                if (ma.isEmpty() || pass.isEmpty() || hten.isEmpty() || email.isEmpty() || sdt.isEmpty()) {
-                    Toast.makeText(DangKi.this, "Vui lòng điền đầy đủ thông tin", Toast.LENGTH_SHORT).show();
+                if (avatadk.trim().length() < 2){
+                    Toast.makeText(DangKi.this, "Nếu chưa có link ảnh vui lòng nhập ít nhất 2 ký tự", Toast.LENGTH_SHORT).show();
                     return;
                 }
-                // Kiểm tra số điện thoại có số 0 ở đầu, chỉ chứa chữ số và có từ 10 đến 12 ký tự
-                if (!sdt.matches("0\\d*") || !sdt.matches("\\d{10,12}")) {
+                if (avatadk.isEmpty() || ma.isEmpty() || pass.isEmpty() || hten.isEmpty() || email.isEmpty() || sdt.isEmpty()) {
+                    Toast.makeText(DangKi.this, "Vui lòng điền đầy đủ các trường thông tin", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+
+                // Kiểm tra số điện thoại chỉ chứa chữ số và có từ 10 đến 12 ký tự
+                if (!sdt.matches("\\d{10,12}")) {
                     Toast.makeText(DangKi.this, "Số điện thoại không hợp lệ", Toast.LENGTH_SHORT).show();
                     return;
                 }

@@ -13,7 +13,7 @@
         android:paddingTop="8dp"
         android:paddingLeft="5dp"
         android:paddingBottom="10dp"
-        android:background="#ddd"
+        android:background="@drawable/custom_layout"
         android:orientation="vertical">
         <androidx.cardview.widget.CardView
             android:layout_width="wrap_content"
@@ -23,7 +23,7 @@
             >
             <ImageView
                 android:layout_width="130dp"
-                android:layout_height="100dp"
+                android:layout_height="125dp"
                 android:src="@drawable/giaysptt"
                 android:id="@+id/ImgAnhth"
                 />
@@ -38,17 +38,22 @@
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal">
+                android:orientation="horizontal"
+                android:layout_marginTop="15dp">
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:padding="10dp"
+                    android:paddingTop="10dp"
+                    android:paddingBottom="4dp"
+                    android:paddingLeft="5dp"
+                    android:paddingRight="5dp"
                     android:textStyle="bold"
-                    android:text="Giày : "/>
+                    android:text="Giày:"/>
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="ABC"
+                    android:textSize="13sp"
                     android:textColor="@color/black"
                     android:textStyle="bold"
                     android:id="@+id/txttensp_tt"/>
@@ -62,8 +67,36 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textStyle="bold"
-                    android:padding="10dp"
+                    android:paddingTop="6dp"
+                    android:paddingBottom="10dp"
+                    android:paddingLeft="5dp"
+                    android:paddingRight="5dp"
                     android:text="Có giá chỉ: "/>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:paddingTop="7dp"
+                    android:layout_marginRight="2dp"
+                    >
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="đ"
+                        android:textColor="#FF0000"
+                        android:textStyle="bold"
+                        android:textSize="13sp"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="_"
+                        android:textColor="#FF0000"
+                        android:layout_marginTop="-17dp"/>
+
+                </LinearLayout>
+
+
                 <TextView
                     android:layout_width="100dp"
                     android:layout_height="wrap_content"

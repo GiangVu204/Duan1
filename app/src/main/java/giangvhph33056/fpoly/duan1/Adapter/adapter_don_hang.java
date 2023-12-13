@@ -8,16 +8,22 @@ import android.content.SharedPreferences;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.google.android.material.textfield.TextInputEditText;
+import com.google.android.material.textfield.TextInputLayout;
 
 import java.util.ArrayList;
 
 import giangvhph33056.fpoly.duan1.DAO.DonHangDao;
 import giangvhph33056.fpoly.duan1.Model.DonHang;
 import giangvhph33056.fpoly.duan1.Model.SanPham;
+import giangvhph33056.fpoly.duan1.Model.ThanhVien;
 import giangvhph33056.fpoly.duan1.databinding.DialogUpdateTrangThaiDonhangBinding;
 import giangvhph33056.fpoly.duan1.databinding.DialogXoaDonHangBinding;
 import giangvhph33056.fpoly.duan1.databinding.ItemQlDonHangBinding;
@@ -100,38 +106,13 @@ public class adapter_don_hang extends RecyclerView.Adapter<adapter_don_hang.View
                 }
             }
         });
-        holder.binding.btnchinhsuaTrangThai.setOnClickListener(view -> {
-            AlertDialog.Builder builder = new AlertDialog.Builder(context);
-            LayoutInflater inflater = ((Activity) context).getLayoutInflater();
-            DialogUpdateTrangThaiDonhangBinding dialogUpdateTrangThaiDonhangBinding = DialogUpdateTrangThaiDonhangBinding.inflate(inflater);
-            builder.setView(dialogUpdateTrangThaiDonhangBinding.getRoot());
-            Dialog dialog = builder.create();
-            dialog.show();
-            dialog.getWindow().setBackgroundDrawableResource(R.drawable.nen_dialog_doan);
-            dialogUpdateTrangThaiDonhangBinding.btnxacnhanTrangthai.setOnClickListener(view12 -> {
-                String trangthai = dialogUpdateTrangThaiDonhangBinding.txtTrangThai.getText().toString();
-                if (trangthai.equals("")) {
-                    dialogUpdateTrangThaiDonhangBinding.txtTrangThai.setError("Vui lòng không để trống trạng thái");
-
-                }
-                list = dao.getDonHangByMaTaiKhoan(donHang.getMaTaiKhoan());
-                donHang.setMaDonHang(donHang.getMaDonHang());
-                donHang.setTrangthai(trangthai);
-                boolean check = dao.updateDonHang(donHang);
-                if (check) {
-                    list.clear();
-                    list.addAll(dao.getDsDonHang());
-
-                    notifyDataSetChanged();
-                    dialog.dismiss();
-                    Toast.makeText(context, "Thay đổi trang thái thành công", Toast.LENGTH_SHORT).show();
-                } else {
-                    Toast.makeText(context, "Thay đổi trạng thái thất bại", Toast.LENGTH_SHORT).show();
-                }
-            });
-
-            dialogUpdateTrangThaiDonhangBinding.btnhuyTrangthai.setOnClickListener(view1 -> dialog.dismiss());
+        holder.binding.btnchinhsuaTrangThai.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                opendialogsua(donHang);
+            }
         });
+
         holder.binding.btnXoaDonHang.setOnClickListener(view -> {
             AlertDialog.Builder builder = new AlertDialog.Builder(context);
             LayoutInflater inflater = ((Activity) context).getLayoutInflater();
@@ -152,15 +133,6 @@ public class adapter_don_hang extends RecyclerView.Adapter<adapter_don_hang.View
             dialogXoaDonHangBinding.btnConfilmXoaDonHang.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-//                    if (dao.xoaDonHang(donHang)) {
-//                        list.clear();
-//                        list.addAll(dao.getDsDonHang());
-//                        notifyDataSetChanged();
-//                        dialog.dismiss();
-//                        Toast.makeText(context, "Xóa thành công", Toast.LENGTH_SHORT).show();
-//                    } else {
-//                        Toast.makeText(context, "Xóa thất bại", Toast.LENGTH_SHORT).show();
-//                    }
                     int check = dao.xoaDonHang(list.get(holder.getAdapterPosition()).getMaDonHang());
                     switch (check) {
                         case 1:
@@ -195,5 +167,48 @@ public class adapter_don_hang extends RecyclerView.Adapter<adapter_don_hang.View
             super(binding.getRoot());
             this.binding = binding;
         }
+    }
+    public void opendialogsua(DonHang tv){
+        AlertDialog.Builder builder = new AlertDialog.Builder(context);
+        LayoutInflater inflater = ((Activity)context).getLayoutInflater();
+        View view = inflater.inflate(R.layout.dialog_update_trang_thai_donhang, null);
+
+        builder.setView(view);
+        Dialog dialog = builder.create();
+        dialog.show();
+        EditText tt = view.findViewById(R.id.txt_trang_thai);
+        Button btnHUy =  view.findViewById(R.id.btnhuy_trangthai);
+        Button btnUPdate =  view.findViewById(R.id.btnxacnhan_trangthai);
+        btnUPdate.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                int madh = tv.getMaDonHang();
+                String trangt= tt.getText().toString();
+                    tv.setMaDonHang(madh);
+                    tv.setTrangthai(trangt);
+                    if (dao.updateDonHang(tv)){
+                        list.clear();
+                        list.addAll(dao.getDsDonHang());
+                        notifyDataSetChanged();
+                        dialog.dismiss();
+                        Toast.makeText(context, "Update thành viên thành công!", Toast.LENGTH_SHORT).show();
+                    }else {
+                        Toast.makeText(context, "Update thành viên thất bại!!!", Toast.LENGTH_SHORT).show();
+                    }
+                }
+
+        });
+        btnHUy.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+//                ed_updateMaTV.setText("");
+//                ed_updateAvata.setText("");
+//                ed_updateName.setText("");
+//                ed_updateMk.setText("");
+//                ed_updateSDT.setText("");
+//                ed_updateEmail.setText("");
+//                ed_updateDiachi.setText("");
+            }
+        });
     }
 }

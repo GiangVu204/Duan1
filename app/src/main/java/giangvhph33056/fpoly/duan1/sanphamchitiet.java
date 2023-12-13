@@ -239,7 +239,7 @@ public class sanphamchitiet extends AppCompatActivity{
                                     Intent intent = getIntent();
                                     SanPham sanPhamtt = intent.getParcelableExtra("sanphamct");
                                     if (sanPhamtt != null) {
-                                        DonHangChiTiet chiTietDonHan = new DonHangChiTiet(orderId, sanPhamtt.getMaSP(), sanPhamtt.getSoLuong(), sanPhamtt.getGia(), sanPhamtt.getGia());
+                                        DonHangChiTiet chiTietDonHan = new DonHangChiTiet(orderId, sanPhamtt.getMaSP(), 1, sanPhamtt.getGia(), sanPhamtt.getGia());
                                         chiTietDao.insertDonHangChiTiet(chiTietDonHan);
                                     } else {
                                         Toast.makeText(this, "Sản phẩm không tìm thấy trong cơ sở dữ liệu", Toast.LENGTH_SHORT).show();

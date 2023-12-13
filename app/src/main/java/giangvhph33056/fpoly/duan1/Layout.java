@@ -17,7 +17,6 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -30,8 +29,10 @@ import giangvhph33056.fpoly.duan1.DAO.ThanhVienDAO;
 
 
 import giangvhph33056.fpoly.duan1.databinding.ActivityLayoutBinding;
-import giangvhph33056.fpoly.duan1.databinding.ActivityMainBinding;
 import giangvhph33056.fpoly.duan1.fragment.Fragment_DonHang;
+import giangvhph33056.fpoly.duan1.fragment.Fragment_GianHang;
+import giangvhph33056.fpoly.duan1.fragment.Fragment_NapTien;
+import giangvhph33056.fpoly.duan1.fragment.Fragment_Thongtin;
 import giangvhph33056.fpoly.duan1.fragment.Fragment_TrangChu;
 import giangvhph33056.fpoly.duan1.fragment.Fragment_add_user;
 import giangvhph33056.fpoly.duan1.fragment.Fragment_doanh_thu;
@@ -39,6 +40,7 @@ import giangvhph33056.fpoly.duan1.fragment.Fragment_doi_mk;
 import giangvhph33056.fpoly.duan1.fragment.Fragment_gioHang;
 import giangvhph33056.fpoly.duan1.fragment.Fragment_kich_thuoc;
 import giangvhph33056.fpoly.duan1.fragment.Fragment_loai_san_pham;
+import giangvhph33056.fpoly.duan1.fragment.Fragment_ls_napTien;
 import giangvhph33056.fpoly.duan1.fragment.Fragment_san_pham;
 import giangvhph33056.fpoly.duan1.fragment.Fragment_thanh_vien;
 import giangvhph33056.fpoly.duan1.fragment.Fragment_thuong_hieu;
@@ -137,10 +139,18 @@ public class Layout extends AppCompatActivity {
                     Fragment_add_user frgTND = new Fragment_add_user();
                     relaceFrg(frgTND);
                     toolbar.setTitle("Thêm nhân viên");
-                } else if (item.getItemId() == R.id.menuDMK) {
+                } else if (item.getItemId() == R.id.menuthongtin) {
+                    Fragment_Thongtin frgTND = new Fragment_Thongtin();
+                    relaceFrg(frgTND);
+                    toolbar.setTitle("Thông tin");
+                }else if (item.getItemId() == R.id.menuDMK) {
                     Fragment_doi_mk frgDMK = new Fragment_doi_mk();
                     relaceFrg(frgDMK);
                     toolbar.setTitle("Đổi mật khẩu");
+                } else if (item.getItemId() == R.id.lsnaptien) {
+                    Fragment_ls_napTien frgDMK = new Fragment_ls_napTien();
+                    relaceFrg(frgDMK);
+                    toolbar.setTitle("Lich Su Nap Tien");
                 } else if (item.getItemId() == R.id.menuDX) {
                     AlertDialog.Builder builder = new AlertDialog.Builder(context);
                     builder.setTitle("Đăng Xuất");
@@ -165,19 +175,19 @@ public class Layout extends AppCompatActivity {
         if (Loai.equalsIgnoreCase("admin")) {
             Menu menu = navigationView.getMenu();
             menu.findItem(R.id.menuTND).setVisible(true);
-            menu.findItem(R.id.thongtin).setVisible(false);
-            menu.findItem(R.id.lienhe).setVisible(false);
+            menu.findItem(R.id.menuthongtin).setVisible(false);
         }
         if (Loai.equalsIgnoreCase("Nhân Viên")) {
             Menu menu = navigationView.getMenu();
             menu.findItem(R.id.menuTND).setVisible(false);
-            menu.findItem(R.id.thongtin).setVisible(false);
-            menu.findItem(R.id.lienhe).setVisible(false);
+            menu.findItem(R.id.menuthongtin).setVisible(false);
+
 
         }
         if (Loai.equalsIgnoreCase("Khách Hàng")) {
             Menu menu = navigationView.getMenu();
             menu.findItem(R.id.LoaiSanPham).setVisible(false);
+            menu.findItem(R.id.SanPham).setVisible(false);
             menu.findItem(R.id.KichThuoc).setVisible(false);
             menu.findItem(R.id.ThanhVien).setVisible(false);
             menu.findItem(R.id.menuDT).setVisible(false);
@@ -215,12 +225,13 @@ public class Layout extends AppCompatActivity {
             } else if (item.getItemId() == R.id.nav_bot_home) {
                 Fragment_TrangChu frgPM = new Fragment_TrangChu();
                 relaceFrg(frgPM);
-//
-//            } else if (item.getItemId() == R.id.nav_bot_giohang) {
-//                replaceFragment(new frgGioHang());
-//
-//            } else if (item.getItemId() == R.id.nav_bot_naptien) {
-//                replaceFragment(new frgNapTien());
+
+            } else if (item.getItemId() == R.id.nav_bot_sanpham) {
+                Fragment_GianHang frgPM = new Fragment_GianHang();
+                relaceFrg(frgPM);
+            }  else if (item.getItemId() == R.id.nav_bot_naptien) {
+                Fragment_NapTien frgPM = new Fragment_NapTien();
+                relaceFrg(frgPM);
             }
             getSupportActionBar().setTitle(item.getTitle());
             return true;

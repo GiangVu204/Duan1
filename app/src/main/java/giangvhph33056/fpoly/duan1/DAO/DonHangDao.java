@@ -69,7 +69,7 @@ public int xoaDonHang(int madonhang) {
     public boolean updateDonHang(DonHang donHang) {
         SQLiteDatabase sqLiteDatabase = dbHelper.getWritableDatabase();
         ContentValues values = new ContentValues();
-        values.put("mataikhoan", donHang.getMaTaiKhoan());
+        values.put("madonhang",donHang.getMaDonHang());
         values.put("trangthai", donHang.getTrangthai());
         long check = sqLiteDatabase.update("DONHANG", values, "madonhang = ?", new String[]{String.valueOf(donHang.getMaDonHang())});
         return check > 0;

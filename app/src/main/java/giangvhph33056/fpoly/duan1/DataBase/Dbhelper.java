@@ -6,7 +6,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 
 public class Dbhelper extends SQLiteOpenHelper {
     private static final String DB_NAME = "THOIDAISHOP";
-    private static final int DB_VERSION= 52;
+    private static final int DB_VERSION= 53;
 
     public Dbhelper(Context context) {
         super(context, DB_NAME,null , DB_VERSION);
@@ -75,6 +75,15 @@ public class Dbhelper extends SQLiteOpenHelper {
                 "    MaTH     INTEGER REFERENCES ThuongHieu (MaTH), \n" +
                 "    MaLSP    INTEGER REFERENCES LoaiSanPham (MaLSP) \n" +
                 ");\n");
+        db.execSQL("CREATE TABLE NAPTIEN(\n" +
+                "    MaNT     INTEGER PRIMARY KEY  AUTOINCREMENT,\n" +
+                "    SoTien      INTEGER NOT NULL,\n" +
+                "    ngayNT      TEXT NOT NULL, \n" +
+                "    TenNXN    TEXT NOT NULL,\n" +
+                "    TrangThai    INTEGER NOT NULL,\n" +
+                "    id        INTEGER REFERENCES ThanhVien (id)\n" +
+                ");\n");
+
 
         //INSERT
         db.execSQL("INSERT INTO  ThanhVien VALUES(1,'admin', 'https://i.pinimg.com/736x/26/80/b2/2680b245cf06bcd901518a53a02e6c9a.jpg','Lê Hoàng Tú','admin',0982322079,'Lehoangtu56@gmail.com','hà nội',10000000,'ADMIN')," +
@@ -110,6 +119,7 @@ public class Dbhelper extends SQLiteOpenHelper {
             db.execSQL("DROP TABLE IF EXISTS DONHANG");
             db.execSQL("DROP TABLE IF EXISTS CHITIETDONHANG");
             db.execSQL("DROP TABLE IF EXISTS GioHang");
+            db.execSQL("DROP TABLE IF EXISTS NAPTIEN");
             // tạo bảng mới
             onCreate(db);
         }

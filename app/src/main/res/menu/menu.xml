@@ -33,6 +33,10 @@
         android:icon="@drawable/hoa_don"
         android:title="Hóa đơn"
         />
+    <item android:id="@+id/lsnaptien"
+        android:icon="@drawable/hoa_don"
+        android:title="Lich Su Nap Tien"
+        />
 
     <item android:title="Thống kê">
         <menu>
@@ -43,13 +47,10 @@
     </item>
     <item android:title="Thông tin">
         <menu>
-            <item android:id="@+id/lienhe"
+
+            <item android:id="@+id/menuthongtin"
                 android:icon="@drawable/san_pham"
-                android:title="Liên Hệ"
-                />
-            <item android:id="@+id/thongtin"
-                android:icon="@drawable/san_pham"
-                android:title="Thông Tin"
+                android:title="Về Chung Tôi"
                 />
         </menu>
 

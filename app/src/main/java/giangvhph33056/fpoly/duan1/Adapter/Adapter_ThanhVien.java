@@ -46,6 +46,7 @@ public class Adapter_ThanhVien  extends RecyclerView.Adapter<Adapter_ThanhVien.V
     public Adapter_ThanhVien.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         LayoutInflater inflater = ((Activity) context).getLayoutInflater();
         View view = inflater.inflate(R.layout.item_thanh_vien, parent, false);
+
         return new  ViewHolder(view);
     }
     @Override
@@ -58,6 +59,25 @@ public class Adapter_ThanhVien  extends RecyclerView.Adapter<Adapter_ThanhVien.V
         holder.txtDchi_tv.setText(list.get(position).getDChi());
         holder.txt_Coins.setText(String.valueOf(list.get(position).getSotien()));
         Picasso.get().load(tv.getAvataTV()).into(holder.ImgAnhTV);
+        // phân quyền
+        SharedPreferences sharedPreferences = context.getSharedPreferences("DANGNHAPTV", Context.MODE_PRIVATE);
+        String Loai = sharedPreferences.getString("Loai","");
+        if(Loai.equalsIgnoreCase("admin")){
+            holder.imgDelete_tv.setVisibility(View.VISIBLE);
+            holder.imgChinhSua_tv.setVisibility(View.VISIBLE);
+        }
+        if(Loai.equalsIgnoreCase("Nhân Viên")){
+            holder.imgDelete_tv.setVisibility(View.VISIBLE);
+            holder.imgChinhSua_tv.setVisibility(View.VISIBLE);
+
+
+
+        }
+        if(Loai.equalsIgnoreCase("Khách Hàng")){
+            holder.imgDelete_tv.setVisibility(View.GONE);
+            holder.imgChinhSua_tv.setVisibility(View.GONE);
+
+        }
         holder.imgDelete_tv.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -92,31 +112,8 @@ public class Adapter_ThanhVien  extends RecyclerView.Adapter<Adapter_ThanhVien.V
                 di.show();
             }
         });
-        // phân quyền
-        SharedPreferences sharedPreferences = context.getSharedPreferences("DANGNHAPTV", Context.MODE_PRIVATE);
-        String Loai = sharedPreferences.getString("Loai","");
-        if(Loai.equalsIgnoreCase("admin")){
-            holder.imgDelete_tv.setVisibility(View.VISIBLE);
-            holder.imgChinhSua_tv.setVisibility(View.VISIBLE);
-        }
-        if(Loai.equalsIgnoreCase("Nhân Viên")){
-            holder.imgDelete_tv.setVisibility(View.GONE);
-            holder.imgChinhSua_tv.setVisibility(View.GONE);
 
 
-        }
-        if(Loai.equalsIgnoreCase("Khách Hàng")){
-            holder.imgDelete_tv.setVisibility(View.GONE);
-            holder.imgChinhSua_tv.setVisibility(View.GONE);
-
-        }
-
-//        holder.imgChinhSua_tv.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                opendialogsua(list.get(holder.getAdapterPosition()));
-//            }
-//        });
         holder.itemView.setOnLongClickListener(new View.OnLongClickListener() {
             @Override
             public boolean onLongClick(View view) {
@@ -188,110 +185,8 @@ public class Adapter_ThanhVien  extends RecyclerView.Adapter<Adapter_ThanhVien.V
         ed_updateEmail.setText(tv.getEmail());
         ed_updateDiachi.setText(tv.getDChi());
 
-//        ed_updateAvata.addTextChangedListener(new TextWatcher() {
-//            @Override
-//            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-//                if (charSequence.length() == 0){
-//                    in_updateAvata.setError("Vui lòng không để trống link ảnh thành viên");
-//                }else {
-//                    in_updateAvata.setError(null);
-//                }
-//            }
-//
-//            @Override
-//            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-//
-//            }
-//
-//            @Override
-//            public void afterTextChanged(Editable editable) {
-//
-//            }
-//        });
-//
-//        ed_updateName.addTextChangedListener(new TextWatcher() {
-//            @Override
-//            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-//                if (charSequence.length() == 0){
-//                    in_updateName.setError("Vui lòng không để trống Họ và tên");
-//                }else {
-//                    in_updateName.setError(null);
-//                }
-//            }
-//
-//            @Override
-//            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-//
-//            }
-//
-//            @Override
-//            public void afterTextChanged(Editable editable) {
-//
-//            }
-//        });
-//
-//        ed_updateSDT.addTextChangedListener(new TextWatcher() {
-//            @Override
-//            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-//                if (charSequence.length() == 0){
-//                    in_updateSDT.setError("Vui lòng không để trống số điện thoại");
-//                }else {
-//                    in_updateSDT.setError(null);
-//                }
-//            }
-//
-//            @Override
-//            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-//
-//            }
-//
-//            @Override
-//            public void afterTextChanged(Editable editable) {
-//
-//            }
-//        });
-//
-//        ed_updateEmail.addTextChangedListener(new TextWatcher() {
-//            @Override
-//            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-//                if (charSequence.length() == 0){
-//                    in_updateEmail.setError("Vui lòng không để trống Email");
-//                }else {
-//                    in_updateEmail.setError(null);
-//                }
-//            }
-//
-//            @Override
-//            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-//
-//            }
-//
-//            @Override
-//            public void afterTextChanged(Editable editable) {
-//
-//            }
-//        });
-//
-//        ed_updateDiachi.addTextChangedListener(new TextWatcher() {
-//            @Override
-//            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-//                if (charSequence.length() == 0){
-//                    in_updateDiachi.setError("Vui lòng không để trống địa chỉ");
-//                }else {
-//                    in_updateDiachi.setError(null);
-//                }
-//            }
-//
-//            @Override
-//            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-//
-//            }
-//
-//            @Override
-//            public void afterTextChanged(Editable editable) {
-//
-//            }
-//        });
+
+
 
         TV_update.setOnClickListener(new View.OnClickListener() {
             @Override

@@ -108,9 +108,7 @@ public class ThanhVienDAO {
         SQLiteDatabase db = dbhelper.getWritableDatabase();
         ContentValues values = new ContentValues();
         values.put("SoTien", soTienMoi);
-
         long result = db.update("ThanhVien", values, "id = ?", new String[]{String.valueOf(maTaiKhoan)});
-
         return result != -1;
     }
     public  boolean insert(ThanhVien tv) {

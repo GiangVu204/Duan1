@@ -2,6 +2,7 @@ package giangvhph33056.fpoly.duan1.Model;
 
 public class NapTien {
     private int MaNT ;
+    private String AvataNT;
     private int sotien;
     private String ngayNT;
     private String TenNXN;
@@ -21,7 +22,18 @@ public class NapTien {
         this.sotientrcdo = sotientrcdo;
     }
 
-    public NapTien(int sotien, String ngayNT, String tenNXN, int trangthai, int id) {
+//    public NapTien(int sotien, String avata, String ngayNT, String tenNXN, int trangthai, int id) {
+//        this.sotien = sotien;
+//        this.avata = avata;
+//        this.ngayNT = ngayNT;
+//        TenNXN = tenNXN;
+//        this.trangthai = trangthai;
+//        this.id = id;
+//    }
+
+
+    public NapTien(String avataNT, int sotien, String ngayNT, String tenNXN, int trangthai, int id) {
+        AvataNT = avataNT;
         this.sotien = sotien;
         this.ngayNT = ngayNT;
         TenNXN = tenNXN;
@@ -62,6 +74,14 @@ public class NapTien {
 
     public void setSotien(int sotien) {
         this.sotien = sotien;
+    }
+
+    public String getAvataNT() {
+        return AvataNT;
+    }
+
+    public void setAvataNT(String avataNT) {
+        AvataNT = avataNT;
     }
 
     public String getNgayNT() {

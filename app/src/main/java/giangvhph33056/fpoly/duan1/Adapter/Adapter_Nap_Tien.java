@@ -15,6 +15,8 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.squareup.picasso.Picasso;
+
 import java.util.ArrayList;
 
 import giangvhph33056.fpoly.duan1.DAO.NapTienDAO;
@@ -50,6 +52,7 @@ public class Adapter_Nap_Tien  extends RecyclerView.Adapter<Adapter_Nap_Tien.Vie
         holder.txtHotenNT_nt.setText(list.get(position).getTenNNT());
         holder.txtNgayNT_tv.setText(list.get(position).getNgayNT());
         holder.txtSoTienNap_nt.setText(String.valueOf(list.get(position).getSotien()));
+        Picasso.get().load(tv.getAvataNT()).into(holder.ImgAnhNT);
         String trangthai="";
         if(list.get(position).getTrangthai()==1){
             trangthai = "Đã Hoàn Thành";
@@ -115,7 +118,7 @@ public class Adapter_Nap_Tien  extends RecyclerView.Adapter<Adapter_Nap_Tien.Vie
 
     public class ViewHolder extends RecyclerView.ViewHolder {
         TextView txtMaNT_NT, txtHotenNT_nt, txtNgayNT_tv,txtSoTienNap_nt,txtTrangThai_tv;
-        ImageView ImgAnhTV, imgDelete_tv,imgChinhSua_tv;
+        ImageView ImgAnhNT, imgDelete_tv,imgChinhSua_tv;
         Button btnxacnhan;
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -126,6 +129,7 @@ public class Adapter_Nap_Tien  extends RecyclerView.Adapter<Adapter_Nap_Tien.Vie
             txtTrangThai_tv = itemView.findViewById(R.id.txtTrangThai_tv);
             btnxacnhan  = itemView.findViewById(R.id.btnxacnhan);
             imgDelete_tv = itemView.findViewById(R.id.imgDelete_tv);
+            ImgAnhNT = itemView.findViewById(R.id.ImgAnhTV);
 
         }
     }

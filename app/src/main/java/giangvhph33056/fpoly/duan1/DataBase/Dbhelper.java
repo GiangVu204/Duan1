@@ -6,7 +6,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 
 public class Dbhelper extends SQLiteOpenHelper {
     private static final String DB_NAME = "THOIDAISHOP";
-    private static final int DB_VERSION= 53;
+    private static final int DB_VERSION= 54;
 
     public Dbhelper(Context context) {
         super(context, DB_NAME,null , DB_VERSION);
@@ -46,16 +46,16 @@ public class Dbhelper extends SQLiteOpenHelper {
                 ");\n");
         db.execSQL("CREATE TABLE GioHang(\n" +
                 "    MAGH       INTEGER PRIMARY KEY  AUTOINCREMENT,\n" +
-                "    id        INTEGER REFERENCES ThanhVien (id), \n" +
-                "    MaSP      INTEGER REFERENCES SanPham (MaSP), \n" +
-                "    SoLuong  INTEGER NOT NULL\n" +
+                "    id         INTEGER REFERENCES ThanhVien (id), \n" +
+                "    MaSP       INTEGER REFERENCES SanPham (MaSP), \n" +
+                "    SoLuong    INTEGER NOT NULL\n" +
                 ");\n");
         db.execSQL("CREATE TABLE DONHANG(\n" +
-                "    madonhang       INTEGER PRIMARY KEY  AUTOINCREMENT,\n" +
+                "    madonhang        INTEGER PRIMARY KEY  AUTOINCREMENT,\n" +
                 "    id               INTEGER REFERENCES ThanhVien (id), \n" +
                 "    ngaydathang      TEXT NOT NULL, \n" +
-                "    tongtien          INTEGER NOT NULL,\n" +
-                "    trangthai          TEXT NOT NULL\n" +
+                "    tongtien         INTEGER NOT NULL,\n" +
+                "    trangthai        TEXT NOT NULL\n" +
                 ");\n");
         db.execSQL("CREATE TABLE CHITIETDONHANG(\n" +
                 "    machitietdonhang   INTEGER PRIMARY KEY  AUTOINCREMENT,\n" +
@@ -76,12 +76,13 @@ public class Dbhelper extends SQLiteOpenHelper {
                 "    MaLSP    INTEGER REFERENCES LoaiSanPham (MaLSP) \n" +
                 ");\n");
         db.execSQL("CREATE TABLE NAPTIEN(\n" +
-                "    MaNT     INTEGER PRIMARY KEY  AUTOINCREMENT,\n" +
-                "    SoTien      INTEGER NOT NULL,\n" +
-                "    ngayNT      TEXT NOT NULL, \n" +
-                "    TenNXN    TEXT NOT NULL,\n" +
+                "    MaNT         INTEGER PRIMARY KEY  AUTOINCREMENT,\n" +
+                "    AvataNT      TEXT NOT NULL,\n" +
+                "    SoTien       INTEGER NOT NULL,\n" +
+                "    ngayNT       TEXT NOT NULL, \n" +
+                "    TenNXN       TEXT NOT NULL,\n" +
                 "    TrangThai    INTEGER NOT NULL,\n" +
-                "    id        INTEGER REFERENCES ThanhVien (id)\n" +
+                "    id           INTEGER REFERENCES ThanhVien (id)\n" +
                 ");\n");
 
 

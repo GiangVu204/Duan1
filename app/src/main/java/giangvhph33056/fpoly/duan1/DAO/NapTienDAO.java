@@ -27,7 +27,7 @@ public class NapTienDAO {
         ArrayList<NapTien> list = new ArrayList<>();
         SQLiteDatabase db = dbhelper.getReadableDatabase();
         try {
-            Cursor cursor =db.rawQuery("SELECT nt.MaNT,nt.SoTien,nt.ngayNT,nt.TenNXN,nt.TrangThai,nt.id , tv.MaTV,tv.HoTen,tv.SoTien\n" +
+            Cursor cursor =db.rawQuery("SELECT nt.MaNT,nt.AvataNT,nt.SoTien,nt.ngayNT,nt.TenNXN,nt.TrangThai,nt.id , tv.MaTV,tv.HoTen,tv.SoTien\n" +
                     "FROM NAPTIEN nt, ThanhVien tv\n" +
                     "Where nt.id = tv.id ",null);
             if(cursor.getCount() >0 ){
@@ -35,12 +35,13 @@ public class NapTienDAO {
                 while (!cursor.isAfterLast()){
                     NapTien nt = new NapTien();
                     nt.setMaNT(cursor.getInt(0));
-                    nt.setSotien(cursor.getInt(1));
-                    nt.setNgayNT(cursor.getString(2));
-                    nt.setTrangthai(cursor.getInt(4));
-                    nt.setTenNXN(cursor.getString(3));
-                    nt.setTenNNT(cursor.getString(6));
-                    nt.setSotientrcdo(cursor.getInt(8));
+                    nt.setAvataNT(cursor.getString(1));
+                    nt.setSotien(cursor.getInt(2));
+                    nt.setNgayNT(cursor.getString(3));
+                    nt.setTenNXN(cursor.getString(4));
+                    nt.setTrangthai(cursor.getInt(5));
+                    nt.setTenNNT(cursor.getString(7));
+                    nt.setSotientrcdo(cursor.getInt(9));
                     list.add(nt);
                     cursor.moveToNext();
 
@@ -55,6 +56,7 @@ public class NapTienDAO {
         SQLiteDatabase db = dbhelper.getWritableDatabase();
         ContentValues values = new ContentValues();
 //        values.put("MaNT", nt.getMaNT());
+        values.put("AvataNT",nt.getAvataNT());
         values.put("SoTien",nt.getSotien());
         values.put("ngayNT",nt.getNgayNT());
         values.put("TenNXN", nt.getTenNXN());

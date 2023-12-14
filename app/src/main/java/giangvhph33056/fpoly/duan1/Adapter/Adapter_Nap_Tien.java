@@ -2,6 +2,7 @@ package giangvhph33056.fpoly.duan1.Adapter;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -61,6 +62,36 @@ public class Adapter_Nap_Tien  extends RecyclerView.Adapter<Adapter_Nap_Tien.Vie
 
         }
         holder.txtTrangThai_tv.setText(trangthai);
+        SharedPreferences sharedPreferences = context.getSharedPreferences("DANGNHAPTV", Context.MODE_PRIVATE);
+        String Loai = sharedPreferences.getString("Loai","");
+        if(Loai.equalsIgnoreCase("admin")){
+            if(list.get(position).getTrangthai()==1){
+                holder.btnxacnhan.setVisibility(View.GONE);
+
+
+            }else{
+                holder.btnxacnhan.setVisibility(View.VISIBLE);
+
+            }
+        }
+        if(Loai.equalsIgnoreCase("Nhân Viên")){
+            holder.imgDelete_tv.setVisibility(View.VISIBLE);
+            if(list.get(position).getTrangthai()==1){
+                holder.btnxacnhan.setVisibility(View.GONE);
+
+
+            }else{
+                holder.btnxacnhan.setVisibility(View.VISIBLE);
+
+            }
+
+
+        }
+        if(Loai.equalsIgnoreCase("Khách Hàng")){
+            holder.imgDelete_tv.setVisibility(View.GONE);
+            holder.btnxacnhan.setVisibility(View.GONE);
+
+        }
         holder.btnxacnhan.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -94,6 +125,7 @@ public class Adapter_Nap_Tien  extends RecyclerView.Adapter<Adapter_Nap_Tien.Vie
             txtSoTienNap_nt = itemView.findViewById(R.id.txtSoTienNap_nt);
             txtTrangThai_tv = itemView.findViewById(R.id.txtTrangThai_tv);
             btnxacnhan  = itemView.findViewById(R.id.btnxacnhan);
+            imgDelete_tv = itemView.findViewById(R.id.imgDelete_tv);
 
         }
     }

@@ -248,10 +248,10 @@ public class Adapter_GioHang extends RecyclerView.Adapter<Adapter_GioHang.ViewHo
 
             item_giohang_image = itemView.findViewById(R.id.item_giohang_image);
             item_giohang_tensp = itemView.findViewById(R.id.item_giohang_tensp);
-            item_giohang_gia = itemView.findViewById(R.id.item_giohang_gia);
+//            item_giohang_gia = itemView.findViewById(R.id.item_giohang_gia);
             item_giohang_soluong = itemView.findViewById(R.id.item_giohang_soluong);
             item_giohang_giasp2 = itemView.findViewById(R.id.item_giohang_giasp2);
-            ImgDeleteGH = itemView.findViewById(R.id.ImgDeleteGH);
+//            ImgDeleteGH = itemView.findViewById(R.id.ImgDeleteGH);
             item_giohang_tru = itemView.findViewById(R.id.item_giohang_tru);
             item_giohang_cong = itemView.findViewById(R.id.item_giohang_cong);
             chkChonSanPham = itemView.findViewById(R.id.chkChonSanPham);

@@ -3,7 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="240sp"
     android:layout_gravity="center_vertical"
-    android:background="#CDDC39">
+    android:background="@drawable/khungitem">
 
     <TextView
         android:id="@+id/txtBancochanchanmuonxoa"

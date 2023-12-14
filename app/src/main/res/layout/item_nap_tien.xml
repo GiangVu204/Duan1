@@ -3,14 +3,15 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    >
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="10dp"
         android:layout_marginTop="10dp"
-        android:background="#ddd"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        android:background="@drawable/khungitem">
         <androidx.cardview.widget.CardView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -125,7 +126,11 @@
                     android:textStyle="bold"
                     android:id="@+id/txtTrangThai_tv"/>
             </LinearLayout>
-
+            <Button
+                android:id="@+id/btnxacnhan"
+                android:layout_width="match_parent"
+                android:layout_height="35dp"
+                android:text="xac nhan"/>
 
         </LinearLayout>
         <LinearLayout
@@ -141,12 +146,9 @@
                 android:id="@+id/imgDelete_tv"/>
         </LinearLayout>
 
+
     </LinearLayout>
-    <Button
-        android:id="@+id/btnxacnhan"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="xac nhan"/>
+
 
 
 

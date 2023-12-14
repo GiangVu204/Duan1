@@ -9,7 +9,7 @@
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="10dp"
         android:layout_marginTop="10dp"
-        android:background="#ddd"
+        android:background="@drawable/khungitem"
         android:orientation="horizontal">
         <androidx.cardview.widget.CardView
             android:layout_width="wrap_content"

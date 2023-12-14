@@ -2,15 +2,17 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:gravity="center">
+    android:layout_height="wrap_content"
+    android:gravity="center"
+    android:background="@drawable/khungitem">
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Add Thương Hiệu"
+        android:text="PHIẾU NẠP TIỀN"
         android:textSize="30dp"
-        android:textStyle="bold"/>
+        android:textStyle="bold"
+/>
 
     <com.google.android.material.textfield.TextInputLayout
         android:layout_width="match_parent"
@@ -24,6 +26,28 @@
             android:hint="Nhập so tien"
             android:id="@+id/ed_sotien"/>
     </com.google.android.material.textfield.TextInputLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp"
+       android:layout_marginStart="10dp"
+        android:orientation="horizontal">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Lưu ý :"
+            android:textSize="18dp"
+            android:textStyle="bold"
+            android:textColor="#EF0D0D"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="  Chuyển khoản trước khi tạo phiếu"
+            android:textSize="18dp"
+            android:textStyle="bold"
+            android:textColor="@color/black"/>
+    </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"

@@ -13,7 +13,7 @@
         android:paddingTop="8dp"
         android:paddingLeft="5dp"
         android:paddingBottom="10dp"
-        android:background="#ddd"
+        android:background="@drawable/khungitem"
         android:orientation="horizontal">
         <androidx.cardview.widget.CardView
             android:layout_width="wrap_content"

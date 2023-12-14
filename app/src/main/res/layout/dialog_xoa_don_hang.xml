@@ -3,7 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="200sp"
     android:layout_gravity="center_vertical"
-    android:background="@drawable/nen_dialog_doan">
+    android:background="@drawable/khungitem">
 
     <TextView
         android:id="@+id/txtBancochanchanmuonxoa"
